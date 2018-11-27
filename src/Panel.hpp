@@ -2,31 +2,35 @@
 #define PANEL_HPP_INCLUDED
 
 #include "HeplString.hpp"
+#include "Color.hpp"
+#include "BaseException.hpp"
 
 class Panel {
 
-    private:
+    protected:
         HeplString m_name;
         unsigned int m_x;
         unsigned int m_y;
         unsigned int m_width;
         unsigned int m_height;
+        Color m_color;
 
     public:
         // Constructors
         Panel();
-        Panel(unsigned int x, unsigned int y);
-        Panel(const char *name, unsigned int x, unsigned int y);
-        Panel(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
-        Panel(const char *name, unsigned int x, unsigned int y, unsigned int width, unsigned int height);
-        ~Panel();
+        Panel(const HeplString name, unsigned int x, unsigned int y,
+              unsigned int width, unsigned int height, Color color = Color::SILVER);
+        Panel(const Panel &rhs);
+        virtual ~Panel();
 
         // Getters
         unsigned int getX() const;
         unsigned int getY() const;
         unsigned int getWidth() const;
         unsigned int getHeight() const;
-        char* getName() const;
+        HeplString getName() const;
+        Color getColor() const;
+        virtual HeplString getType() const;
 
         // Setters
         void setX(unsigned int x);
@@ -35,9 +39,24 @@ class Panel {
         void setHeight(unsigned int height);
         void setName(const char *name);
         void setName(HeplString name);
+        void setColor(const Color &color);
 
         // Other methods
         void display() const;
+
+        /* Stream management */
+        friend std::ostream& operator<<(std::ostream& lhs, const Panel& rhs);
+        friend std::istream& operator>>(std::istream& lhs, Panel& rhs);
+
+        /* Static attributes */
+        static const HeplString CLASS_NAME;
+};
+
+// Avoid to redeclare a whole class when we just want to have our own Exception
+// without having to throw a generic exception.
+// src.: https://stackoverflow.com/a/51313801/3514658
+class PanelException: BaseException {
+    using BaseException::BaseException;
 };
 
 #endif // PANEL_HPP_INCLUDED

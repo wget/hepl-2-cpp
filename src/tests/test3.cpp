@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <iostream>
 using namespace std;
-#include "Couleur.h"
-#include "Panneau.h"
-#include "Fraction.h"
+#include "../Color.hpp"
+#include "../Panel.hpp"
+#include "../Fraction.hpp"
 
 int  Menu();
 void Essai1();
@@ -54,10 +54,10 @@ int Menu()
   cout << "--------------------------------------------------------------------------------------" << endl;
   cout << "--- JEU DE TESTS 3 -------------------------------------------------------------------" << endl;
   cout << "--------------------------------------------------------------------------------------" << endl;
-  cout << " 1. Tests de l'operateur = de la classe Couleur" << endl;
-  cout << " 2. Tests des operateurs << et >> de la classe Couleur" << endl;
-  cout << " 3. Tests de l'operateur = de la classe Panneau" << endl;
-  cout << " 4. Tests des operateurs << et >> de la classe Panneau" << endl;
+  cout << " 1. Tests de l'operateur = de la classe Color" << endl;
+  cout << " 2. Tests des operateurs << et >> de la classe Color" << endl;
+  cout << " 3. Tests de l'operateur = de la classe Panel" << endl;
+  cout << " 4. Tests des operateurs << et >> de la classe Panel" << endl;
   cout << " 5. Tests de base de la classe Fraction" << endl;
   cout << " 6. Tests des operateurs + de la classe Fraction" << endl;
   cout << " 7. Tests de l'operateur - de la classe Fraction" << endl;
@@ -75,42 +75,42 @@ int Menu()
 }
 
 //*******************************************************************************************************
-//*** Tests de l'operateur = de la classe Couleur *******************************************************
+//*** Tests de l'operateur = de la classe Color *******************************************************
 //*******************************************************************************************************
 void Essai1()
 { 
   cout << "********************************************************************" << endl;
-  cout << "(1) ***** Test de l'operateur d'affectation de Couleur *************" << endl;
+  cout << "(1) ***** Test de l'operateur d'affectation de Color *************" << endl;
   cout << "********************************************************************" << endl;
   {
-    Couleur c;
+    Color c;
     {
-      Couleur c1(112,141,35,"Olive");
-      cout << "c1 : "; c1.Affiche();
+      Color c1(112,141,35,"Olive");
+      cout << "c1 : "; c1.display();
 
       cout << endl << ">>>>> c = c1;" << endl;
       c = c1;
       cout << ">>>>> Destruction de c1" << endl << endl;
     }
-    cout << "c : "; c.Affiche();
+    cout << "c : "; c.display();
 
-    cout << endl << ">>>>> c2 = c3 = Couleur(145);" << endl;
-    Couleur c2,c3;
-    c2 = c3 = Couleur(145);
-    cout << "c2 : "; c2.Affiche();
-    cout << "c3 : "; c3.Affiche();
+    cout << endl << ">>>>> c2 = c3 = Color(145);" << endl;
+    Color c2,c3;
+    c2 = c3 = Color(145);
+    cout << "c2 : "; c2.display();
+    cout << "c3 : "; c3.display();
   }
 }
 
 //*******************************************************************************************************
-//*** Tests des operateurs << et >> de la classe Couleur ************************************************
+//*** Tests des operateurs << et >> de la classe Color ************************************************
 //*******************************************************************************************************
 void Essai2()
 {
   cout << "**************************************************************************" << endl;
-  cout << "(2) ********* Tests des operateurs << et >> de Couleur *******************" << endl;
+  cout << "(2) ********* Tests des operateurs << et >> de Color *******************" << endl;
   cout << "**************************************************************************" << endl;
-  Couleur c1(127,0,255,"Violet");
+  Color c1(127,0,255,"Violet");
   cout << "c1 = " << c1 << endl;
   cout << "Nouvelle valeur pour c1 = ";
   cin >> c1;
@@ -123,37 +123,37 @@ void Essai2()
 void Essai3()
 { 
   cout << "********************************************************************" << endl;
-  cout << "(3) ***** Test de l'operateur d'affectation de Panneau *************" << endl;
+  cout << "(3) ***** Test de l'operateur d'affectation de Panel *************" << endl;
   cout << "********************************************************************" << endl;
   {
-    Panneau p;
+    Panel p;
     {
-      Panneau p1("P01",20,30,300,180,Couleur(158));
-      cout << "p1 : "; p1.Affiche();
+      Panel p1("P01",20,30,300,180,Color(158));
+      cout << "p1 : "; p1.display();
 
       cout << endl << ">>>>> p = p1;" << endl;
       p = p1;
       cout << ">>>>> Destruction de p1" << endl << endl;
     }
-    cout << "p : "; p.Affiche();
+    cout << "p : "; p.display();
 
-    cout << endl << ">>>>> p2 = p3 = Panneau(\"P02\",30,30,400,300);" << endl;
-    Panneau p2,p3;
-    p2 = p3 = Panneau("P02",30,30,400,300);
-    cout << "p2 : "; p2.Affiche();
-    cout << "p3 : "; p3.Affiche();
+    cout << endl << ">>>>> p2 = p3 = Panel(\"P02\",30,30,400,300);" << endl;
+    Panel p2,p3;
+    p2 = p3 = Panel("P02",30,30,400,300);
+    cout << "p2 : "; p2.display();
+    cout << "p3 : "; p3.display();
   }
 }
 
 //*******************************************************************************************************
-//*** Tests des operateurs << et >> de la classe Panneau ************************************************
+//*** Tests des operateurs << et >> de la classe Panel ************************************************
 //*******************************************************************************************************
 void Essai4()
 {
   cout << "**************************************************************************" << endl;
-  cout << "(4) ********* Tests des operateurs << et >> de Panneau *******************" << endl;
+  cout << "(4) ********* Tests des operateurs << et >> de Panel *******************" << endl;
   cout << "**************************************************************************" << endl;
-  Panneau p1("P01",20,30,300,180,Couleur::ARGENT);
+  Panel p1("P01",20,30,300,180,Color::SILVER);
   cout << "p1 = " << p1 << endl;
   cout << "Nouvelle valeur pour p1 = " << endl;
   cin >> p1;
@@ -170,7 +170,7 @@ void Essai5()
   cout << "****************************************************************************************" << endl;
 
   cout << endl << "***** Tests des constructeurs et operateur << ******************" << endl;
-  Fraction f1, f2(2,3,Fraction::negatif), f3(5,-6), f4(-2), f5(f2);
+  Fraction f1, f2(2,3,Fraction::NEGATIVE), f3(5,-6), f4(-2), f5(f2);
   cout << "f1 = " << f1 << endl; // --> 1
   cout << "f2 = " << f2 << endl; // --> -2/3
   cout << "f3 = " << f3 << endl; // --> -5/6
@@ -178,29 +178,29 @@ void Essai5()
   cout << "f5 = " << f5 << endl; // --> -2/3
 
   cout << endl << "***** Test des getters/setters *********************************" << endl;
-  f1.setNumerateur(5);
-  f1.setDenominateur(8);
-  f1.setSigne(Fraction::positif);
+  f1.setNumerator(5);
+  f1.setDenominator(8);
+  f1.setSign(Fraction::POSITIVE);
   cout << "f1 = " << f1 << endl; // --> 5/8
-  cout << "Numerateur de f1   = " << f1.getNumerateur() << endl;
-  cout << "Denominateur de f1 = " << f1.getDenominateur() << endl;
-  cout << "Signe de f1        = " << f1.getSigne() << endl;
+  cout << "Numerateur de f1   = " << f1.getNumerator() << endl;
+  cout << "Denominateur de f1 = " << f1.getDenominator() << endl;
+  cout << "Signe de f1        = " << f1.getSign() << endl;
 
   cout << endl << "***** Test des variables membres statiques *********************" << endl;
   Fraction f6(Fraction::ZERO);
-  cout << "Fraction::UN = " << Fraction::UN << endl;        // --> 1
+  cout << "Fraction::ONE = " << Fraction::ONE << endl;        // --> 1
   cout << "f6 (copie de Fraction::ZERO) = " << f6 << endl;  // --> 0
 
   cout << endl << "***** Test des methodes concernant le signe ********************" << endl;
   Fraction f7(4,9);
   int n = rand()%3;
-  if (n == 0) f7.setNumerateur(0); // --> la fraction est nulle
-  if (n == 1) f7.setSigne(Fraction::positif);
-  if (n == 2) f7.setSigne(Fraction::negatif);
+  if (n == 0) f7.setNumerator(0); // --> la fraction est nulle
+  if (n == 1) f7.setSign(Fraction::POSITIVE);
+  if (n == 2) f7.setSign(Fraction::NEGATIVE);
   cout << "f7 = " << f7 << endl;
-  if (f7.estNul()) cout << "f7 est nulle" << endl;
-  if (f7.estPositif()) cout << "f7 est positive" << endl;
-  if (f7.estNegatif()) cout << "f7 est negative" << endl;
+  if (f7.isNull()) cout << "f7 est nulle" << endl;
+  if (f7.isPositive()) cout << "f7 est positive" << endl;
+  if (f7.isNegative()) cout << "f7 est negative" << endl;
 }
 
 //*******************************************************************************************************
@@ -212,19 +212,19 @@ void Essai6()
   cout << "(6) ********* Tests des operateurs + de la classe Fraction *****************************" << endl;
   cout << "****************************************************************************************" << endl;
 
-  cout << endl << "***** Tests preliminaires de la methode statique PGCD **************************" << endl;
-  cout << "PGCD de 1 et 8   = " << Fraction::PGCD(1,8) << endl;     // --> 1
-  cout << "PGCD de 5 et 10  = " << Fraction::PGCD(5,10) << endl;    // --> 5
-  cout << "PGCD de 18 et 24 = " << Fraction::PGCD(18,24) << endl;   // --> 6
-  cout << "PGCD de 13 et 20 = " << Fraction::PGCD(13,20) << endl;   // --> 1
+  cout << endl << "***** Tests preliminaires de la methode statique gcd **************************" << endl;
+  cout << "gcd de 1 et 8   = " << Fraction::gcd(1,8) << endl;     // --> 1
+  cout << "gcd de 5 et 10  = " << Fraction::gcd(5,10) << endl;    // --> 5
+  cout << "gcd de 18 et 24 = " << Fraction::gcd(18,24) << endl;   // --> 6
+  cout << "gcd de 13 et 20 = " << Fraction::gcd(13,20) << endl;   // --> 1
 
-  cout << endl << "***** Tests de la methode d'instance simplifie *********************************" << endl;
-  Fraction f1(7,9), f2(8,12,Fraction::negatif), f3(10,5);
+  cout << endl << "***** Tests de la methode d'instance simplify *********************************" << endl;
+  Fraction f1(7,9), f2(8,12,Fraction::NEGATIVE), f3(10,5);
   cout << "Avant : " << endl;
   cout << "f1 = " << f1 << endl; // --> 7/9
   cout << "f2 = " << f2 << endl; // --> -8/12
   cout << "f3 = " << f3 << endl; // --> 10/5
-  f1.simplifie(); f2.simplifie(); f3.simplifie();
+  f1.simplify(); f2.simplify(); f3.simplify();
   cout << "Apres : " << endl;
   cout << "f1 = " << f1 << endl; // --> 7/9
   cout << "f2 = " << f2 << endl; // --> -2/3
@@ -241,14 +241,14 @@ void Essai6()
   cout << "f4 = " << f4 << endl; // --> 3/10
   cout << "f5 = " << f5 << endl << endl; // --> 4/15
 
-  Fraction f7(2), f8(2,3,Fraction::negatif), f9;
+  Fraction f7(2), f8(2,3,Fraction::NEGATIVE), f9;
   cout << "f7 = " << f7 << endl; // --> 2
   cout << "f8 = " << f8 << endl; // --> -2/3
   f9 = f7 + f8;
   cout << "f9 = f7 + f8 = " << f9 << endl;    // --> 4/3
 
   cout << endl << "***** Tests de Fraction + int **************************************************" << endl;
-  Fraction f10(5,9,Fraction::positif), f11;
+  Fraction f10(5,9,Fraction::POSITIVE), f11;
   cout << "Avant :" << endl;
   cout << "f10 = " << f10 << endl; // --> 5/9
   f11 = f10 + 2;
@@ -257,7 +257,7 @@ void Essai6()
   cout << "f10 = " << f10 << endl; // --> 5/9
 
   cout << endl << "***** Tests de int + Fraction **************************************************" << endl;
-  Fraction f12(2,5,Fraction::positif), f13;
+  Fraction f12(2,5,Fraction::POSITIVE), f13;
   cout << "Avant :" << endl;
   cout << "f12 = " << f12 << endl; // --> 2/5
   f13 = -3 + f12;
@@ -285,7 +285,7 @@ void Essai7()
   cout << "f1 = " << f1 << endl; // --> 3/10
   cout << "f2 = " << f2 << endl << endl; // --> 4/15
 
-  Fraction f4(2,5,Fraction::negatif),f5;
+  Fraction f4(2,5,Fraction::NEGATIVE),f5;
   cout << "f4 = " << f4 << endl; // --> -2/5
   f5 = f4 - Fraction(-2);
   cout << "f5 = f4 - Fraction(-2) = " << f5 << endl << endl; // --> 8/5
@@ -313,7 +313,7 @@ void Essai8()
   cout << "f1 = " << f1 << endl; // --> 7/36
   cout << "f2 = " << f2 << endl << endl; // --> 27/14
 
-  Fraction f4(2,5,Fraction::negatif),f5;
+  Fraction f4(2,5,Fraction::NEGATIVE),f5;
   cout << "f4 = " << f4 << endl; // --> -2/5
   f5 = f4 * Fraction(-2);
   cout << "f5 = f4 * Fraction(-2) = " << f5 << endl << endl; // --> 4/5
@@ -341,13 +341,13 @@ void Essai9()
   cout << "f1 = " << f1 << endl; // --> 14/25
   cout << "f2 = " << f2 << endl << endl; // --> -49/40
 
-  Fraction f4(8,5,Fraction::negatif),f5;
+  Fraction f4(8,5,Fraction::NEGATIVE),f5;
   cout << "f4 = " << f4 << endl; // --> -8/5
   f5 = f4 / Fraction(-2);
   cout << "f5 = f4 / Fraction(-2) = " << f5 << endl << endl; // --> 4/5
 
-  f5 = Fraction(3,10,Fraction::negatif) / Fraction(9,7);
-  cout << "f5 = Fraction(3,10,Fraction::negatif) / Fraction(9,7) = " << f5 << endl;  // --> -7/30
+  f5 = Fraction(3,10,Fraction::NEGATIVE) / Fraction(9,7);
+  cout << "f5 = Fraction(3,10,Fraction::NEGATIVE) / Fraction(9,7) = " << f5 << endl;  // --> -7/30
 }
 
 //*******************************************************************************************************
@@ -379,7 +379,7 @@ void Essai11()
   cout << "(11) ********* Test des operateurs ++ de la classe Fraction ****************************" << endl;
   cout << "****************************************************************************************" << endl;
 
-  Fraction f(1,3,Fraction::negatif);
+  Fraction f(1,3,Fraction::NEGATIVE);
   cout << endl << "***** Test de l'operateur de pre-incrementation **********************" << endl;
   cout << "f   : " << f << endl;
   cout << "++f : " << ++f << endl;  // Si tout va bien, f est incremente avant d'etre affiche !

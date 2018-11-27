@@ -21,7 +21,7 @@ LDFLAGS=
 
 EXECS=main#  main
 EXECS_WITH_PATH=$(patsubst %,$(DIST_PATH)/%, $(EXECS))
-TESTS=test1 #test2 test3 test4 test5 test6 test7 test8 teststring
+TESTS=test test1 test2 test3 test4 #test5 test6 test7 test8
 TESTS_WITH_PATH=$(patsubst %,$(DIST_PATH)/%, $(TESTS))
 
 OBJ=$(patsubst %, $(OBJ_PATH)/%.o, $(filter-out $(TESTS),$(filter-out $(EXECS),$(SRC:$(SRC_PATH)/%.cpp=%))))
@@ -52,18 +52,18 @@ $(DIST_PATH)/test1: $(TEST_PATH)/test1.o $(OBJ)
 	echo "[+] Building test 1"
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
-# $(DIST_PATH)/test2: $(TEST_PATH)/test2.o $(OBJ)
-# 	echo "[+] Building test 2"
-# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
-#
-# $(DIST_PATH)/test3: $(TEST_PATH)/test3.o $(OBJ)
-# 	echo "[+] Building test 3"
-# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
-#
-# $(DIST_PATH)/test4: $(TEST_PATH)/test4.o $(OBJ)
-# 	echo "[+] Building test 4"
-# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
-#
+$(DIST_PATH)/test2: $(TEST_PATH)/test2.o $(OBJ)
+	echo "[+] Building test 2"
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+$(DIST_PATH)/test3: $(TEST_PATH)/test3.o $(OBJ)
+	echo "[+] Building test 3"
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+$(DIST_PATH)/test4: $(TEST_PATH)/test4.o $(OBJ)
+	echo "[+] Building test 4"
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
 # $(DIST_PATH)/test5: $(TEST_PATH)/test5.o $(OBJ)
 # 	echo "[+] Building test 5"
 # 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
@@ -80,9 +80,9 @@ $(DIST_PATH)/test1: $(TEST_PATH)/test1.o $(OBJ)
 # 	echo "[+] Building test 8"
 # 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 #
-# $(DIST_PATH)/teststring: $(TEST_PATH)/teststring.o $(OBJ)
-# 	echo "[+] Building teststring"
-# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+$(DIST_PATH)/test: $(TEST_PATH)/test.o $(OBJ)
+	echo "[+] Building debug test file"
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.cpp $(HEADERS)
 	echo "[+] Building $@"

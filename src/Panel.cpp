@@ -5,45 +5,33 @@ using namespace std;
 /*
  * Constructors / destructors
  */
+// We are using constructor chaining, a C++11 feature.
+// src.: https://stackoverflow.com/a/308318/3514658
 Panel::Panel()
-    : m_name("Unknown panel"), m_x(0), m_y(0) {
+    : Panel("Unknown panel", 0, 0, 0, 0) {
 #ifdef WITH_DEBUG
-    cout << "In constructor Panel::Panel()" << endl;
+    cout << "In default constructor: Panel::Panel()" << endl;
 #endif
 }
 
-Panel::Panel(unsigned int x, unsigned int y)
-    : m_name("Unknown panel"), m_x(x), m_y(y) {
+Panel::Panel(const HeplString name, unsigned int x, unsigned int y,
+             unsigned int width, unsigned int height, Color color)
+    : m_name(name), m_x(x), m_y(y), m_width(width), m_height(height), m_color(color) {
 #ifdef WITH_DEBUG
-    cout << "In constructor Panel::Panel(unsigned int x, unsigned int y)" << endl;
+    cout << "In initialization constructor: Panel::Panel(const HeplString name, unsigned int x, unsigned int y, unsigned int width, unsigned int height, Color& color)" << endl;
 #endif
 }
 
-Panel::Panel(const char *name, unsigned int x, unsigned int y)
-    : m_name(name), m_x(x), m_y(y)  {
+Panel::Panel(const Panel& rhs)
+    : Panel(rhs.getName(), rhs.getX(), rhs.getY(), rhs.getWidth(), rhs.getHeight(), rhs.getColor()) {
 #ifdef WITH_DEBUG
-    cout << "In constructor Panel::Panel(unsigned int x, unsigned int y, char *name)" << endl;
+    cout << "In copy constructor: Panel::Panel(const Panel& rhs)" << endl;
 #endif
-}
-
-Panel::Panel(unsigned int x, unsigned int y, unsigned int width, unsigned int height)
-    : m_name("Unknown panel"), m_x(x), m_y(y), m_width(width), m_height(height) {
-#ifdef WITH_DEBUG
-    cout << "In constructor Panel::Panel(unsigned int x, unsigned int y, unsigned int width, unsigned int height)" << endl;
-#endif
-}
-
-Panel::Panel(const char *name, unsigned int x, unsigned int y, unsigned int width, unsigned int height)
-    : m_name(name), m_x(x), m_y(y), m_width(width), m_height(height) {
-#ifdef WITH_DEBUG
-    cout << "In constructor Panel::Panel(unsigned int x, unsigned int y, unsigned int width, unsigned int height, char *name)" << endl;
-#endif
-    m_name = name;
 }
 
 Panel::~Panel() {
 #ifdef WITH_DEBUG
-    cout << "In destructor Panel::~Panel()" << endl;
+    cout << "In destructor: Panel::~Panel()" << endl;
 #endif
 }
 
@@ -66,8 +54,16 @@ unsigned int Panel::getHeight() const {
     return m_height;
 }
 
-char* Panel::getName() const {
-    return m_name.c_str();
+HeplString Panel::getName() const {
+    return m_name;
+}
+
+Color Panel::getColor() const {
+    return m_color;
+}
+
+HeplString Panel::getType() const {
+    return Panel::CLASS_NAME;
 }
 
 /*
@@ -97,6 +93,10 @@ void Panel::setName(HeplString name) {
     m_name = name;
 }
 
+void Panel::setColor(const Color &color) {
+    m_color = color;
+}
+
 /*
  * Other methods
  */
@@ -106,4 +106,88 @@ void Panel::display() const {
     cout << "Y     : " << m_y << endl;
     cout << "Width : " << m_width << endl;
     cout << "Height: " << m_height << endl;
+    m_color.display();
 }
+
+/*
+ * Stream management
+ */
+ostream& operator<<(ostream& lhs, const Panel& rhs) {
+    lhs << "{ name: \"" << rhs.getName()
+        << "\", x: " << rhs.getX()
+        << ", y: " << rhs.getY()
+        << ", width: " << rhs.getWidth()
+        << ", height: " << rhs.getHeight()
+        << ", red: " << rhs.getColor().getRed()
+        << ", green: " << rhs.getColor().getGreen()
+        << ", blue: " << rhs.getColor().getBlue()
+        << ", colorName: \"" << rhs.getColor().getName()
+        << "\" }";
+    return lhs;
+}
+
+istream& operator>>(istream& lhs, Panel& rhs) {
+    HeplString userInput;
+    HeplList<HeplString> exploded;
+    int x, y, width, height, red, green, blue;
+    HeplString panelName, colorName;
+    Color color;
+
+    do {
+        cout << "Specify the panel value under the following format:" << endl
+             << "\"panel name\" x y width height red green blue \"color name\": ";
+        lhs >> userInput;
+
+        exploded = userInput.explode(" ");
+        if (exploded.getNumberItems() != 9 ||
+            ((HeplString)exploded[0])[0] != '"' ||
+            ((HeplString)exploded[0])[exploded[0]->size() - 1] != '"' ||
+            ! exploded[1]->isNumber() ||
+            ! exploded[2]->isNumber() ||
+            ! exploded[3]->isNumber() ||
+            ! exploded[4]->isNumber() ||
+            ! exploded[5]->isNumber() ||
+            ! exploded[6]->isNumber() ||
+            ! exploded[7]->isNumber() ||
+            ((HeplString)exploded[8])[0] != '"' ||
+            ((HeplString)exploded[8])[exploded[8]->size() - 1] != '"') {
+            cout << "The syntax is incorrect. Ensure you used the following valid format:" << endl
+                 << "\"panel name\" x y width height red green blue \"color name\"." << endl;
+            continue;
+        }
+
+        panelName = exploded[0]->substr(1, exploded[0]->size() - 2);
+        x = exploded[1]->atoi(); 
+        y = exploded[2]->atoi(); 
+        width = exploded[3]->atoi(); 
+        height = exploded[4]->atoi(); 
+        red = exploded[5]->atoi();
+        green = exploded[6]->atoi();
+        blue = exploded[7]->atoi();
+        colorName = exploded[8]->substr(1, exploded[8]->size() - 2);
+
+        try {
+            rhs.setName(panelName);
+            rhs.setX((unsigned int)x);
+            rhs.setY((unsigned int)y);
+            rhs.setWidth((unsigned int)width);
+            rhs.setHeight((unsigned int)height);
+            color.setRed(red);
+            color.setGreen(green);
+            color.setBlue(blue);
+            color.setName(colorName);
+            rhs.setColor(color);
+
+        } catch (InvalidColorException &e) {
+            cout << "An InvalidColorException has been caught: " + e.what() << endl;
+            continue;
+        }
+
+        break;
+
+    } while (true);
+
+    return lhs;
+}
+
+const HeplString Panel::CLASS_NAME = "PANEL";

@@ -7,13 +7,13 @@ HeplString::HeplString()
     : m_stringArray(nullptr),
     m_size(0) {
 #ifdef WITH_DEBUG
-    cout << "In constructor HeplString::HeplString()" << endl;
+    cout << "In initialization constructor: HeplString::HeplString()" << endl;
 #endif
 }
 
 HeplString::HeplString(const char *newString) {
 #ifdef WITH_DEBUG
-    cout << "In constructor HeplString::HeplString(const char *newString)" << endl;
+    cout << "In initialization constructor: HeplString::HeplString(const char *newString)" << endl;
 #endif
     if (!newString) {
         m_size = 0;
@@ -33,7 +33,7 @@ HeplString::HeplString(const char *newString) {
 
 HeplString::HeplString(int number) {
 #ifdef WITH_DEBUG
-    cout << "In constructor HeplString::HeplString(int number)" << endl;
+    cout << "In initialization constructor: HeplString::HeplString(int number)" << endl;
 #endif
     itoaStringArray(number);
     reverse();
@@ -41,7 +41,7 @@ HeplString::HeplString(int number) {
 
 HeplString::HeplString(const HeplString& other) {
 #ifdef WITH_DEBUG
-    cout << "In constructor HeplString::HeplString(HeplString const& other)" << endl;
+    cout << "In copy constructor: HeplString::HeplString(HeplString const& other)" << endl;
 #endif
     m_size = other.m_size;
     m_stringArray = new char[m_size];
@@ -54,7 +54,7 @@ HeplString::HeplString(const HeplString& other) {
 
 HeplString::HeplString(HeplString* other) {
 #ifdef WITH_DEBUG
-    cout << "In constructor HeplString::HeplString(HeplString const& other)" << endl;
+    cout << "In copy constructor: HeplString::HeplString(HeplString const& other)" << endl;
 #endif
     m_size = other->m_size;
     m_stringArray = new char[m_size];
@@ -74,15 +74,15 @@ size_t HeplString::size() const {
 }
     
 HeplString::~HeplString() {
+#ifdef WITH_DEBUG
+    cout << "In destructor: HeplString::~HeplString()" << endl;
+#endif
     if (m_stringArray != nullptr) {
         delete[] m_stringArray;
     }
 }
 
 HeplString& HeplString::operator=(const HeplString& rhs) {
-#ifdef WITH_DEBUG
-    cout << "In HeplString::operator=(const HeplString& rhs)" << endl;
-#endif
     // Avoid copy when assigned to same object.
     if (this == &rhs) {
         return *this;
@@ -134,6 +134,12 @@ HeplString HeplString::operator+(const HeplString& rhs) {
 HeplString HeplString::operator+(const char *rhs) {
     HeplString newString(*this);
     newString += rhs;
+    return newString;
+}
+
+HeplString HeplString::operator+(int rhs) {
+    HeplString newString(*this);
+    newString += HeplString(rhs);
     return newString;
 }
 
@@ -329,6 +335,16 @@ int HeplString::atoi() const {
     return integer;
 }
 
+// src.: http://www.cplusplus.com/reference/cctype/isdigit/
+bool HeplString::isNumber() const {
+    for (unsigned int i = 0; i < m_size; i++) {
+        if (m_stringArray[i] < 48 || m_stringArray[i] > 57) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void HeplString::reverse() {
     size_t halfSize = m_size / 2;
     char temp;
@@ -460,7 +476,6 @@ HeplList<HeplString> HeplString::explode(HeplString delimiter, int limit) {
     }
 
     if (explodeLimit == ExplodeLimit::NO_LIMIT) {
-        explodedList.display();
         return explodedList;
     }
 

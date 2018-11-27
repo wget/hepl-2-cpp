@@ -68,7 +68,6 @@ void BaseList<T>::display() const {
     Cell<T> *baseListCell = m_pHead;
     size_t i = 0;
     while (baseListCell != nullptr) {
-        std::cout << "Item " << i << ":" << std::endl;
         baseListCell->display();
         baseListCell = baseListCell->getNext();
         i++;
@@ -78,6 +77,8 @@ void BaseList<T>::display() const {
 template<class T>
 BaseList<T>& BaseList<T>::operator=(BaseList const& baseList) {
 
+    // TODO: Effacer la liste ou réécrire dessus
+    //
     if (baseList.m_pHead == nullptr) {
         return *this;
     }
@@ -104,7 +105,6 @@ template<class T>
 T* BaseList<T>::operator[](size_t itemNumber) {
     Cell<T> *baseListCell = m_pHead;
     size_t i = 0;
-    // std::cout << "DEBUG itemNumber: \"" << itemNumber << "\"" << std::endl;
     while (baseListCell != nullptr && i != itemNumber) {
         baseListCell = baseListCell->getNext();
         i++;

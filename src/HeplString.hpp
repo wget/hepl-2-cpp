@@ -29,6 +29,7 @@ class HeplString {
         size_t size() const;
         HeplString itoa(int n);
         int atoi() const;
+        bool isNumber() const;
         void reverse();
         HeplString substr(size_t pos = 0, size_t len = -1) const;
         HeplList<HeplString> explode(HeplString delimiter, int limit = 0);
@@ -39,6 +40,7 @@ class HeplString {
         HeplString& operator+=(const char *rhs);
         HeplString operator+(const HeplString& rhs);
         HeplString operator+(const char *rhs);
+        HeplString operator+(int rhs);
         char operator[](size_t i) const;
         char& operator[](size_t i);
         bool operator==(HeplString const& rhs) const;
