@@ -16,10 +16,11 @@ Panel::Panel()
 
 Panel::Panel(const HeplString name, unsigned int x, unsigned int y,
              unsigned int width, unsigned int height, Color color)
-    : m_name(name), m_x(x), m_y(y), m_width(width), m_height(height), m_color(color) {
+    : m_x(x), m_y(y), m_width(width), m_height(height), m_color(color) {
 #ifdef WITH_DEBUG
     cout << "In initialization constructor: Panel::Panel(const HeplString name, unsigned int x, unsigned int y, unsigned int width, unsigned int height, Color& color)" << endl;
 #endif
+    setName(name);
 }
 
 Panel::Panel(const Panel& rhs)
@@ -86,10 +87,13 @@ void Panel::setHeight(unsigned int height) {
 }
 
 void Panel::setName(const char *name) {
-    m_name = HeplString(name);
+    setName(HeplString(name));
 }
 
 void Panel::setName(HeplString name) {
+    if (name[0] != 'P' || name.size() < 2 || ! name.substr(1, name.size() - 2).isNumber()) {
+        throw BaseException("Panel name invalid");
+    }
     m_name = name;
 }
 

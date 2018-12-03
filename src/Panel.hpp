@@ -37,8 +37,8 @@ class Panel {
         void setY(unsigned int y);
         void setWidth(unsigned int width);
         void setHeight(unsigned int height);
-        void setName(const char *name);
-        void setName(HeplString name);
+        virtual void setName(const char *name);
+        virtual void setName(HeplString name);
         void setColor(const Color &color);
 
         // Other methods

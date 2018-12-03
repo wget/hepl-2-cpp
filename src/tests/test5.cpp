@@ -4,11 +4,11 @@
 
 using namespace std;
 
-#include "Panneau.h"
-#include "PanneauImage.h"
-#include "Bouton.h"
-#include "BoutonImage.h"
-#include "Fraction.h"
+#include "../Panel.hpp"
+#include "../ImagePanel.hpp"
+#include "../Button.hpp"
+#include "../ImageButton.hpp"
+#include "../Fraction.hpp"
 
 int  Menu();
 void Essai1();
@@ -46,8 +46,8 @@ int Menu()
   cout << "---------------------------------------------------------------------------" << endl;
   cout << "--- JEU DE TEST 5 ---------------------------------------------------------" << endl;
   cout << "---------------------------------------------------------------------------" << endl;
-  cout << " 1. Test de setNom() de Panneau, PanneauImage, Bouton et BoutonImage" << endl;
-  cout << " 2. Test des constructeurs de Panneau, PanneauImage, Bouton et BoutonImage" << endl;
+  cout << " 1. Test de setName() de Panel, ImagePanel, Button et ImageButton" << endl;
+  cout << " 2. Test des constructeurs de Panel, ImagePanel, Button et ImageButton" << endl;
   cout << " 3. Test des constructeurs de la classe Fraction" << endl;
   cout << " 4. Test de cin et de l'operateur / de la classe Fraction" << endl;
   cout << " 5. Gestion de plusieurs exceptions simultanement" << endl;
@@ -71,39 +71,40 @@ int Menu()
 void Essai1()
 {
 
-  cout << "----- 1. Test de setNom() de Panneau, PanneauImage, Bouton et BoutonImage ---------------" << endl;
+  cout << "----- 1. Test de setName() de Panel, ImagePanel, Button et ImageButton ---------------" << endl;
   // A COMPLETER : Traitez l'exception susceptible d'etre lancee par le bloc de code suivant (try...catch)
   // en particulier : afficher le message de l'exception lancee
 
-  // ... à compléter
+  try
   {
-    Panneau *p;
+    Panel *p;
     int n = rand()%4;
     switch(n)
     {
-      case 0 : p = new Panneau();
-               cout << "Creation d'un Panneau par defaut..." << endl;
+      case 0 : p = new Panel();
+               cout << "Creation d'un Panel par defaut..." << endl;
                break;
 
-      case 1 : p = new PanneauImage();
-               cout << "Creation d'un PanneauImage par defaut..." << endl;
+      case 1 : p = new ImagePanel();
+               cout << "Creation d'un ImagePanel par defaut..." << endl;
                break;
 
-      case 2 : p = new Bouton();
-               cout << "Creation d'un Bouton par defaut..." << endl;
+      case 2 : p = new Button();
+               cout << "Creation d'un Button par defaut..." << endl;
                break;
 
-      case 3 : p = new BoutonImage();
-               cout << "Creation d'un BoutonImage par defaut..." << endl;
+      case 3 : p = new ImageButton();
+               cout << "Creation d'un ImageButton par defaut..." << endl;
                break;
     }
 
     char txt[80];
     cout << "Encodez son nom : "; cin.getline(txt,80);
-    p->setNom(txt);  // !!!
-    cout << "Nom encode = " << p->getNom() << endl << endl;
+    p->setName(txt);  // !!!
+    cout << "Nom encode = " << p->getName() << endl << endl;
+  } catch (BaseException& e) {
+    cout << "Exception: " << e.what() << endl;
   }
-  // ... à compléter
 
   cout << endl;
 }
@@ -111,34 +112,35 @@ void Essai1()
 //**********************************************************************************************
 void Essai2()
 {
-  cout << "----- 2. Test des constructeurs de Panneau, PanneauImage, Bouton et BoutonImage --------------" << endl;
+  cout << "----- 2. Test des constructeurs de Panel, ImagePanel, Button et ImageButton --------------" << endl;
   // A COMPLETER : Traitez l'exception susceptible d'etre lancee par le bloc de code suivant (try...catch)
   // en particulier : afficher le message de l'exception lancee
 
-  // ... à compléter
+  try
   {
     char txt[80];
-    cout << "Creation d'un Panneau..." << endl;
+    cout << "Creation d'un Panel..." << endl;
     cout << "Encodez son nom : "; cin.getline(txt,80);
-    Panneau p(txt,100,30,50,80,Couleur::ARGENT);
-    cout << "Panneau cree : " << p << endl << endl;
+    Panel p(txt,100,30,50,80,Color::SILVER);
+    cout << "Panel cree : " << p << endl << endl;
 
-    cout << "Creation d'un PanneauImage..." << endl;
+    cout << "Creation d'un ImagePanel..." << endl;
     cout << "Encodez son nom : "; cin.getline(txt,80);
-    PanneauImage pi(txt,100,30,"Photo1.bmp");
-    cout << "PanneauImage cree : " << pi << endl << endl;
+    ImagePanel pi(txt,100,30,"Photo1.bmp");
+    cout << "ImagePanel cree : " << pi << endl << endl;
 
-    cout << "Creation d'un Bouton..." << endl;
+    cout << "Creation d'un Button..." << endl;
     cout << "Encodez son nom : "; cin.getline(txt,80);
-    Bouton b(txt,100,30,45,45,Couleur(120,120,70));
-    cout << "Bouton cree : " << b << endl << endl;
+    Button b(txt,100,30,45,45,Color(120,120,70));
+    cout << "Button cree : " << b << endl << endl;
 
-    cout << "Creation d'un BoutonImage..." << endl;
+    cout << "Creation d'un ImageButton..." << endl;
     cout << "Encodez son nom : "; cin.getline(txt,80);
-    BoutonImage bi(txt,100,30,"boutonPlus.bmp");
-    cout << "BoutonImage cree : " << bi << endl << endl;
+    ImageButton bi(txt,100,30,"boutonPlus.bmp");
+    cout << "ImageButton cree : " << bi << endl << endl;
+  } catch (BaseException &e) {
+      cout << "Exception: " << e.what() << endl;
   }
-  // ... à compléter
   
   cout << endl;
 }
@@ -162,14 +164,14 @@ void Essai3()
 
     unsigned int n,d;
     int s;
-    cout << "Creation d'une fraction avec signe..." << endl;
-    cout << "Signe (+1/-1) : "; cin >> s; cin.ignore();
+    cout << "Creation d'une fraction avec sign..." << endl;
+    cout << "Sign (+1/-1) : "; cin >> s; cin.ignore();
     cout << "Numerateur : "; cin >> num; cin.ignore();
     cout << "Denominateur : "; cin >> den; cin.ignore();
-    Fraction::Signe signe;
-    if (s > 0) signe = Fraction::positif;
-    else signe = Fraction::negatif;
-    Fraction f2(num,den,signe);
+    Sign sign;
+    if (s > 0) sign = Fraction::POSITIVE;
+    else sign = Fraction::NEGATIVE;
+    Fraction f2(num,den,sign);
     cout << "Fraction encodee = " << f2 << endl;
   }
   // ... à compléter
@@ -207,10 +209,10 @@ void Essai5()
   // ... à compléter
   {
     char txt[80];
-    cout << "Creation d'un Bouton..." << endl;
+    cout << "Creation d'un Button..." << endl;
     cout << "Encodez son nom : "; cin.getline(txt,80);
-    Bouton b(txt,100,30,45,45,Couleur(120,120,70));
-    cout << "Bouton cree : " << b << endl << endl;
+    Button b(txt,100,30,45,45,Color(120,120,70));
+    cout << "Button cree : " << b << endl << endl;
 
     int num,den;
     cout << "Creation d'une fraction..." << endl;
