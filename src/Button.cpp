@@ -8,7 +8,7 @@ using namespace std;
 // We are using constructor chaining, a C++11 feature.
 // src.: https://stackoverflow.com/a/308318/3514658
 Button::Button()
-    : Panel("Unknown panel", 0, 0, 0, 0) {
+    : Button("B00", 0, 0, 0, 0) {
 #ifdef WITH_DEBUG
     cout << "In default constructor: Button::Button()" << endl;
 #endif
@@ -16,12 +16,16 @@ Button::Button()
 
 Button::Button(
     const HeplString name, unsigned int x, unsigned int y,
-    unsigned int width, unsigned int height, const Color& color)
-    : Panel(name, x, y, width, height, color) {
+    unsigned int width, unsigned int height, const Color& color) {
 #ifdef WITH_DEBUG
     cout << "In initialization constructor: Button::Button(const HeplString name, unsigned int x, unsigned int y, unsigned int width, unsigned int height, HeplString filename)" << endl;
 #endif
     setName(name);
+    setX(x);
+    setY(y);
+    setWidth(width);
+    setHeight(height);
+    setColor(color);
 }
 
 Button::Button(const Button& rhs)
@@ -40,12 +44,8 @@ Button::~Button() {
 /*
  * Setters
  */
-void Button::setName(const char *name) {
-    setName(HeplString(name));
-}
-
 void Button::setName(HeplString name) {
-    if (name[0] != 'B' || name.size() < 2 || ! name.substr(1, name.size() - 2).isNumber()) {
+    if (name[0] != 'B' || name.size() < 2 || ! name.substr(1, name.size() - 1).isNumber()) {
         throw BaseException("Button name invalid");
     }
     m_name = name;

@@ -10,14 +10,15 @@ Fraction::Fraction()
 }
 
 Fraction::Fraction(unsigned int n, unsigned int d, Sign s)
-    : m_numerator(n), m_denominator(d), m_sign(s) {
+    : m_numerator(n), m_sign(s) {
 #ifdef WITH_DEBUG
     cout << "In initialization constructor: Fraction::Fraction(unsigned int n, unsigned int d, Sign s)" << endl;
 #endif
+    setDenominator(d);
 }
 
 Fraction::Fraction(int n, int d)
-    : m_numerator(abs(n)), m_denominator(abs(d)) {
+    : m_numerator(abs(n)) {
 #ifdef WITH_DEBUG
     cout << "In initialization constructor: Fraction::Fraction(int n, int d)" << endl;
 #endif
@@ -26,6 +27,7 @@ Fraction::Fraction(int n, int d)
     } else {
         m_sign = Sign::NEGATIVE;
     }
+    setDenominator(abs(d));
 }
 
 Fraction::Fraction(int n)
@@ -71,7 +73,7 @@ void Fraction::setNumerator(unsigned int numerator) {
     
 void Fraction::setDenominator(unsigned int denominator) {
     if (denominator == 0) {
-        throw InvalidFractionException("Denominator cannot be 0");
+        throw FractionException("Denominator cannot be 0", FractionException::ERROR_DENOMINATOR_NUL);
     }
     m_denominator = denominator;
 }
@@ -203,6 +205,9 @@ Fraction Fraction::operator*(Fraction const& other) {
 Fraction Fraction::operator/(Fraction const& other) {
     Fraction newFraction = *this;
     Fraction otherFraction = other;
+    if (other.isNull()) {
+        throw FractionException("Division by 0", FractionException::ERROR_DIVIDE_BY_ZERO);
+    }
     // Same as A * B, except B has been numerator and denominator values
     // swapped.
     unsigned int invertValue = otherFraction.getNumerator();
@@ -323,8 +328,8 @@ istream& operator>>(istream& lhs, Fraction& rhs) {
             rhs.setDenominator(denominator);
             rhs.setSign(sign);
 
-        } catch (InvalidFractionException &e) {
-            cout << "An InvalidFractionException has been caught: " + e.what() << endl;
+        } catch (FractionException &e) {
+            cout << "A FractionException has been caught: " + e.what() << endl;
             continue;
         }
 

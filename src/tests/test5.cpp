@@ -154,6 +154,7 @@ void Essai3()
   // en particulier : afficher le message de l'exception lancee
 
   // ... à compléter
+  try
   {
     int num,den;
     cout << "Creation d'une fraction..." << endl;
@@ -173,6 +174,8 @@ void Essai3()
     else sign = Fraction::NEGATIVE;
     Fraction f2(num,den,sign);
     cout << "Fraction encodee = " << f2 << endl;
+  } catch (FractionException e) {
+    cout << "Invalid fraction: " << e.what() << endl;
   }
   // ... à compléter
   
@@ -188,12 +191,15 @@ void Essai4()
   // en particulier : afficher le message de l'exception lancee
 
   // ... à compléter
+  try
   {
     Fraction f1,f2,f3;
     cout << "Encodez f1 : " << endl; cin >> f1;
     cout << "Encodez f2 : " << endl; cin >> f2;
     f3 = f1 / f2;
     cout << "f3 = f1 / f2 = " << f3 << endl << endl;
+  } catch (FractionException e) {
+    cout << "Invalid fraction: " << e.what() << endl;
   }
   // ... à compléter
   
@@ -207,6 +213,7 @@ void Essai5()
   // A COMPLETER : Traitez TOUTES les exceptions susceptible d'etre lancee par le bloc de code suivant (try...catch)
 
   // ... à compléter
+  try
   {
     char txt[80];
     cout << "Creation d'un Button..." << endl;
@@ -220,6 +227,10 @@ void Essai5()
     cout << "Denominateur : "; cin >> den; cin.ignore();
     Fraction f1(num,den);
     cout << "Fraction encodee = " << f1 << endl << endl;
+  } catch (FractionException e) {
+    cout << "Invalid fraction: " << e.what() << endl;
+  } catch (BaseException e) {
+    cout << "General exception: " << e.what() << endl;
   }
   // ... à compléter
 

@@ -8,7 +8,7 @@ using namespace std;
 // We are using constructor chaining, a C++11 feature.
 // src.: https://stackoverflow.com/a/308318/3514658
 ImagePanel::ImagePanel()
-    : Panel("Unknown panel", 0, 0, 0, 0), m_filename("No file") {
+    : ImagePanel("P00", 0, 0, "No file") {
 #ifdef WITH_DEBUG
     cout << "In default constructor: ImagePanel::ImagePanel()" << endl;
 #endif
@@ -16,7 +16,7 @@ ImagePanel::ImagePanel()
 
 ImagePanel::ImagePanel(
     const HeplString name, unsigned int x, unsigned int y, HeplString filename) 
-    : Panel(name, x, y, 0, 0 , Color::BLUE), m_filename(filename) {
+    : ImagePanel(name, x, y, 0, 0, filename) {
 #ifdef WITH_DEBUG
     cout << "In initialization constructor: ImagePanel::ImagePanel(const HeplString name, unsigned int x, unsigned int y, unsigned int width, unsigned int height, HeplString filename)" << endl;
 #endif
@@ -24,11 +24,17 @@ ImagePanel::ImagePanel(
 
 ImagePanel::ImagePanel(
     const HeplString name, unsigned int x, unsigned int y,
-    unsigned int width, unsigned int height, HeplString filename)
-    : Panel(name, x, y, width, height, Color::BLUE), m_filename(filename) {
+    unsigned int width, unsigned int height, HeplString filename) {
 #ifdef WITH_DEBUG
     cout << "In initialization constructor: ImagePanel::ImagePanel(const HeplString name, unsigned int x, unsigned int y, unsigned int width, unsigned int height, HeplString filename)" << endl;
 #endif
+    setName(name);
+    setX(x);
+    setY(y);
+    setWidth(width);
+    setHeight(height);
+    setColor(Color::SILVER);
+    setFilename(filename);
 }
 
 ImagePanel::ImagePanel(const ImagePanel& rhs)

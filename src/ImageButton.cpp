@@ -8,7 +8,7 @@ using namespace std;
 // We are using constructor chaining, a C++11 feature.
 // src.: https://stackoverflow.com/a/308318/3514658
 ImageButton::ImageButton()
-    : ImagePanel("Unknown panel", 0, 0, 0, 0, "No file") {
+    : ImageButton("B00", 0, 0, 0, 0, "No file") {
 #ifdef WITH_DEBUG
     cout << "In default constructor: ImageButton::ImageButton()" << endl;
 #endif
@@ -16,7 +16,7 @@ ImageButton::ImageButton()
 
 ImageButton::ImageButton(
     const HeplString name, unsigned int width, unsigned int height, HeplString filename) 
-    : ImagePanel(name, width, height, filename) {
+    : ImageButton(name, 0, 0, width, height, filename) {
 #ifdef WITH_DEBUG
     cout << "In initialization constructor: ImageButton::ImageButton(const HeplString name, unsigned int x, unsigned int y, unsigned int width, unsigned int height, HeplString filename)" << endl;
 #endif
@@ -24,11 +24,17 @@ ImageButton::ImageButton(
 
 ImageButton::ImageButton(
     const HeplString name, unsigned int x, unsigned int y,
-    unsigned int width, unsigned int height, HeplString filename)
-    : ImagePanel(name, x, y, width, height, filename) {
+    unsigned int width, unsigned int height, HeplString filename) {
 #ifdef WITH_DEBUG
     cout << "In initialization constructor: ImageButton::ImageButton(const HeplString name, unsigned int x, unsigned int y, unsigned int width, unsigned int height, HeplString filename)" << endl;
 #endif
+    setName(name);
+    setX(x);
+    setY(y);
+    setWidth(width);
+    setHeight(height);
+    setColor(Color::SILVER);
+    setFilename(filename);
 }
 
 ImageButton::ImageButton(const ImageButton& rhs)
@@ -47,12 +53,9 @@ ImageButton::~ImageButton() {
 /*
  * Setters
  */
-void ImageButton::setName(const char *name) {
-    setName(HeplString(name));
-}
-
 void ImageButton::setName(HeplString name) {
-    if (name[0] != 'B' || name.size() < 2 || ! name.substr(1, name.size() - 2).isNumber()) {
+    cout << "set name imagebutton called" << endl;
+    if (name[0] != 'B' || name.size() < 2 || ! name.substr(1, name.size() - 1).isNumber()) {
         throw BaseException("ImageButton name invalid");
     }
     m_name = name;

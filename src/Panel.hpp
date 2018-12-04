@@ -20,6 +20,7 @@ class Panel {
         Panel();
         Panel(const HeplString name, unsigned int x, unsigned int y,
               unsigned int width, unsigned int height, Color color = Color::SILVER);
+
         Panel(const Panel &rhs);
         virtual ~Panel();
 
@@ -37,7 +38,7 @@ class Panel {
         void setY(unsigned int y);
         void setWidth(unsigned int width);
         void setHeight(unsigned int height);
-        virtual void setName(const char *name);
+        void setName(const char *name);
         virtual void setName(HeplString name);
         void setColor(const Color &color);
 

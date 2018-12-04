@@ -4,9 +4,9 @@
 #include <iostream>
 #include "Button.hpp"
 #include "ImagePanel.hpp"
+#include "Color.hpp"
 
 class ImageButton : public virtual Button, public virtual ImagePanel {
-
 
     public:
         /* Constructors */
@@ -18,8 +18,7 @@ class ImageButton : public virtual Button, public virtual ImagePanel {
         ~ImageButton();
 
         /* Setters */
-        void setName(const char* name);
-        void setName(HeplString name);
+        void setName(HeplString name) override;
 
         /* Other methods */
         void display() const;

@@ -8,7 +8,7 @@ using namespace std;
 // We are using constructor chaining, a C++11 feature.
 // src.: https://stackoverflow.com/a/308318/3514658
 Panel::Panel()
-    : Panel("Unknown panel", 0, 0, 0, 0) {
+    : m_name("Unknown panel"), m_x(0), m_y(0), m_width(0), m_height(0), m_color(Color::SILVER) {
 #ifdef WITH_DEBUG
     cout << "In default constructor: Panel::Panel()" << endl;
 #endif
@@ -20,6 +20,12 @@ Panel::Panel(const HeplString name, unsigned int x, unsigned int y,
 #ifdef WITH_DEBUG
     cout << "In initialization constructor: Panel::Panel(const HeplString name, unsigned int x, unsigned int y, unsigned int width, unsigned int height, Color& color)" << endl;
 #endif
+    // We shouldn't call a virtual method from a constructor, this is considered bad practise.
+    // Also, calling this method would mean the verification would be done for
+    // subclasses as well like Button, where as the verification is not the
+    // same for these subclasses.
+    // src.: https://stackoverflow.com/a/962148/3514658
+    // The solution we had was to avoid calling this constructor from subclass.
     setName(name);
 }
 
@@ -91,7 +97,7 @@ void Panel::setName(const char *name) {
 }
 
 void Panel::setName(HeplString name) {
-    if (name[0] != 'P' || name.size() < 2 || ! name.substr(1, name.size() - 2).isNumber()) {
+    if (name[0] != 'P' || name.size() < 2 || ! name.substr(1, name.size() - 1).isNumber()) {
         throw BaseException("Panel name invalid");
     }
     m_name = name;

@@ -2,15 +2,11 @@
 #define FRACTION_HPP_DEFINED
 
 #include <cmath>
-#include "BaseException.hpp"
+#include "FractionException.hpp"
 
 enum Sign {
     POSITIVE = +1,
     NEGATIVE = -1
-};
-
-class InvalidFractionException: public BaseException {
-    using BaseException::BaseException;
 };
 
 class EuclidException: public BaseException {

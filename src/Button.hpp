@@ -14,8 +14,7 @@ class Button: public virtual Panel {
         ~Button();
 
         /* Setters */
-        void setName(const char* name);
-        void setName(HeplString name);
+        void setName(HeplString name) override;
 
         // Other methods
         void display() const;
