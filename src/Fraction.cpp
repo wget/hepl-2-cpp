@@ -152,26 +152,11 @@ Fraction Fraction::operator+(Fraction const& other) {
 }
 
 Fraction Fraction::operator+(const int rhs) {
-    Fraction newFraction = *this;
-    int newFractionSign = (newFraction.getSign() == Sign::NEGATIVE) ? -1 : 1;
-    int newValue = newFractionSign * newFraction.getNumerator() + rhs * newFraction.getDenominator();
-    newFraction.setNumerator(abs(newValue));
-    if (newValue < 0) {
-        newFraction.setSign(Sign::NEGATIVE);
-    } else {
-        newFraction.setSign(Sign::POSITIVE);
-    }
-    //newFraction.setDenominator(newFraction.getDenominator());
-    newFraction.simplify();
-    return newFraction;
+    return *this + Fraction(rhs);
 }
 
 Fraction operator+(const int lhs, Fraction const& rhs) {
-    Fraction newFraction;
-    newFraction.setNumerator(abs(lhs));
-    newFraction.setDenominator(1);
-    newFraction.setSign((lhs < 0)? Sign::NEGATIVE: Sign::POSITIVE);
-    return newFraction + rhs;
+    return Fraction(lhs) + rhs;
 }
 
 Fraction Fraction::operator-(Fraction const& other) {
