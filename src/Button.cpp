@@ -107,21 +107,21 @@ istream& operator>>(istream& lhs, Button& rhs) {
         exploded = userInput.explode(" ");
         if (exploded.getNumberItems() != 5 ||
             ((HeplString)exploded[0])[0] != '"' ||
-            ((HeplString)exploded[0])[exploded[0]->size() - 1] != '"' ||
-            ! exploded[1]->isNumber() ||
-            ! exploded[2]->isNumber() ||
-            ! exploded[3]->isNumber() ||
-            ! exploded[4]->isNumber()) {
+            ((HeplString)exploded[0])[exploded[0].size() - 1] != '"' ||
+            ! exploded[1].isNumber() ||
+            ! exploded[2].isNumber() ||
+            ! exploded[3].isNumber() ||
+            ! exploded[4].isNumber()) {
             cout << "The syntax is incorrect. Ensure you used the following valid format:" << endl
                  << "\"button name\" x y width height." << endl;
             continue;
         }
 
-        panelName = exploded[0]->substr(1, exploded[0]->size() - 2);
-        x = exploded[1]->atoi(); 
-        y = exploded[2]->atoi(); 
-        width = exploded[3]->atoi(); 
-        height = exploded[4]->atoi(); 
+        panelName = exploded[0].substr(1, exploded[0].size() - 2);
+        x = exploded[1].atoi();
+        y = exploded[2].atoi();
+        width = exploded[3].atoi();
+        height = exploded[4].atoi();
 
         try {
             rhs.setName(panelName);

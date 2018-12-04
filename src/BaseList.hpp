@@ -24,7 +24,7 @@ class BaseList {
         // Pure virtual method
         virtual T* add(T const& val) = 0;
         BaseList& operator=(BaseList const& baseList);
-        T* operator[](size_t i);
+        T& operator[](size_t i);
         friend class BaseListIterator<T>;
 };
 

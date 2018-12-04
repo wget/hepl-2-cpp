@@ -104,24 +104,24 @@ istream& operator>>(istream& lhs, ImagePanel& rhs) {
         exploded = userInput.explode(" ");
         if (exploded.getNumberItems() != 6 ||
             ((HeplString)exploded[0])[0] != '"' ||
-            ((HeplString)exploded[0])[exploded[0]->size() - 1] != '"' ||
-            ! exploded[1]->isNumber() ||
-            ! exploded[2]->isNumber() ||
-            ! exploded[3]->isNumber() ||
-            ! exploded[4]->isNumber() ||
+            ((HeplString)exploded[0])[exploded[0].size() - 1] != '"' ||
+            ! exploded[1].isNumber() ||
+            ! exploded[2].isNumber() ||
+            ! exploded[3].isNumber() ||
+            ! exploded[4].isNumber() ||
             ((HeplString)exploded[5])[0] != '"' ||
-            ((HeplString)exploded[5])[exploded[5]->size() - 1] != '"') {
+            ((HeplString)exploded[5])[exploded[5].size() - 1] != '"') {
             cout << "The syntax is incorrect. Ensure you used the following valid format:" << endl
                  << "\"panel name\" x y width height \"filename\"." << endl;
             continue;
         }
 
-        panelName = exploded[0]->substr(1, exploded[0]->size() - 2);
-        x = exploded[1]->atoi(); 
-        y = exploded[2]->atoi(); 
-        width = exploded[3]->atoi(); 
-        height = exploded[4]->atoi(); 
-        filename = exploded[5]->substr(1, exploded[5]->size() - 2);
+        panelName = exploded[0].substr(1, exploded[0].size() - 2);
+        x = exploded[1].atoi();
+        y = exploded[2].atoi();
+        width = exploded[3].atoi();
+        height = exploded[4].atoi();
+        filename = exploded[5].substr(1, exploded[5].size() - 2);
 
         try {
             rhs.setName(panelName);

@@ -102,7 +102,7 @@ BaseList<T>& BaseList<T>::operator=(BaseList const& baseList) {
 }
 
 template<class T>
-T* BaseList<T>::operator[](size_t itemNumber) {
+T& BaseList<T>::operator[](size_t itemNumber) {
     Cell<T> *baseListCell = m_pHead;
     size_t i = 0;
     while (baseListCell != nullptr && i != itemNumber) {
@@ -110,9 +110,8 @@ T* BaseList<T>::operator[](size_t itemNumber) {
         i++;
     }
 
-    if (baseListCell == nullptr) {
-        return nullptr;
-    }
-    // std::cout << "DEBUG: " << baseListCell->getValue() << std::endl;
-    return baseListCell->getValue();
+    // if (baseListCell == nullptr) {
+    //     throw new BaseListItemNotFoundException();
+    // }
+    return *(baseListCell->getValue());
 }

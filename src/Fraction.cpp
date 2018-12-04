@@ -307,16 +307,16 @@ istream& operator>>(istream& lhs, Fraction& rhs) {
 
         exploded = userInput.explode(" ");
         if (exploded.getNumberItems() != 3 ||
-            ! exploded[0]->isNumber() ||
-            ! exploded[1]->isNumber() ||
+            ! exploded[0].isNumber() ||
+            ! exploded[1].isNumber() ||
             (((HeplString)exploded[2])[0] != '+' && ((HeplString)exploded[2])[0] != '-')) {
             cout << "The syntax is incorrect. Ensure you used the following valid format:" << endl
                  << "numerator denominator sign." << endl;
             continue;
         }
 
-        numerator = exploded[0]->atoi();
-        denominator = exploded[1]->atoi();
+        numerator = exploded[0].atoi();
+        denominator = exploded[1].atoi();
         if (((HeplString)exploded[2])[0] == '+') {
             sign = Sign::POSITIVE;
         } else {

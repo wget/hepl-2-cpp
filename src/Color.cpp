@@ -281,24 +281,24 @@ istream& operator>>(istream& lhs, Color& rhs) {
 
         exploded = userInput.explode(" ");
         if (exploded.getNumberItems() != 4 ||
-            ! exploded[0]->isNumber() ||
-            ! exploded[1]->isNumber() ||
-            ! exploded[2]->isNumber() ||
+            ! exploded[0].isNumber() ||
+            ! exploded[1].isNumber() ||
+            ! exploded[2].isNumber() ||
             // Make sure to cast to an HeplString, otherwise this will be the
             // operator[] we redefined for HeplList which will be called.
             ((HeplString)exploded[3])[0] != '"' ||
-            ((HeplString)exploded[3])[exploded[3]->size() - 1] != '"') {
+            ((HeplString)exploded[3])[exploded[3].size() - 1] != '"') {
             cout << "The syntax is incorrect. Ensure you used the following valid format:" << endl
                  << "red green blue \"color name\"." << endl;
             continue;
         }
 
-        red = exploded[0]->atoi();
-        green = exploded[1]->atoi();
-        blue = exploded[2]->atoi();
+        red = exploded[0].atoi();
+        green = exploded[1].atoi();
+        blue = exploded[2].atoi();
         // The BaseList operator[] returns a pointer. We need its value in
         // order to deep copy the color name (our custom string).
-        colorName = exploded[3]->substr(1, exploded[3]->size() - 2);
+        colorName = exploded[3].substr(1, exploded[3].size() - 2);
 
         try {
             rhs.setRed(red);

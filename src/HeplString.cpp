@@ -490,7 +490,7 @@ HeplList<HeplString> HeplString::explode(HeplString delimiter, int limit) {
         if ((size_t)limit >= explodedList.getNumberItems()) {
             return explodedList;
         }
-        *(toKeepList[i - 1]) = HeplString(*(explodedList[limit - 1])) + this->substr(matchLoc - m);
+        toKeepList[i - 1] = HeplString(explodedList[limit - 1]) + this->substr(matchLoc - m);
     }
 
     return toKeepList;

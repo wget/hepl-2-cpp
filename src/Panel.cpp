@@ -151,30 +151,30 @@ istream& operator>>(istream& lhs, Panel& rhs) {
         exploded = userInput.explode(" ");
         if (exploded.getNumberItems() != 9 ||
             ((HeplString)exploded[0])[0] != '"' ||
-            ((HeplString)exploded[0])[exploded[0]->size() - 1] != '"' ||
-            ! exploded[1]->isNumber() ||
-            ! exploded[2]->isNumber() ||
-            ! exploded[3]->isNumber() ||
-            ! exploded[4]->isNumber() ||
-            ! exploded[5]->isNumber() ||
-            ! exploded[6]->isNumber() ||
-            ! exploded[7]->isNumber() ||
+            ((HeplString)exploded[0])[exploded[0].size() - 1] != '"' ||
+            ! exploded[1].isNumber() ||
+            ! exploded[2].isNumber() ||
+            ! exploded[3].isNumber() ||
+            ! exploded[4].isNumber() ||
+            ! exploded[5].isNumber() ||
+            ! exploded[6].isNumber() ||
+            ! exploded[7].isNumber() ||
             ((HeplString)exploded[8])[0] != '"' ||
-            ((HeplString)exploded[8])[exploded[8]->size() - 1] != '"') {
+            ((HeplString)exploded[8])[exploded[8].size() - 1] != '"') {
             cout << "The syntax is incorrect. Ensure you used the following valid format:" << endl
                  << "\"panel name\" x y width height red green blue \"color name\"." << endl;
             continue;
         }
 
-        panelName = exploded[0]->substr(1, exploded[0]->size() - 2);
-        x = exploded[1]->atoi(); 
-        y = exploded[2]->atoi(); 
-        width = exploded[3]->atoi(); 
-        height = exploded[4]->atoi(); 
-        red = exploded[5]->atoi();
-        green = exploded[6]->atoi();
-        blue = exploded[7]->atoi();
-        colorName = exploded[8]->substr(1, exploded[8]->size() - 2);
+        panelName = exploded[0].substr(1, exploded[0].size() - 2);
+        x = exploded[1].atoi();
+        y = exploded[2].atoi();
+        width = exploded[3].atoi();
+        height = exploded[4].atoi();
+        red = exploded[5].atoi();
+        green = exploded[6].atoi();
+        blue = exploded[7].atoi();
+        colorName = exploded[8].substr(1, exploded[8].size() - 2);
 
         try {
             rhs.setName(panelName);
