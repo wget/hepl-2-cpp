@@ -51,9 +51,11 @@ class Fraction {
         Fraction operator-(Fraction const& other);
         Fraction operator*(Fraction const& other);
         Fraction operator/(Fraction const& other);
-        bool operator==(Fraction const& other);
-        bool operator<(Fraction const& other);
-        bool operator>(Fraction const& other);
+        bool operator==(Fraction const& other) const;
+        bool operator<(Fraction const other) const;
+        bool operator<=(Fraction const& other) const;
+        bool operator>(Fraction const other) const;
+        bool operator>=(Fraction const& other) const;
         Fraction operator++();
         Fraction operator++(int);
 

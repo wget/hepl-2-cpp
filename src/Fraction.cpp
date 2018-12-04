@@ -216,7 +216,7 @@ Fraction Fraction::operator/(Fraction const& other) {
     return newFraction * otherFraction;
 }
 
-bool Fraction::operator==(Fraction const& other) {
+bool Fraction::operator==(Fraction const& other) const {
     int fractionSign = (getSign() == Sign::NEGATIVE) ? -1 : 1;
     int otherFractionSign = (other.getSign() == Sign::NEGATIVE) ? -1 : 1;
     if (fractionSign * getNumerator() * other.getDenominator() ==
@@ -226,7 +226,7 @@ bool Fraction::operator==(Fraction const& other) {
     return false;
 }
 
-bool Fraction::operator<(Fraction const& other) {
+bool Fraction::operator<(Fraction const other) const {
     Fraction newFraction = *this;
     Fraction otherFraction = other;
     // Force same denominator when fractions are not equivalent
@@ -248,7 +248,14 @@ bool Fraction::operator<(Fraction const& other) {
     return false;
 }
 
-bool Fraction::operator>(Fraction const& other) {
+bool Fraction::operator<=(Fraction const& other) const {
+    if (*this == other || *this < other) {
+        return true;
+    }
+    return false;
+}
+
+bool Fraction::operator>(Fraction const other) const {
     if (*this == other) {
         return false;
     }
@@ -260,8 +267,16 @@ bool Fraction::operator>(Fraction const& other) {
     return true;
 }
 
+bool Fraction::operator>=(Fraction const& other) const {
+    if (*this == other || *this > other) {
+        return true;
+    }
+    return false;
+}
+
 // Prefix ++Fraction;
 Fraction Fraction::operator++() {
+    *this = (*this) + 1;
     return (*this) + 1;
 }
 

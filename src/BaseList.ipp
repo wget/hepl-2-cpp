@@ -113,6 +113,6 @@ T* BaseList<T>::operator[](size_t itemNumber) {
     if (baseListCell == nullptr) {
         return nullptr;
     }
-
+    // std::cout << "DEBUG: " << baseListCell->getValue() << std::endl;
     return baseListCell->getValue();
 }
