@@ -1,5 +1,6 @@
 #include "HeplString.hpp"
 #include "HeplStringOutOfRangeException.hpp"
+#include "HeplList.hpp"
 
 using namespace std;
 

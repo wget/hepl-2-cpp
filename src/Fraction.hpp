@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include "FractionException.hpp"
+#include "HeplList.hpp"
 
 enum Sign {
     POSITIVE = +1,

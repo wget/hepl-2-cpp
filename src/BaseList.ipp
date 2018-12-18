@@ -110,8 +110,8 @@ T& BaseList<T>::operator[](size_t itemNumber) {
         i++;
     }
 
-    // if (baseListCell == nullptr) {
-    //     throw new BaseListItemNotFoundException();
-    // }
+    if (baseListCell == nullptr) {
+        throw new BaseListItemNotFoundException();
+    }
     return *(baseListCell->getValue());
 }

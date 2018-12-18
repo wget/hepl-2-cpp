@@ -20,6 +20,5 @@ void FractionException::setCode(int code) {
     m_code = code;
 }
 
-
 const int FractionException::ERROR_DENOMINATOR_NUL = 0;
 const int FractionException::ERROR_DIVIDE_BY_ZERO = 1;

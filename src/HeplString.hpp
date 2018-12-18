@@ -6,7 +6,9 @@
 #include <iostream>
 #include <ostream>
 #include <fstream>
-#include "HeplList.hpp"
+
+template<class T>
+class HeplList;
 
 class HeplString {
 

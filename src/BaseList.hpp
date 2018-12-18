@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <iostream>
 #include "Cell.hpp"
+#include "BaseException.hpp"
 
 template<class T>
 class BaseListIterator;
@@ -26,6 +27,10 @@ class BaseList {
         BaseList& operator=(BaseList const& baseList);
         T& operator[](size_t i);
         friend class BaseListIterator<T>;
+};
+
+class BaseListItemNotFoundException: BaseException {
+    using BaseException::BaseException;
 };
 
 #include "BaseList.ipp"

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include "HeplString.hpp"
+#include "HeplList.hpp"
 
 class Color {
 
