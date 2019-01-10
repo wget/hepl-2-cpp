@@ -15,6 +15,13 @@ Fraction::Fraction(unsigned int n, unsigned int d, Sign s)
     cout << "In initialization constructor: Fraction::Fraction(unsigned int n, unsigned int d, Sign s)" << endl;
 #endif
     setDenominator(d);
+    // Avoid issues when comparing two 0/x fractions when their sign could be
+    // different. We are NOT supporting signed zero here.
+    // src.: https://en.wikipedia.org/wiki/Signed_zero
+    // Ensure the sign is positive when specifying 0
+    if (n == 0) {
+        m_sign = Sign::POSITIVE;
+    }
 }
 
 Fraction::Fraction(int n, int d)
@@ -117,9 +124,9 @@ void Fraction::simplify() {
  */
 Fraction& Fraction::operator=(Fraction const& other) {
     // Avoid infinite loops
-    if (this == &other) {
-        return *this;
-    }
+    // if (this == &other) {
+    //     return *this;
+    // }
     setNumerator(other.getNumerator());
     setDenominator(other.getDenominator());
     setSign(other.getSign());
@@ -212,25 +219,17 @@ bool Fraction::operator==(Fraction const& other) const {
 }
 
 bool Fraction::operator<(Fraction const other) const {
-    Fraction newFraction = *this;
-    Fraction otherFraction = other;
-    // Force same denominator when fractions are not equivalent
-    if (newFraction.getDenominator() != other.getDenominator()) {
-        unsigned int newFractionDenominator = newFraction.getDenominator();
-        newFraction.setNumerator(newFraction.getNumerator() * other.getDenominator());
-        newFraction.setDenominator(newFraction.getDenominator() * other.getDenominator());
-        otherFraction.setNumerator(otherFraction.getNumerator() * newFractionDenominator);
-        // Not really needed since we are only making use of newFraction any way.
-        otherFraction.setDenominator(otherFraction.getDenominator() * newFractionDenominator);
-    }
-    int newFractionSign = (newFraction.getSign() == Sign::NEGATIVE)? -1 : 1;
-    int otherFractionSign = (otherFraction.getSign() == Sign::NEGATIVE)? -1 : 1;
 
-    if (newFractionSign * newFraction.getNumerator() <
-        otherFractionSign * otherFraction.getNumerator()) {
-        return true;
-    }
-    return false;
+    // Teacher's solution works too, and contrary to the belief, using a float allows to store
+    // significantly larger numbers
+    // src.: https://stackoverflow.com/a/11857844/3514658
+    float f1, f2;
+    // Hopefully the signed to unsigned int conversion is happening great (sign
+    // * numerator), because we are using a float, otherwise this would have
+    // given garbage and comparison would have failed.
+    f1 = this->m_sign * (float)(this->m_numerator) / (float)(this->m_denominator);
+    f2 = other.m_sign * (float)(other.m_numerator) / (float)(other.m_denominator);
+    return f1 < f2;
 }
 
 bool Fraction::operator<=(Fraction const& other) const {

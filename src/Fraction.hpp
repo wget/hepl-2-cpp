@@ -27,7 +27,7 @@ class Fraction {
         Fraction(int n, int d);
         Fraction(int n);
         Fraction(Fraction const& other);
-        
+
         /* Getters */
         unsigned int getNumerator() const;
         unsigned int getDenominator() const;
