@@ -5,7 +5,7 @@
 #include "../HeplList.hpp"
 #include "../HeplSortedList.hpp"
 #include "../BaseListIterator.hpp"
-//#include "Pile.h"
+#include "../HeplStack.hpp"
 
 #include "../ImagePanel.hpp"
 #include "../Fraction.hpp"
@@ -21,9 +21,9 @@ void Essai5();
 void Essai6();
 void Essai7();
 void Essai8();
-// void Essai9();
-// void Essai10();
-// void Essai11();
+void Essai9();
+void Essai10();
+void Essai11();
 
 int main(int argc,char* argv[])
 {
@@ -44,9 +44,9 @@ int main(int argc,char* argv[])
       case 6 : Essai6(); break;
       case 7 : Essai7(); break;
       case 8 : Essai8(); break;
-      // case 9 : Essai9(); break;
-      // case 10 : Essai10(); break;
-      // case 11 : Essai11(); break;
+      case 9 : Essai9(); break;
+      case 10 : Essai10(); break;
+      case 11 : Essai11(); break;
       default : fini = true ; break;
     }
   }
@@ -69,9 +69,9 @@ int Menu()
   cout << " 7. Test de l'iterateur avec une Liste triee d'entiers" << endl;
   cout << " 8. Test de l'iterateur avec une Liste triee de Fractions" << endl;
   cout << "----> BONUS 1ERE PARTIE (si vous avez le temps) <--------------------------" << endl;
-  cout << " 9. Test du template Pile avec des entiers" << endl;
-  cout << " 10. Test du template Pile avec des Fractions" << endl;
-  cout << " 11. Test de l'iterateur avec une Pile de Fractions" << endl;
+  cout << " 9. Test du template HeplStack avec des entiers" << endl;
+  cout << " 10. Test du template HeplStack avec des Fractions" << endl;
+  cout << " 11. Test de l'iterateur avec une HeplStack de Fractions" << endl;
   cout << " 12. Quitter" << endl << endl;
 
   int ch;
@@ -328,88 +328,86 @@ void Essai8()
   cout << endl;
 }
 
-// *******************************************************************************************************
-// void Essai9()
-// {
-//   cout << "----- 9. Test du template Pile avec des entiers ---------------------------------------------" << endl;
-//   cout << "Creation d'une pile..." << endl;
-//   Pile<int> pile;
-//   pile.display();                                       // --> ()
-//   cout << endl;
-//
-//   cout << "Pile Vide ? " << pile.isEmpty() << endl;
-//   cout << "On empile 3,-2,5,-1 et 0..." << endl;
-//   pile.push(3);   // ne fait qu'appeler la methode add
-//   pile.add(-2);
-//   pile.push(5);
-//   pile.push(-1);
-//   pile.push(0);
-//   cout << "Pile Vide ? " << pile.isEmpty() << endl;
-//   pile.display();                                       // --> (0 -1 5 -2 3)
-//   cout << "La pile contient " << pile.getNumberItems() << " elements." << endl << endl;
-//
-//   cout << "Top = " << pile.top() << endl << endl;
-//
-//   cout << "On depile..." << endl;
-//   int val = pile.pop();
-//   cout << "Valeur depilee = " << val << endl;
-//   cout << "Re-voici la pile : " << endl;
-//   pile.display();
-//   cout << endl << endl;
-// }
-//
-// /#<{(|******************************************************************************************************
-// void Essai10()
-// {
-//   cout << "----- 10. Test du template Pile avec des Fractions ------------------------------------------" << endl;
-//   cout << "Creation d'une pile..." << endl;
-//   Pile<Fraction> pile;
-//
-//   pile.display();                                       
-//   cout << endl;
-//   cout << "Pile Vide ? " << pile.isEmpty() << endl;
-//
-//   cout << "On empile quelques fractions..." << endl;
-//   pile.push(Fraction::ONE);
-//   pile.push(Fraction(-1,2));
-//   pile.add(Fraction(7,3));
-//   pile.push(Fraction(2,5));
-//   pile.push(Fraction(-2));
-//
-//   pile.display();                                       
-//   cout << endl;
-//   cout << "Pile Vide ? " << pile.isEmpty() << endl;
-//   cout << "La pile contient " << pile.getNumberItems() << " elements." << endl << endl;
-//
-//   cout << "Top = " << pile.top() << endl << endl;
-//
-//   cout << "On depile..." << endl;
-//   Fraction val = pile.pop();
-//   cout << "Valeur depilee = " << val << endl;
-//   cout << "Re-voici la pile : " << endl;
-//   pile.display();
-//   cout << endl << endl;
-// }
-//
-// /#<{(|******************************************************************************************************
-// void Essai11()
-// {
-//   cout << "----- 11. Test de l'iterateur avec une Pile de Fractions ---------------------------" << endl;
-//   cout << "Creation  d'une Pile..." << endl;
-//   Pile<Fraction> pile;
-//   BaseListIterator<Fraction> it(pile);
-//
-//   cout << "On empile quelques fractions..." << endl;
-//   pile.push(Fraction::ONE);
-//   pile.push(Fraction(-1,2));
-//   pile.add(Fraction(7,3));
-//   pile.push(Fraction(2,5));
-//   pile.push(Fraction(-2));
-//
-//   cout << "On affiche grace a l'iterateur..." << endl; 
-//   for (it.reset() ; !it.end() ; it++)
-//     cout << " " << (Fraction)it << endl;
-//   cout << endl;
-// }
-//
-//
+//*******************************************************************************************************
+void Essai9()
+{
+  cout << "----- 9. Test du template HeplStack avec des entiers ---------------------------------------------" << endl;
+  cout << "Creation d'une pile..." << endl;
+  HeplStack<int> pile;
+  pile.display();                                       // --> ()
+  cout << endl;
+
+  cout << "HeplStack Vide ? " << pile.isEmpty() << endl;
+  cout << "On empile 3,-2,5,-1 et 0..." << endl;
+  pile.push(3);   // ne fait qu'appeler la methode add
+  pile.add(-2);
+  pile.push(5);
+  pile.push(-1);
+  pile.push(0);
+  cout << "HeplStack Vide ? " << pile.isEmpty() << endl;
+  pile.display();                                       // --> (0 -1 5 -2 3)
+  cout << "La pile contient " << pile.getNumberItems() << " elements." << endl << endl;
+
+  cout << "Top = " << pile.top() << endl << endl;
+
+  cout << "On depile..." << endl;
+  int val = pile.pop();
+  cout << "Valeur depilee = " << val << endl;
+  cout << "Re-voici la pile : " << endl;
+  pile.display();
+  cout << endl << endl;
+}
+
+//*******************************************************************************************************
+void Essai10()
+{
+  cout << "----- 10. Test du template HeplStack avec des Fractions ------------------------------------------" << endl;
+  cout << "Creation d'une pile..." << endl;
+  HeplStack<Fraction> pile;
+
+  pile.display();
+  cout << endl;
+  cout << "HeplStack Vide ? " << pile.isEmpty() << endl;
+
+  cout << "On empile quelques fractions..." << endl;
+  pile.push(Fraction::ONE);
+  pile.push(Fraction(-1,2));
+  pile.add(Fraction(7,3));
+  pile.push(Fraction(2,5));
+  pile.push(Fraction(-2));
+
+  pile.display();
+  cout << endl;
+  cout << "HeplStack Vide ? " << pile.isEmpty() << endl;
+  cout << "La pile contient " << pile.getNumberItems() << " elements." << endl << endl;
+
+  cout << "Top = " << pile.top() << endl << endl;
+
+  cout << "On depile..." << endl;
+  Fraction val = pile.pop();
+  cout << "Valeur depilee = " << val << endl;
+  cout << "Re-voici la pile : " << endl;
+  pile.display();
+  cout << endl << endl;
+}
+
+//*******************************************************************************************************
+void Essai11()
+{
+  cout << "----- 11. Test de l'iterateur avec une HeplStack de Fractions ---------------------------" << endl;
+  cout << "Creation  d'une HeplStack..." << endl;
+  HeplStack<Fraction> pile;
+  BaseListIterator<Fraction> it(pile);
+
+  cout << "On empile quelques fractions..." << endl;
+  pile.push(Fraction::ONE);
+  pile.push(Fraction(-1,2));
+  pile.add(Fraction(7,3));
+  pile.push(Fraction(2,5));
+  pile.push(Fraction(-2));
+
+  cout << "On affiche grace a l'iterateur..." << endl;
+  for (it.reset() ; !it.end() ; it++)
+    cout << " " << (Fraction)it << endl;
+  cout << endl;
+}

@@ -8,7 +8,6 @@
 template<class T>
 class HeplList : public BaseList<T> {
 
-
     public:
         // Default constructor and copy constructor are automatically
         // inherited.
