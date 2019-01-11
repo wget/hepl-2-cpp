@@ -3,9 +3,9 @@
 
 #include <SDL/SDL.h>
 #include <pthread.h>
-#include "WindowSDLexception.h"
-#include "WindowSDLimage.h"
-#include "WindowSDLclick.h"
+#include "WindowSDLexception.hpp"
+#include "WindowSDLimage.hpp"
+#include "WindowSDLclick.hpp"
 
 class WindowSDL
 {

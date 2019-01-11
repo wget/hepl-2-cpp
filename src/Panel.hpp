@@ -4,6 +4,7 @@
 #include "HeplString.hpp"
 #include "Color.hpp"
 #include "BaseException.hpp"
+#include "WindowSDL/WindowSDL.hpp"
 
 class Panel {
 
@@ -44,6 +45,7 @@ class Panel {
 
         // Other methods
         void display() const;
+        void draw() const;
 
         /* Stream management */
         friend std::ostream& operator<<(std::ostream& lhs, const Panel& rhs);

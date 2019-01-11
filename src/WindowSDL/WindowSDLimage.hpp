@@ -2,7 +2,7 @@
 #define WINDOW_SDL_IMAGE_H
 
 #include <SDL/SDL.h>
-#include "WindowSDLexception.h"
+#include "WindowSDLexception.hpp"
 
 class WindowSDL;
 

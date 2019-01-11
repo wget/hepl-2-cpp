@@ -2,11 +2,14 @@
 #define IMAGE_PANEL_HPP_DEFINED
 
 #include "Panel.hpp"
+#include "WindowSDL/WindowSDL.hpp"
+#include "WindowSDL/WindowSDLimage.hpp"
 
 class ImagePanel: public virtual Panel {
 
     protected:
         HeplString m_filename;
+        WindowSDLimage *m_image;
 
     public:
         // Constructors
@@ -26,6 +29,7 @@ class ImagePanel: public virtual Panel {
         /* Other methods */
         void display() const;
         HeplString getType() const;
+        void draw() const;
 
         /* Stream management */
         friend std::ostream& operator<<(std::ostream& lhs, const ImagePanel& rhs);

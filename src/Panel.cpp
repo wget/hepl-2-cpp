@@ -119,6 +119,17 @@ void Panel::display() const {
     m_color.display();
 }
 
+void Panel::draw() const {
+    WindowSDL::fillRectangle(
+        m_color.getRed(),
+        m_color.getGreen(),
+        m_color.getBlue(),
+        m_x,
+        m_y,
+        m_width,
+        m_height);
+}
+
 /*
  * Stream management
  */

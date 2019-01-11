@@ -62,6 +62,14 @@ HeplString ImagePanel::getFilename() const {
  */
 void ImagePanel::setFilename(HeplString filename) {
     m_filename = filename;
+    try {
+        m_image = new WindowSDLimage(filename.c_str());
+        m_width = m_image->getWidth();
+        m_height = m_image->getHeight();
+
+    } catch (WindowSDLexception e) {
+        m_image = nullptr;
+    }
 }
 
 /*
@@ -75,6 +83,23 @@ void ImagePanel::display() const {
 
 HeplString ImagePanel::getType() const {
     return ImagePanel::CLASS_NAME;
+}
+
+void ImagePanel::draw() const {
+
+    if (m_image == nullptr) {
+
+        WindowSDL::drawRectangle(
+            // Color black
+            0, 0, 0,
+            // Position
+            m_x, m_y,
+            // Size
+            m_width, m_height
+        );
+        return;
+    }
+    WindowSDL::drawImage(*(m_image), (int)m_x, (int)m_y);
 }
 
 
