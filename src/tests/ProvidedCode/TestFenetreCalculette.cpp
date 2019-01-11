@@ -2,7 +2,7 @@
 using namespace std;
 
 #include "FenetreCalculette.h"
-#include "WindowSDL.h"
+#include "WindowSDL.hpp"
 
 //************************************************************************************************
 int main(int argc,char* argv[])

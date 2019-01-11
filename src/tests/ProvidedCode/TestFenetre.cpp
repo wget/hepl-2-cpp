@@ -7,7 +7,7 @@ using namespace std;
 #include "PanneauImage.h"
 #include "BoutonImage.h"
 
-#include "WindowSDL.h" // pour waitClick
+#include "WindowSDL.hpp" // pour waitClick
 
 int main(int argc,char* argv[])
 {

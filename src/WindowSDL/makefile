@@ -10,19 +10,19 @@ TestWindowSDL:	TestWindowSDL.cpp $(OBJS)
 	echo Creation de TestWindowSDL...
 	$(CC) TestWindowSDL.cpp -o TestWindowSDL $(OBJS) -lpthread -lSDL
 
-WindowSDL.o:	WindowSDL.cpp WindowSDL.h
+WindowSDL.o:	WindowSDL.cpp WindowSDL.hpp
 		echo Creation de WindowSDL.o ...
 		$(CC) -c WindowSDL.cpp
 
-WindowSDLexception.o:	WindowSDLexception.cpp WindowSDLexception.h
+WindowSDLexception.o:	WindowSDLexception.cpp WindowSDLexception.hpp
 		echo Creation de WindowSDLexception.o ...
 		$(CC) -c WindowSDLexception.cpp
 
-WindowSDLclick.o:	WindowSDLclick.cpp WindowSDLclick.h
+WindowSDLclick.o:	WindowSDLclick.cpp WindowSDLclick.hpp
 		echo Creation de WindowSDLclick.o ...
 		$(CC) -c WindowSDLclick.cpp
 
-WindowSDLimage.o:	WindowSDLimage.cpp WindowSDLimage.h
+WindowSDLimage.o:	WindowSDLimage.cpp WindowSDLimage.hpp
 		echo Creation de WindowSDLimage.o ...
 		$(CC) -c WindowSDLimage.cpp
 

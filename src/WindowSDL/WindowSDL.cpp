@@ -1,4 +1,4 @@
-#include "WindowSDL.h"
+#include "WindowSDL.hpp"
 
 #include <iostream>
 using namespace std;
