@@ -200,4 +200,22 @@ istream& operator>>(istream& lhs, Panel& rhs) {
     return lhs;
 }
 
+void Panel::save(ofstream& out) const {
+    m_name.save(out);
+    out.write((char*)&m_x, sizeof(m_x));
+    out.write((char*)&m_y, sizeof(m_y));
+    out.write((char*)&m_width, sizeof(m_width));
+    out.write((char*)&m_height, sizeof(m_height));
+    m_color.save(out);
+}
+
+void Panel::load(ifstream& in) {
+    m_name.load(in);
+    in.read((char*)&m_x, sizeof(m_x));
+    in.read((char*)&m_y, sizeof(m_y));
+    in.read((char*)&m_width, sizeof(m_width));
+    in.read((char*)&m_height, sizeof(m_height));
+    m_color.load(in);
+}
+
 const HeplString Panel::CLASS_NAME = "PANEL";

@@ -144,4 +144,14 @@ istream& operator>>(istream& lhs, ImagePanel& rhs) {
     return lhs;
 }
 
+void ImagePanel::save(ofstream& out) const {
+    Panel::save(out);
+    m_filename.save(out);
+}
+
+void ImagePanel::load(ifstream& in) {
+    Panel::load(in);
+    m_filename.load(in);
+}
+
 const HeplString ImagePanel::CLASS_NAME = "IMAGE_PANEL";

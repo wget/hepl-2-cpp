@@ -48,6 +48,8 @@ class Panel {
         /* Stream management */
         friend std::ostream& operator<<(std::ostream& lhs, const Panel& rhs);
         friend std::istream& operator>>(std::istream& lhs, Panel& rhs);
+        void save(std::ofstream& out) const;
+        void load(std::ifstream& in);
 
         /* Static attributes */
         static const HeplString CLASS_NAME;
