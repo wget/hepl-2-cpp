@@ -336,6 +336,24 @@ int HeplString::atoi() const {
     return integer;
 }
 
+HeplString HeplString::ftoa(float f, int afterpoint) {
+    // Extract integer part
+    int ipart = (int)f;
+
+    // Extract floating part
+    float fpart = f - (float)ipart;
+
+    HeplString string = itoa(ipart);
+
+    if (fpart != 0) {
+        string += ".";
+        fpart = fpart * pow(10, afterpoint);
+        string += itoa((int)fpart);
+    }
+
+    return string;
+}
+
 // src.: http://www.cplusplus.com/reference/cctype/isdigit/
 bool HeplString::isNumber() const {
     for (unsigned int i = 0; i < m_size; i++) {
@@ -354,6 +372,12 @@ void HeplString::reverse() {
         m_stringArray[i] = m_stringArray[m_size - 1 - i];
         m_stringArray[m_size - 1 - i] = temp;
     }
+}
+
+void HeplString::clear() {
+    delete m_stringArray;
+    m_stringArray = nullptr;
+    m_size = 0;
 }
 
 HeplString HeplString::substr(size_t pos, size_t len) const {

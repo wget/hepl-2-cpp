@@ -5,7 +5,7 @@ using namespace std;
 #include <termios.h>
 #include <unistd.h>
 
-#include "Calculette.h"
+#include "../Calculator.hpp"
 
 //***** Gestion saisie ********************************************************
 #define KEY_DOWN   20
@@ -24,11 +24,11 @@ int main(int argc,char* argv[])
   char tmp[10];
   bool fini = false;
 
-  Calculette calculette;
+  Calculator calculette;
   
   while(!fini)
   {
-    calculette.Affiche();
+    calculette.display();
     cout << "Touches : 0...9    --> saisie chiffre" << endl;
     cout << "          [enter]  --> fin de saisie" << endl;
     cout << "          c        --> clear (vide la saisie --> transfert vers pile)" << endl;
@@ -54,34 +54,34 @@ int main(int argc,char* argv[])
       case '7' :
       case '8' :
       case '9' : sprintf(tmp,"%c",lu);
-                 calculette.SaisirChiffre(atoi(tmp));
+                 calculette.inputNumber(atoi(tmp));
                  break;
 
-      case 'c' : calculette.ClearSaisie();
+      case 'c' : calculette.clearInput();
                  break;
 
-      case KEY_ENTER : calculette.Enter();
+      case KEY_ENTER : calculette.enter();
                        break;
 
-      case 'o' : calculette.PlusOuMoins();
+      case 'o' : calculette.plusOrMinus();
                  break;
 
-      case '+' : calculette.Plus();
+      case '+' : calculette.plus();
                  break;
 
-      case '-' : calculette.Moins();
+      case '-' : calculette.minus();
                  break;
 
-      case '*' : calculette.Fois();
+      case '*' : calculette.multiply();
                  break;
 
-      case '/' : calculette.Divise();
+      case '/' : calculette.divide();
                  break;
 
-      case 'm' : calculette.ChangeMode();
+      case 'm' : calculette.changeMode();
                  break;
 
-      case 'e' : calculette.Erase();
+      case 'e' : calculette.erase();
                  break;
     }
   }

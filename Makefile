@@ -21,7 +21,7 @@ LDFLAGS=
 
 EXECS=main#  main
 EXECS_WITH_PATH=$(patsubst %,$(DIST_PATH)/%, $(EXECS))
-TESTS=test test1 test2 test3 test4 test5 test6 #test7 
+TESTS=test test1 test2 test3 test4 test5 test6 testCalculator #test7
 TESTS_WITH_PATH=$(patsubst %,$(DIST_PATH)/%, $(TESTS))
 
 OBJ=$(patsubst %, $(OBJ_PATH)/%.o, $(filter-out $(TESTS),$(filter-out $(EXECS),$(SRC:$(SRC_PATH)/%.cpp=%))))
@@ -70,6 +70,10 @@ $(DIST_PATH)/test5: $(TEST_PATH)/test5.o $(OBJ)
 
 $(DIST_PATH)/test6: $(TEST_PATH)/test6.o $(OBJ)
 	echo "[+] Building test 6"
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+$(DIST_PATH)/testCalculator: $(TEST_PATH)/testCalculator.o $(OBJ)
+	echo "[+] Building test calculator"
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 # $(DIST_PATH)/test7: $(TEST_PATH)/test7.o $(OBJ)

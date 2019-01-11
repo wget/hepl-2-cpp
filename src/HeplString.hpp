@@ -6,6 +6,7 @@
 #include <iostream>
 #include <ostream>
 #include <fstream>
+#include <cmath>
 
 template<class T>
 class HeplList;
@@ -31,8 +32,10 @@ class HeplString {
         size_t size() const;
         HeplString itoa(int n);
         int atoi() const;
+        HeplString ftoa(float f, int afterpoint = 4);
         bool isNumber() const;
         void reverse();
+        void clear();
         HeplString substr(size_t pos = 0, size_t len = -1) const;
         HeplList<HeplString> explode(HeplString delimiter, int limit = 0);
         ~HeplString();
