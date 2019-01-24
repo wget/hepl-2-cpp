@@ -5,26 +5,33 @@
 # directive avoids this issue.
 .PHONY: clean mrproper debug test2
 
+print-%: ; @echo $* = $($*)
 SRC_PATH=src
 TEST_PATH=$(SRC_PATH)/tests
 DIST_PATH=dist
 OBJ_PATH=$(DIST_PATH)/obj
-SRC=$(wildcard $(SRC_PATH)/*.cpp)
 # From all the cpp files we have, replace the cpp extension by hpp and remove
 # the file main.hpp since it does not exist and make might complain there is no
 # rule for this file.
-HEADERS=$(filter-out $(SRC_PATH)/main.hpp, $(SRC:.cpp=.hpp))
+# HEADERS=$(filter-out $(SRC_PATH)/main.hpp, $(SRC:.cpp=.hpp))
+rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
+SRC := $(call rwildcard,$(SRC_PATH),*.cpp)
+SRC_TEST=$(call rwildcard,$(TEST_PATH),*.cpp)
+SRC := $(filter-out $(SRC_TEST), $(SRC))
+HEADERS=$(call rwildcard,$(SRC_PATH),*.hpp)
 
 CC=g++
 CFLAGS=-W -Wall -I/usr/include -I.
-LDFLAGS= 
+LDFLAGS=-lpthread -lSDL
 
 EXECS=main#  main
 EXECS_WITH_PATH=$(patsubst %,$(DIST_PATH)/%, $(EXECS))
-TESTS=test test1 test2 test3 test4 test5 test6 testCalculator #test7
+TESTS=test test1 test2 test3 test4 test5 test6 test7 testCalculator testWindow testWindowSDL
 TESTS_WITH_PATH=$(patsubst %,$(DIST_PATH)/%, $(TESTS))
 
-OBJ=$(patsubst %, $(OBJ_PATH)/%.o, $(filter-out $(TESTS),$(filter-out $(EXECS),$(SRC:$(SRC_PATH)/%.cpp=%))))
+# TEST_DEBUG=$(SRC:$(SRC_PATH)/%.cpp=%)
+HELLO_TEST=$(SRC)
+OBJ=$(patsubst %, $(OBJ_PATH)/%.o, $(filter-out dist/obj/tests/%,$(filter-out $(EXECS),$(SRC:$(SRC_PATH)/%.cpp=%))))
 #all: $(EXECS_WITH_PATH)
 all: $(TESTS_WITH_PATH)
 
@@ -32,9 +39,6 @@ debug: CFLAGS+=-DWITH_DEBUG
 debug: mrproper
 debug: CC+=-ggdb
 debug: all
-
-test2: CFLAGS+=-DWITH_TEST2
-test2: all
 
 # Instead of repeating dependencies over and over again, make does support the
 # following shortcuts. These also allow to avoid burden when we want to change
@@ -46,6 +50,10 @@ test2: all
 #$* : All wildcard character, same as * but syntax interpreted by make
 $(DIST_PATH)/main: $(OBJ_PATH)/main.o $(OBJ)
 	echo "[+] Building $@"
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+$(DIST_PATH)/test: $(TEST_PATH)/test.o $(OBJ)
+	echo "[+] Building debug test file"
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 $(DIST_PATH)/test1: $(TEST_PATH)/test1.o $(OBJ)
@@ -72,24 +80,32 @@ $(DIST_PATH)/test6: $(TEST_PATH)/test6.o $(OBJ)
 	echo "[+] Building test 6"
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
+$(DIST_PATH)/test7: $(TEST_PATH)/test7.o $(OBJ)
+	echo "[+] Building test 7"
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
 $(DIST_PATH)/testCalculator: $(TEST_PATH)/testCalculator.o $(OBJ)
 	echo "[+] Building test calculator"
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
-# $(DIST_PATH)/test7: $(TEST_PATH)/test7.o $(OBJ)
-# 	echo "[+] Building test 7"
-# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
-#
-# $(DIST_PATH)/test8: $(TEST_PATH)/test8.o $(OBJ)
-# 	echo "[+] Building test 8"
-# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
-#
-$(DIST_PATH)/test: $(TEST_PATH)/test.o $(OBJ)
-	echo "[+] Building debug test file"
+$(DIST_PATH)/testWindow: $(TEST_PATH)/testWindow.o $(OBJ)
+	echo "[+] Building test Window"
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+$(DIST_PATH)/testWindowSDL: $(TEST_PATH)/testWindowSDL.o $(OBJ)
+	echo "[+] Building test Window Calculator"
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+$(DIST_PATH)/testWindowCalculator: $(TEST_PATH)/testWindowCalculator.o $(OBJ)
+	echo "[+] Building test Window Calculator"
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.cpp $(HEADERS)
 	echo "[+] Building $@"
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+dist/WindowSDL/%.o: $(SRC_PATH)/WindowSDL/%.cpp $(HEADERS)
+	echo "[+] Building SDL $@"
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:

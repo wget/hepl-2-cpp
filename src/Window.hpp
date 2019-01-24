@@ -2,7 +2,7 @@
 #define WINDOW_HPP_DEFINED
 
 #include "Color.hpp"
-#include "WindowSDL/WindowSDL.hpp"
+#include "./WindowSDL/WindowSDL.hpp"
 
 class Window {
 

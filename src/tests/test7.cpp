@@ -3,9 +3,9 @@
 using namespace std;
 #include <stdlib.h>
 
-#include "Couleur.h"
-#include "Panneau.h"
-#include "PanneauImage.h"
+#include "../Color.hpp"
+#include "../Panel.hpp"
+#include "../ImagePanel.hpp"
 
 int  Menu();
 void Essai1();
@@ -39,9 +39,9 @@ int Menu()
   cout << "---------------------------------------------------------------------------" << endl;
   cout << "--- JEU DE TEST 7 ---------------------------------------------------------" << endl;
   cout << "---------------------------------------------------------------------------" << endl;
-  cout << " 1. Test des methodes Save et Load de la classe Couleur" << endl;
-  cout << " 2. Test des mathodes Save et Load de la classe Panneau" << endl;
-  cout << " 3. Test des methodes Save et Load de la classe PanneauImage" << endl;
+  cout << " 1. Test des methodes save et load de la classe Color" << endl;
+  cout << " 2. Test des mathodes save et load de la classe Panel" << endl;
+  cout << " 3. Test des methodes save et load de la classe ImagePanel" << endl;
   cout << " 4. Quitter" << endl << endl;
 
   int ch;
@@ -54,21 +54,21 @@ int Menu()
 //*********************************************************************************************
 void Essai1()  // Attention : utilisez les flux bytes (read et write) !!!!
 {
-  cout << "----- 1. Test des methodes Save et Load de la classe Couleur ------" << endl;
+  cout << "----- 1. Test des methodes save et load de la classe Color ------" << endl;
   
-  Couleur c1(112,141,35,"Olive");
+  Color c1(112,141,35,"Olive");
   cout << "c1 = " << c1 << endl;
   cout << endl;
 
   cout << "----- Sauvegarde de la couleur dans le fichier C.dat -----" << endl;
   ofstream fichier1("C.dat",ios::out);
-  c1.Save(fichier1);
+  c1.save(fichier1);
   fichier1.close();
 
   cout << "----- Chargement de la couleur situee dans le fichier C.dat -----" << endl;
   ifstream fichier2("C.dat",ios::in);
-  Couleur c2;
-  c2.Load(fichier2);
+  Color c2;
+  c2.load(fichier2);
   fichier2.close();
   cout << "c2 = " << c2 << endl;
   cout << endl;
@@ -77,21 +77,21 @@ void Essai1()  // Attention : utilisez les flux bytes (read et write) !!!!
 //*********************************************************************************************
 void Essai2()  // Attention : utilisez les flux bytes (read et write) !!!!
 {
-  cout << "----- 2. Test des methodes Save et Load de la classe Panneau ------" << endl;
+  cout << "----- 2. Test des methodes save et load de la classe Panel ------" << endl;
   
-  Panneau p1("P02",30,45,300,200);
+  Panel p1("P02",30,45,300,200);
   cout << "p1 = " << p1 << endl;
   cout << endl;
 
   cout << "----- Sauvegarde du panneau dans le fichier P.dat -----" << endl;
   ofstream fichier1("P.dat",ios::out);
-  p1.Save(fichier1);
+  p1.save(fichier1);
   fichier1.close();
 
   cout << "----- Chargement du panneau situe dans le fichier P.dat -----" << endl;
   ifstream fichier2("P.dat",ios::in);
-  Panneau p2;
-  p2.Load(fichier2);
+  Panel p2;
+  p2.load(fichier2);
   fichier2.close();
   cout << "p2 = " << p2 << endl;
   cout << endl;
@@ -100,21 +100,21 @@ void Essai2()  // Attention : utilisez les flux bytes (read et write) !!!!
 //*********************************************************************************************
 void Essai3()  // Attention : utilisez les flux bytes (read et write) !!!!
 {
-  cout << "----- 3. Test des methodes Save et Load de la classe PanneauImage ------" << endl;
+  cout << "----- 3. Test des methodes save et load de la classe ImagePanel ------" << endl;
   
-  PanneauImage p1("P05",30,45,"fleur.bmp");
+  ImagePanel p1("P05",30,45,"fleur.bmp");
   cout << "p1 = " << p1 << endl;
   cout << endl;
 
-  cout << "----- Sauvegarde du PanneauImage dans le fichier PI.dat -----" << endl;
+  cout << "----- Sauvegarde du ImagePanel dans le fichier PI.dat -----" << endl;
   ofstream fichier1("PI.dat",ios::out);
-  p1.Save(fichier1);
+  p1.save(fichier1);
   fichier1.close();
 
-  cout << "----- Chargement du PanneauImage situe dans le fichier PI.dat -----" << endl;
+  cout << "----- Chargement du ImagePanel situe dans le fichier PI.dat -----" << endl;
   ifstream fichier2("PI.dat",ios::in);
-  PanneauImage p2;
-  p2.Load(fichier2);
+  ImagePanel p2;
+  p2.load(fichier2);
   fichier2.close();
   cout << "p2 = " << p2 << endl;
   cout << endl;

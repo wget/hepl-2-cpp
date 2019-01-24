@@ -15,8 +15,8 @@ int main(int argc,char* argv[])
 
   Panel p1("P01",30,60,120,90,Color(255,0,0));
   Button  b1("B01",200,60,40,40,Color::BLUE);
-  ImagePanel p2("P02",40,200,"../images/3.bmp");
-  ImageButton b2("B02",210,170,"../images/button_enter.bmp");
+  ImagePanel p2("P02",40,200,"../src/images/3.bmp");
+  ImageButton b2("B02",210,170,"../src/images/button_enter.bmp");
 
   fenetre.setVisible(true);
   fenetre.draw();
@@ -30,8 +30,8 @@ int main(int argc,char* argv[])
   if (clic.getX() == -1) cout << "Clic sur croix de fenetre..." << endl;
   else
   { // A-t-on cliqué sur un bouton ?
-    b1.clic(clic.getX(),clic.getY());
-    b2.clic(clic.getX(),clic.getY());
+    b1.click(clic.getX(),clic.getY());
+    b2.click(clic.getX(),clic.getY());
   }
 
   fenetre.setVisible(false);
