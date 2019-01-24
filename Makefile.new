@@ -1,0 +1,127 @@
+.SILENT:
+# If we define in the current directory a file named clean or mrproper, this
+# will break this makefile as these target do not have any dependencies, the
+# target will always be more recent and will never be evaluated. The PHONY
+# directive avoids this issue.
+.PHONY: clean mrproper debug
+
+print-%: ; @echo $* = $($*)
+rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
+
+SRC_PATH = src
+DIST_PATH = dist
+OBJ_PATH := $(DIST_PATH)/obj
+# Yes, we want Immediate Evaluation when available, especially here as
+# reanalyzing the whole tree each time the variable is called is rather
+# time expensive.
+# src.: http://aegis.sourceforge.net/auug97.pdf, 5.2
+SRC := $(call rwildcard,src/,*.cpp)
+SRC_PATHS := $(sort $(dir $(SRC)))
+
+CC = g++
+CFLAGS = -W -Wall 
+LDFLAGS = 
+
+# EXECS = test test1 test2 test3 test4 test5 test6 test7 testCalculator testWindow
+EXECS = test 
+EXECS_WITH_PATH := $(patsubst %, $(DIST_PATH)/%, $(EXECS))
+
+# patsubst: $(patsubst pattern,replacement,text)
+# 	  Finds whitespace-separated words in "text" that match "pattern" and
+# 	  replaces them with "replacement"
+# filter-out: $(filter-out pattern…,text)
+#     Returns all whitespace-separated words in text that do not match any of
+#     the pattern words, removing the words that do match one or more
+# Explanations:
+# * Remove all .cpp suffix from files in src path
+# * Remove executables from the list
+# * Remove test executables from the list
+# * Suffix the remaining item to .o
+# We cannot use "notdir" here as we want to keep the intermediate subdirectories leading to the source file, other wise there is a risk of claash when the source filename of a target objet can be found in several directories (when some sources have the same filenames).
+OBJ := $(patsubst $(SRC_PATH)/%, $(OBJ_PATH)/%.o, $(basename $(SRC)))
+OBJ_PATHS := $(sort $(dir $(OBJ)))
+
+# From all the cpp files we have, replace the cpp extension by .hpp
+# As test* files don't have headers, remove them in order to avoid dependencies
+# issues like:
+# make: *** No rule to make target 'src/tests/test1.hpp', needed by 'dist/obj/HeplString.o'.  Stop.
+# Aways including all headers is inefficient, we will ask gcc/clang to do it
+# for us instead.
+# HEADERS := $(call rwildcard,src/,*.hpp)
+HEADERS = $(OBJ:%.o=%.d)
+
+all: $(EXECS_WITH_PATH)
+
+debug: CFLAGS+=-DWITH_DEBUG
+debug: mrproper
+debug: CC+=-ggdb
+debug: all
+
+# Instead of repeating dependencies over and over again, make does support the
+# following shortcuts. These also allow to avoid burden when we want to change
+# the destination name of executables/targets for example.
+#$@ : Target name;
+#$< : First dependency;
+#$? : More recent dependencies than the target;
+#$^ : All the dependencies;
+#$* : All wildcard character, same as * but syntax interpreted by make
+$(DIST_PATH)/test: $(OBJ)
+	echo "[+] Building debug test file"
+	# $(LINK.o) $^ $(LDFLAGS) -o $@
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+# $(DIST_PATH)/test1: $(TEST_PATH)/test1.o $(OBJ)
+# 	echo "[+] Building test 1"
+# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+#
+# $(DIST_PATH)/test2: $(TEST_PATH)/test2.o $(OBJ)
+# 	echo "[+] Building test 2"
+# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+#
+# $(DIST_PATH)/test3: $(TEST_PATH)/test3.o $(OBJ)
+# 	echo "[+] Building test 3"
+# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+#
+# $(DIST_PATH)/test4: $(TEST_PATH)/test4.o $(OBJ)
+# 	echo "[+] Building test 4"
+# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+#
+# $(DIST_PATH)/test5: $(TEST_PATH)/test5.o $(OBJ)
+# 	echo "[+] Building test 5"
+# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+#
+# $(DIST_PATH)/test6: $(TEST_PATH)/test6.o $(OBJ)
+# 	echo "[+] Building test 6"
+# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+#
+# $(DIST_PATH)/test7: $(TEST_PATH)/test7.o $(OBJ)
+# 	echo "[+] Building test 7"
+# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+#
+# $(DIST_PATH)/testCalculator: $(TEST_PATH)/testCalculator.o $(OBJ)
+# 	echo "[+] Building test calculator"
+# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+#
+# $(DIST_PATH)/testWindow: $(TEST_PATH)/testWindow.o $(OBJ)
+# 	echo "[+] Building test Window SDL"
+# 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+# Include all .d files
+# -include $(HEADERS)
+
+$(OBJ): $(SRC)
+	echo "[+] Building $@"
+	# We are making use of make's internal variable $(@D), that means "the
+	# directory the current target resides in". Needed to have our directory
+	# hierarchy created.
+	# src.: https://stackoverflow.com/a/1951111/3514658
+	@mkdir -p $(@D)
+	# $(CC) $(CFLAGS) -MMD -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	$(RM) $(OBJ) $(HEADERS) $(EXECS_WITH_PATH)
+
+mrproper: clean
+	$(RM) -r $(EXECS_WITH_PATH) $(OBJ_PATHS)
