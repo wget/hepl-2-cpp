@@ -150,16 +150,16 @@ void Essai2()
   liste.display();                                    
   cout << endl;
 
-  cout << "On add ImagePanel(\"P01\",20,40,\"un.bmp\")..." << endl;
-  liste.add(ImagePanel("P01",20,40,"un.bmp"));
+  cout << "On add ImagePanel(\"P01\",20,40,\"1.bmp\")..." << endl;
+  liste.add(ImagePanel("P01",20,40,"1.bmp"));
   liste.display();
 
-  cout << "On add ImagePanel(\"P02\",100,110,\"deux.bmp\")..." << endl;
-  liste.add(ImagePanel("P02",100,110,"deux.bmp"));
+  cout << "On add ImagePanel(\"P02\",100,110,\"2.bmp\")..." << endl;
+  liste.add(ImagePanel("P02",100,110,"2.bmp"));
   liste.display();
 
-  cout << "On add ImagePanel(\"P03\",200,10,\"trois.bmp\")..." << endl;
-  ImagePanel *p = new ImagePanel("P03",200,10,"trois.bmp");
+  cout << "On add ImagePanel(\"P03\",200,10,\"3.bmp\")..." << endl;
+  ImagePanel *p = new ImagePanel("P03",200,10,"3.bmp");
   liste.add(*p);
   delete p;
   liste.display();
@@ -269,14 +269,14 @@ void Essai6()
   HeplList<ImagePanel> liste;
   BaseListIterator<ImagePanel> it(liste);
 
-  cout << "On add ImagePanel(\"P01\",20,40,\"un.bmp\")..." << endl;
-  liste.add(ImagePanel("P01",20,40,"un.bmp"));
+  cout << "On add ImagePanel(\"P01\",20,40,\"1.bmp\")..." << endl;
+  liste.add(ImagePanel("P01",20,40,"1.bmp"));
 
-  cout << "On add ImagePanel(\"P02\",100,110,\"deux.bmp\")..." << endl;
-  liste.add(ImagePanel("P02",100,110,"deux.bmp"));
+  cout << "On add ImagePanel(\"P02\",100,110,\"2.bmp\")..." << endl;
+  liste.add(ImagePanel("P02",100,110,"2.bmp"));
 
-  cout << "On add ImagePanel(\"P03\",200,10,\"trois.bmp\")..." << endl;
-  ImagePanel *p = new ImagePanel("P03",200,10,"trois.bmp");
+  cout << "On add ImagePanel(\"P03\",200,10,\"3.bmp\")..." << endl;
+  ImagePanel *p = new ImagePanel("P03",200,10,"3.bmp");
   liste.add(*p);
   delete p;
 

@@ -26,7 +26,7 @@ LDFLAGS=-lpthread -lSDL
 
 EXECS=main#  main
 EXECS_WITH_PATH=$(patsubst %,$(DIST_PATH)/%, $(EXECS))
-TESTS=test test1 test2 test3 test4 test5 test6 test7 testCalculator testWindow testWindowSDL
+TESTS=test test1 test2 test3 test4 test5 test6 test7 testCalculator testWindow testWindowSDL testWindowCalculator
 TESTS_WITH_PATH=$(patsubst %,$(DIST_PATH)/%, $(TESTS))
 
 # TEST_DEBUG=$(SRC:$(SRC_PATH)/%.cpp=%)
@@ -93,7 +93,7 @@ $(DIST_PATH)/testWindow: $(TEST_PATH)/testWindow.o $(OBJ)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 $(DIST_PATH)/testWindowSDL: $(TEST_PATH)/testWindowSDL.o $(OBJ)
-	echo "[+] Building test Window Calculator"
+	echo "[+] Building test Window SDL"
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 $(DIST_PATH)/testWindowCalculator: $(TEST_PATH)/testWindowCalculator.o $(OBJ)

@@ -200,13 +200,13 @@ void Essai3()
     cout << "--> modification de b" << endl;
     b.setX(20);
     b.setY(40);
-    b.setFilename("boutonPlus.bmp");   // Methode heritee de ImagePanel
+    b.setFilename("button_plus.bmp");   // Methode heritee de ImagePanel
     cout << "b = " << b << endl << endl;
   }
 
   cout << "(3.2) ***** Test du constructeur d'initialisation + getters de ImageButton ***********" << endl;
   { 
-    ImageButton b("B01",30,40,"boutonMoins.bmp");
+    ImageButton b("B01",30,40,"button_minus.bmp");
     cout << "b = " << b << endl;
     cout << "Position de b = (" << b.getX() << "," << b.getY() << ")" << endl;
     cout << "Fichier de b  = " << b.getFilename() << endl << endl;   // Methode heritee de ImagePanel

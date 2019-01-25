@@ -136,7 +136,7 @@ void Essai2()
 
     cout << "Creation d'un ImageButton..." << endl;
     cout << "Encodez son nom : "; cin.getline(txt,80);
-    ImageButton bi(txt,100,30,"boutonPlus.bmp");
+    ImageButton bi(txt,100,30,"button_plus.bmp");
     cout << "ImageButton cree : " << bi << endl << endl;
   } catch (BaseException &e) {
       cout << "Exception: " << e.what() << endl;
