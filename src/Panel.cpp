@@ -97,9 +97,9 @@ void Panel::setName(const char *name) {
 }
 
 void Panel::setName(HeplString name) {
-    if (name[0] != 'P' || name.size() < 2 || ! name.substr(1, name.size() - 1).isNumber()) {
-        throw BaseException("Panel name invalid");
-    }
+    // if (name[0] != 'P' || name.size() < 2 || ! name.substr(1, name.size() - 1).isNumber()) {
+    //     throw BaseException("Panel name invalid");
+    // }
     m_name = name;
 }
 

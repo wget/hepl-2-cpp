@@ -45,9 +45,9 @@ Button::~Button() {
  * Setters
  */
 void Button::setName(HeplString name) {
-    if (name[0] != 'B' || name.size() < 2 || ! name.substr(1, name.size() - 1).isNumber()) {
-        throw BaseException("Button name invalid");
-    }
+    // if (name[0] != 'B' || name.size() < 2 || ! name.substr(1, name.size() - 1).isNumber()) {
+    //     throw BaseException("Button name invalid");
+    // }
     m_name = name;
 }
 

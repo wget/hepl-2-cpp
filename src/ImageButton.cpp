@@ -54,10 +54,9 @@ ImageButton::~ImageButton() {
  * Setters
  */
 void ImageButton::setName(HeplString name) {
-    cout << "set name imagebutton called" << endl;
-    if (name[0] != 'B' || name.size() < 2 || ! name.substr(1, name.size() - 1).isNumber()) {
-        throw BaseException("ImageButton name invalid");
-    }
+    // if (name[0] != 'B' || name.size() < 2 || ! name.substr(1, name.size() - 1).isNumber()) {
+    //     throw BaseException("ImageButton name invalid");
+    // }
     m_name = name;
 }
 
