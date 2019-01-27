@@ -2,8 +2,12 @@
 #define BUTTON_HPP_DEFINED
 
 #include "Panel.hpp"
+#include "Listener.hpp"
 
 class Button: public virtual Panel {
+
+    protected:
+        Listener *m_listener;
 
     public:
         // Constructors
@@ -13,8 +17,12 @@ class Button: public virtual Panel {
         Button(const Button &rhs);
         ~Button();
 
+        /* Getters */
+        Listener* getListener() const;
+
         /* Setters */
         void setName(HeplString name) override;
+        void setListener(Listener *listener);
 
         // Other methods
         void display() const;

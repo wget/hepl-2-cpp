@@ -4,7 +4,6 @@
 #include "HeplStack.hpp"
 #include "Fraction.hpp"
 #include "BaseException.hpp"
-#include <iostream>
 
 class Calculator {
 
@@ -32,7 +31,7 @@ class Calculator {
 
 };
 
-class CalculatorException: BaseException {
+class CalculatorException: public BaseException {
     using BaseException::BaseException;
 };
 

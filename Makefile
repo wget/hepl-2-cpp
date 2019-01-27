@@ -26,7 +26,7 @@ LDFLAGS=-lpthread -lSDL
 
 EXECS=main#  main
 EXECS_WITH_PATH=$(patsubst %,$(DIST_PATH)/%, $(EXECS))
-TESTS=test test1 test2 test3 test4 test5 test6 test7 testCalculator testWindow testWindowSDL testWindowCalculator
+TESTS=test test1 test2 test3 test4 test5 test6 test7 testCalculator testWindow testWindowSDL testWindowCalculator main
 TESTS_WITH_PATH=$(patsubst %,$(DIST_PATH)/%, $(TESTS))
 
 # TEST_DEBUG=$(SRC:$(SRC_PATH)/%.cpp=%)

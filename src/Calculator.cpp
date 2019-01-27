@@ -1,5 +1,6 @@
 #include "Calculator.hpp"
 
+#include <iostream>
 Calculator::Calculator() {
 }
 
@@ -87,7 +88,9 @@ void Calculator::changeMode() {
 void Calculator::enter() {
     Fraction f;
     f.setNumerator(m_input.atoi());
+    std::cout << "enter() before push()" << std::endl;
     m_stack.push(f);
+    std::cout << "enter() after push()" << std::endl;
     m_input.clear();
 }
 
@@ -98,28 +101,13 @@ HeplString Calculator::getInput() {
 HeplString Calculator::getStack(int index) {
 
     Fraction f = m_stack[index];
-    HeplString string;
 
     if (m_mode) {
-        if (f.getNumerator() == 0) {
-            string << 0 << "\n";
-            return string;
-        }
-
-        if (f.getSign() == Sign::NEGATIVE) {
-            string << '-';
-        }
-
-        if (f.getDenominator() == 1) {
-            string << f.getNumerator() << "\n";
-        } else {
-            string << f.getNumerator() << '/' << f.getDenominator() << "\n";
-        }
-        return string;
+        return f.getAsString();
     }
 
     int sign = (f.getSign() == Sign::NEGATIVE) ? -1 : 1;
     float divide = sign * (f.getNumerator() / f.getDenominator());
-
-    string = string.ftoa(divide);
+    HeplString string;
+    return string.ftoa(divide);
 }

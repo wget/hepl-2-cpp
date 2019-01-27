@@ -35,7 +35,7 @@ BaseList<T>::BaseList(BaseList& baseList)
 }
 
 template<class T>
-BaseList<T>::~BaseList() {
+void BaseList<T>::erase() {
     Cell<T> *baseListCell = m_pHead;
     Cell<T> *baseListCellCurrent = nullptr;
     while (baseListCell != nullptr) {
@@ -43,7 +43,12 @@ BaseList<T>::~BaseList() {
         baseListCell = baseListCell->getNext();
         delete baseListCellCurrent;
     }
-    baseListCell = nullptr;
+    m_pHead = nullptr;
+}
+
+template<class T>
+BaseList<T>::~BaseList() {
+    erase();
 }
 
 template<class T>
@@ -77,8 +82,7 @@ void BaseList<T>::display() const {
 template<class T>
 BaseList<T>& BaseList<T>::operator=(BaseList const& baseList) {
 
-    // TODO: Effacer la liste ou réécrire dessus
-    //
+    erase();
     if (baseList.m_pHead == nullptr) {
         return *this;
     }

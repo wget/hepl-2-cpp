@@ -1,6 +1,5 @@
 #include "Window.hpp"
 
-
 /* Constructors */
 Window::Window(): m_width(0), m_height(0) {
 }

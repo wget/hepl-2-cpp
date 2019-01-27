@@ -71,6 +71,25 @@ Sign Fraction::getSign() const {
     return m_sign;
 }
 
+HeplString Fraction::getAsString() const {
+    HeplString string;
+
+    if (m_numerator == 0) {
+        return HeplString(0);
+    }
+
+    if (m_sign == Sign::NEGATIVE) {
+        string += HeplString("-");
+    }
+
+    if (m_denominator == 1) {
+        string += HeplString((int)m_numerator);
+    } else {
+        string += HeplString((int)m_numerator) + HeplString("/") + HeplString(m_denominator);
+    }
+    return string;
+}
+
 /**
  * Setters
  */

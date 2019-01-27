@@ -26,6 +26,7 @@ Button::Button(
     setWidth(width);
     setHeight(height);
     setColor(color);
+    m_listener = nullptr;
 }
 
 Button::Button(const Button& rhs)
@@ -42,6 +43,13 @@ Button::~Button() {
 }
 
 /*
+ * Getters
+ */
+Listener* Button::getListener() const {
+    return m_listener;
+}
+
+/*
  * Setters
  */
 void Button::setName(HeplString name) {
@@ -51,9 +59,14 @@ void Button::setName(HeplString name) {
     m_name = name;
 }
 
+void Button::setListener(Listener *listener) {
+    m_listener = listener;
+}
+
 /*
  * Other methods
  */
+
 void Button::display() const {
     cout << "Name  : " << "Button " << m_name << endl;
     cout << "X     : " << m_x << endl;
@@ -64,12 +77,11 @@ void Button::display() const {
 }
 
 void Button::click(int x, int y) const {
-    if (x <= (int)m_x && x <= (int)m_x + (int)m_width &&
-        y <= (int)m_y && y <= (int)m_y + (int)m_height) {
-        cout << "Click missed" << endl;
-    } else {
-        cout << "Click OK" << endl;
+    if ((x < (int)m_x || x > ((int)m_x + (int)m_width)) ||
+        (y < (int)m_y || y > ((int)m_y + (int)m_height))) {
+        return;
     }
+    m_listener->actionButton(m_name);
 }
 
 HeplString Button::getType() const {

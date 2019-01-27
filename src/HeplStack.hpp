@@ -14,8 +14,8 @@ class HeplStack : public BaseList<T> {
         // inherited.
         T* add(const T& val);
         void push(const T& val);
-        T& top() const;
-        T& pop();
+        T top() const;
+        T pop();
 };
 
 class HeplStackEmptyException: BaseException {

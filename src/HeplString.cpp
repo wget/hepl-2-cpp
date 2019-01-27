@@ -26,10 +26,11 @@ HeplString::HeplString(const char *newString) {
         i++;
     }
     m_size = i;
-    m_stringArray = new char[m_size];
+    m_stringArray = new char[m_size + 1];
     for (i = 0; i < m_size; i++) {
         m_stringArray[i] = newString[i];
     }
+    m_stringArray[m_size] = '\0';
 }
 
 HeplString::HeplString(int number) {
@@ -45,12 +46,13 @@ HeplString::HeplString(const HeplString& other) {
     cout << "In copy constructor: HeplString::HeplString(HeplString const& other)" << endl;
 #endif
     m_size = other.m_size;
-    m_stringArray = new char[m_size];
+    m_stringArray = new char[m_size + 1];
     // We should have used memcpy here, but since it is contained in cstring,
     // we are prohibited to use it.
     for (size_t i = 0; i < other.m_size; i++) {
         m_stringArray[i] = other.m_stringArray[i];
     }
+    m_stringArray[m_size] = '\0';
 }
 
 HeplString::HeplString(HeplString* other) {
@@ -72,6 +74,10 @@ char *HeplString::c_str() const {
 
 size_t HeplString::size() const {
     return m_size;
+}
+
+bool HeplString::empty() const {
+    return (m_size == 0)? true: false;
 }
     
 HeplString::~HeplString() {
@@ -145,14 +151,14 @@ HeplString HeplString::operator+(int rhs) {
 }
 
 char HeplString::operator[](size_t i) const {
-    if (i > m_size) {
+    if (i >= m_size) {
         throw 1;
     }
     return m_stringArray[i];
 }
 
 char& HeplString::operator[](size_t i) {
-    if (i > m_size) {
+    if (i >= m_size) {
         throw 1;
     }
     return m_stringArray[i];
@@ -350,7 +356,7 @@ HeplString HeplString::ftoa(float f, int afterpoint) {
         fpart = fpart * pow(10, afterpoint);
         string += itoa((int)fpart);
     }
-
+    *this = string;
     return string;
 }
 
@@ -375,7 +381,7 @@ void HeplString::reverse() {
 }
 
 void HeplString::clear() {
-    delete m_stringArray;
+    delete[] m_stringArray;
     m_stringArray = nullptr;
     m_size = 0;
 }

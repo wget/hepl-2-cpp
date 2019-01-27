@@ -30,8 +30,7 @@ bool BaseListIterator<T>::operator++(int) {
 
 template<class T>
 BaseListIterator<T>::operator T() const {
-    T newValue = *(m_currentCell->getValue());
-    return newValue;
+    return *(m_currentCell->getValue());
 }
 
 template<class T>

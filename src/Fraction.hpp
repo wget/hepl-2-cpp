@@ -4,6 +4,7 @@
 #include <cmath>
 #include "FractionException.hpp"
 #include "HeplList.hpp"
+#include "HeplString.hpp"
 
 enum Sign {
     POSITIVE = +1,
@@ -32,6 +33,7 @@ class Fraction {
         unsigned int getNumerator() const;
         unsigned int getDenominator() const;
         Sign getSign() const;
+        HeplString getAsString() const;
 
         /* Setters */
         void setNumerator(unsigned int numerator);

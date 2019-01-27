@@ -30,6 +30,7 @@ class HeplString {
         HeplString(HeplString* other);
         char *c_str() const;
         size_t size() const;
+        bool empty() const;
         HeplString itoa(int n);
         int atoi() const;
         HeplString ftoa(float f, int afterpoint = 4);

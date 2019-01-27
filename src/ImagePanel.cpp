@@ -35,6 +35,7 @@ ImagePanel::ImagePanel(
     setHeight(height);
     setColor(Color::SILVER);
     setFilename(filename);
+    // m_image = nullptr;
 }
 
 ImagePanel::ImagePanel(const ImagePanel& rhs)

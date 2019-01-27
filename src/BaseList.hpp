@@ -14,6 +14,7 @@ class BaseList {
 
     protected:
         Cell<T> *m_pHead;
+        void erase();
 
     public:
         BaseList();
