@@ -26,7 +26,7 @@ WindowSDLexception::WindowSDLexception(const WindowSDLexception &e)
 //***************************************************************************
 WindowSDLexception::~WindowSDLexception()
 {
-  if (message) delete message;
+  if (message) delete[] message;
 }
 
 //***************************************************************************
