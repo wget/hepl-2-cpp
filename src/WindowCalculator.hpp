@@ -32,6 +32,7 @@ class WindowCalculator: public Window {
         bool m_isInit;
         void resetDisplay();
         void resetInput();
+        void redrawPanels();
         void redrawDisplay();
         void redrawInput();
         void stringToDigitRow(HeplString string, ImagePanel *array, size_t size, int positionY);

@@ -72,7 +72,16 @@ void Controller::actionButton(const HeplString name) {
         }
 
         m_window->draw();
-    } catch (CalculatorException *e) {
-        std::cout << "CalculatorException caught: \"" << e->what() << "\"" << std::endl;
+    } catch (CalculatorException e) {
+        std::cout << "CalculatorException caught: \"" << e.what() << "\"" << std::endl;
+        m_window->setColorPanelTop(Color::RED);
+        m_window->setColorPanelMiddle(Color::RED);
+        m_window->setColorPanelBottom(Color::RED);
+        m_window->draw();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        m_window->setColorPanelTop(Color::SILVER);
+        m_window->setColorPanelMiddle(Color::SILVER);
+        m_window->setColorPanelBottom(Color::SILVER);
+        m_window->draw();
     }
 }

@@ -23,47 +23,52 @@ void Calculator::clearInput() {
 
 void Calculator::plus() {
     if (m_stack.getNumberItems() < 2) {
-        throw new CalculatorException("Not enough terms for plus");
+        throw CalculatorException("Not enough terms for plus");
     }
-    Fraction b = m_stack.pop() ;
-    Fraction a = m_stack.pop() ;
+    Fraction b = m_stack.pop();
+    Fraction a = m_stack.pop();
     Fraction result = a + b ;
     m_stack.push(result) ;
 }
 
 void Calculator::minus() {
     if (m_stack.getNumberItems() < 2) {
-        throw new CalculatorException("Not enough terms for minus");
+        throw CalculatorException("Not enough terms for minus");
     }
-    Fraction b = m_stack.pop() ;
-    Fraction a = m_stack.pop() ;
+    Fraction b = m_stack.pop();
+    Fraction a = m_stack.pop();
     Fraction result = a - b ;
     m_stack.push(result) ;
 }
 
 void Calculator::multiply() {
     if (m_stack.getNumberItems() < 2) {
-        throw new CalculatorException("Not enough terms for multiply");
+        throw CalculatorException("Not enough terms for multiply");
     }
-    Fraction b = m_stack.pop() ;
-    Fraction a = m_stack.pop() ;
+    Fraction b = m_stack.pop();
+    Fraction a = m_stack.pop();
     Fraction result = a * b ;
     m_stack.push(result) ;
 }
 
 void Calculator::divide() {
     if (m_stack.getNumberItems() < 2) {
-        throw new CalculatorException("Not enough terms for divide");
+        throw CalculatorException("Not enough terms for divide");
     }
-    Fraction b = m_stack.pop() ;
-    Fraction a = m_stack.pop() ;
-    Fraction result = a / b ;
-    m_stack.push(result) ;
+    Fraction b = m_stack.pop();
+    Fraction a = m_stack.pop();
+    try {
+        Fraction result = a / b ;
+        m_stack.push(result);
+    } catch (FractionException e) {
+        m_stack.push(a);
+        throw CalculatorException("Invalid fraction division");
+    }
 }
 
 void Calculator::plusOrMinus() {
     if (m_stack.getNumberItems() < 2) {
-        throw new CalculatorException("Not enough terms for plus or minus");
+        throw CalculatorException("Not enough terms for plus or minus");
     }
     Fraction f = m_stack.pop();
     if (f.isPositive()) {

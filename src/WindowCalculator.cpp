@@ -38,29 +38,36 @@ WindowCalculator::WindowCalculator()
 }
 
 void WindowCalculator::resetDisplay() {
-    for (unsigned int i = 0; i < CALC_DISPLAY_ROWS; i++) {
-        for (int j = 0; j < CALC_DISPLAY_COLUMNS; j++) {
+    for (size_t i = 0; i < CALC_DISPLAY_ROWS; i++) {
+        for (size_t j = 0; j < CALC_DISPLAY_COLUMNS; j++) {
             m_display[i][j] = ImagePanel("Empty", m_displayPositionsX[j], m_displayPositionsY[i], 40, 40, "images/empty.bmp");
         }
     }
 }
 
 void WindowCalculator::resetInput() {
-    for (unsigned int i = 0; i < CALC_INPUT_COLUMNS; i++) {
+    for (size_t i = 0; i < CALC_INPUT_COLUMNS; i++) {
         m_input[i] = ImagePanel("Empty", m_inputPositionsX[i], 240, 40, 40, "images/empty.bmp");
     }
 }
 
+void WindowCalculator::redrawPanels() {
+    BaseListIterator<Panel> panelListIt(m_panelList);
+    for (panelListIt.reset(); !panelListIt.end(); panelListIt++) {
+        (&panelListIt)->draw();
+    }
+}
+
 void WindowCalculator::redrawDisplay() {
-    for (unsigned int i = 0; i < CALC_DISPLAY_ROWS; i++) {
-        for (int j = 0; j < CALC_DISPLAY_COLUMNS; j++) {
+    for (size_t i = 0; i < CALC_DISPLAY_ROWS; i++) {
+        for (size_t j = 0; j < CALC_DISPLAY_COLUMNS; j++) {
             m_display[i][j].draw();
         }
     }
 }
 
 void WindowCalculator::redrawInput() {
-    for (unsigned int i = 0; i < CALC_INPUT_COLUMNS; i++) {
+    for (size_t i = 0; i < CALC_INPUT_COLUMNS; i++) {
         m_input[i].draw();
     }
 }
@@ -117,11 +124,7 @@ void WindowCalculator::draw() {
         // Redraw window background
         Window::draw();
 
-        // Redraw the 3 panels
-        BaseListIterator<Panel> panelListIt(m_panelList);
-        for (panelListIt.reset(); !panelListIt.end(); panelListIt++) {
-            (&panelListIt)->draw();
-        }
+        redrawPanels();
 
         // Redraw the buttons
         BaseListIterator<ImageButton> buttonListIt(m_buttonList);
@@ -136,12 +139,14 @@ void WindowCalculator::draw() {
         return;
     }
 
+
     // Update display
     resetDisplay();
+    redrawDisplay();
     for (int i = 0; i < CALC_DISPLAY_ROWS; i++) {
         try {
             stringToDigitRow(m_calculator->getStack(i, CALC_DISPLAY_COLUMNS), m_display[CALC_DISPLAY_ROWS - i - 1], CALC_DISPLAY_COLUMNS, m_displayPositionsY[i]);
-        } catch (BaseListItemNotFoundException *e) {
+        } catch (BaseListItemNotFoundException e) {
             break;
         }
     }
@@ -169,15 +174,24 @@ Calculator *WindowCalculator::getCalculator() {
 }
 
 void WindowCalculator::setColorPanelTop(const Color& color) {
-    ((Panel)m_panelList[0]).setColor(color);
+    (&m_panelList[0])->setColor(color);
+    m_isInit = true;
+    draw();
+    draw();
 }
 
 void WindowCalculator::setColorPanelMiddle(const Color& color) {
-    ((Panel)m_panelList[1]).setColor(color);
+    (&m_panelList[1])->setColor(color);
+    m_isInit = true;
+    draw();
+    draw();
 }
 
 void WindowCalculator::setColorPanelBottom(const Color& color) {
-    ((Panel)m_panelList[2]).setColor(color);
+    (&m_panelList[2])->setColor(color);
+    m_isInit = true;
+    draw();
+    draw();
 }
 
 void WindowCalculator::setCalculator(Calculator *calculator) {

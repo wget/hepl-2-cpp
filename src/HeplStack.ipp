@@ -18,7 +18,7 @@ template<class T>
 T HeplStack<T>::top() const {
 
     if (BaseList<T>::m_pHead == nullptr) {
-        throw new HeplStackEmptyException();
+        throw HeplStackEmptyException();
     }
     return *(BaseList<T>::m_pHead->getValue());
 }
@@ -27,7 +27,7 @@ template<class T>
 T HeplStack<T>::pop() {
 
     if (BaseList<T>::m_pHead == nullptr) {
-        throw new HeplStackEmptyException();
+        throw HeplStackEmptyException();
     }
 
     T newVal(*(BaseList<T>::m_pHead->getValue()));

@@ -320,21 +320,21 @@ istream& operator>>(istream& lhs, Color& rhs) {
 
 void Color::setRed(int value) {
     if (value < 0 || value > 255) {
-        throw new InvalidColorException(HeplString("Red is out of range: ") + HeplString(m_red), this);
+        throw InvalidColorException(HeplString("Red is out of range: ") + HeplString(m_red), this);
     }
     m_red = value;
 }
 
 void Color::setGreen(int value) {
     if (value < 0 || value > 255) {
-        throw new InvalidColorException(HeplString("Green is out of range: ") + HeplString(m_green), this);
+        throw InvalidColorException(HeplString("Green is out of range: ") + HeplString(m_green), this);
     }
     m_green = value;
 }
 
 void Color::setBlue(int value) {
     if (value < 0 || value > 255) {
-        throw new InvalidColorException(HeplString("Blue is out of range: ") + HeplString(m_blue), this);
+        throw InvalidColorException(HeplString("Blue is out of range: ") + HeplString(m_blue), this);
     }
     m_blue = value;
 }
