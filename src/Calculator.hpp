@@ -4,6 +4,7 @@
 #include "HeplStack.hpp"
 #include "Fraction.hpp"
 #include "BaseException.hpp"
+#include <cstdio>
 
 class Calculator {
 
@@ -14,7 +15,7 @@ class Calculator {
 
     public:
         Calculator();
-        Calculator(Calculator const& other);
+        Calculator(Calculator& other);
         void display() const;
         void inputNumber(unsigned int val);
         void clearInput();
@@ -27,7 +28,7 @@ class Calculator {
         void changeMode();
         void enter();
         HeplString getInput();
-        HeplString getStack(int index);
+        HeplString getStack(int index, size_t size);
 
 };
 

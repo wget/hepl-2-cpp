@@ -35,7 +35,6 @@ ImagePanel::ImagePanel(
     setHeight(height);
     setColor(Color::SILVER);
     setFilename(filename);
-    // m_image = nullptr;
 }
 
 ImagePanel::ImagePanel(const ImagePanel& rhs)
@@ -49,6 +48,9 @@ ImagePanel::~ImagePanel() {
 #ifdef WITH_DEBUG
     cout << "In destructor: ImagePanel::~ImagePanel()" << endl;
 #endif
+    // if (m_image != nullptr) {
+    //     delete m_image;
+    // }
 }
 
 /**

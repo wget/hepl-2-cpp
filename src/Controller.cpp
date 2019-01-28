@@ -66,7 +66,7 @@ void Controller::actionButton(const HeplString name) {
         } else if (name == "BUTTON_PLUS_OR_MINUS") {
             m_calculator->plusOrMinus();
         } else if (name == "BUTTON_DIGITAL") {
-
+            m_calculator->changeMode();
         } else if (name == "BUTTON_CONFIG") {
 
         }

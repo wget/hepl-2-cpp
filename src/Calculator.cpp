@@ -1,11 +1,9 @@
 #include "Calculator.hpp"
 
-#include <iostream>
-Calculator::Calculator() {
+Calculator::Calculator(): m_stack(), m_input(), m_mode(true) {
 }
 
-Calculator::Calculator(Calculator const& other): m_input(other.m_input) {
-    m_stack = other.m_stack;
+Calculator::Calculator(Calculator& other): m_stack(other.m_stack), m_input(other.m_input), m_mode(other.m_mode) {
 }
 
 void Calculator::display() const {
@@ -88,9 +86,7 @@ void Calculator::changeMode() {
 void Calculator::enter() {
     Fraction f;
     f.setNumerator(m_input.atoi());
-    std::cout << "enter() before push()" << std::endl;
     m_stack.push(f);
-    std::cout << "enter() after push()" << std::endl;
     m_input.clear();
 }
 
@@ -98,7 +94,7 @@ HeplString Calculator::getInput() {
     return m_input;
 }
 
-HeplString Calculator::getStack(int index) {
+HeplString Calculator::getStack(int index, size_t size) {
 
     Fraction f = m_stack[index];
 
@@ -106,8 +102,22 @@ HeplString Calculator::getStack(int index) {
         return f.getAsString();
     }
 
-    int sign = (f.getSign() == Sign::NEGATIVE) ? -1 : 1;
-    float divide = sign * (f.getNumerator() / f.getDenominator());
-    HeplString string;
-    return string.ftoa(divide);
+    double divide;
+    if (f.getSign() == Sign::NEGATIVE) {
+        divide = -1 * ((double)f.getNumerator()) / ((double)f.getDenominator());
+    } else {
+        divide = ((double)f.getNumerator()) / ((double)f.getDenominator());
+    }
+
+    // If debugging purpose, we need to specify the precision
+    // std::cout << "DEBUG double :\"" << std::setprecision(10) << divide << "\"" << std::endl;
+    // don't foget to include <stdio> and <iomanip>
+
+    // We can't use our own function here string.ftoa(<float>, <precision>)
+    // because we are loosing to much precision
+    char buffer[size + 1];
+    snprintf(buffer, size + 1, "%f", divide);
+    buffer[size + 1] = '\0';
+    HeplString string(buffer);
+    return string;
 }

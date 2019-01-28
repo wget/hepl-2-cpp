@@ -344,17 +344,17 @@ int HeplString::atoi() const {
 
 HeplString HeplString::ftoa(float f, int afterpoint) {
     // Extract integer part
-    int ipart = (int)f;
+    float ipart = (int)f;
 
     // Extract floating part
-    float fpart = f - (float)ipart;
+    float fpart = f - ipart;
 
     HeplString string = itoa(ipart);
 
     if (fpart != 0) {
         string += ".";
         fpart = fpart * pow(10, afterpoint);
-        string += itoa((int)fpart);
+        string += itoa(fpart);
     }
     *this = string;
     return string;

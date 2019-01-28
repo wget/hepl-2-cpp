@@ -40,7 +40,7 @@ WindowCalculator::WindowCalculator()
 void WindowCalculator::resetDisplay() {
     for (unsigned int i = 0; i < CALC_DISPLAY_ROWS; i++) {
         for (int j = 0; j < CALC_DISPLAY_COLUMNS; j++) {
-            m_display[i][j] = ImagePanel("Empty", m_displayPositionsX[j], m_displayPositionsY[i], 40, 40,  "images/empty.bmp");
+            m_display[i][j] = ImagePanel("Empty", m_displayPositionsX[j], m_displayPositionsY[i], 40, 40, "images/empty.bmp");
         }
     }
 }
@@ -98,6 +98,15 @@ void WindowCalculator::stringToDigitRow(HeplString string, ImagePanel *array, si
             case '9':
                 array[i] = ImagePanel("DIGIT_9", m_displayPositionsX[i], positionY, 40, 40, "images/9.bmp");
                 break;
+            case '/':
+                array[i] = ImagePanel("FRACTION_BAR", m_displayPositionsX[i], positionY, 40, 40, "images/fraction_bar.bmp");
+                break;
+            case '-':
+                array[i] = ImagePanel("MINUS", m_displayPositionsX[i], positionY, 40, 40, "images/minus.bmp");
+                break;
+            case '.':
+                array[i] = ImagePanel("COMMA", m_displayPositionsX[i], positionY, 40, 40, "images/comma.bmp");
+                break;
         }
     }
 }
@@ -131,7 +140,7 @@ void WindowCalculator::draw() {
     resetDisplay();
     for (int i = 0; i < CALC_DISPLAY_ROWS; i++) {
         try {
-            stringToDigitRow(m_calculator->getStack(i), m_display[CALC_DISPLAY_ROWS - i - 1], CALC_DISPLAY_COLUMNS, m_displayPositionsY[i]);
+            stringToDigitRow(m_calculator->getStack(i, CALC_DISPLAY_COLUMNS), m_display[CALC_DISPLAY_ROWS - i - 1], CALC_DISPLAY_COLUMNS, m_displayPositionsY[i]);
         } catch (BaseListItemNotFoundException *e) {
             break;
         }
