@@ -10,7 +10,7 @@
 class Color {
 
     private:
-        /* Attributes */
+        // Attributes
         int m_red;
         int m_green;
         int m_blue;
@@ -18,7 +18,7 @@ class Color {
         static int m_instanceCounter;
 
     public:
-        /* Constructors/destructors */
+        // Constructors/destructors
         Color();
         Color(int greyValue);
         Color(int red, int green, int blue);
@@ -27,25 +27,25 @@ class Color {
         Color(Color const& other);
         ~Color();
 
-        /* Getters */
+        // Getters
         int getRed() const;
         int getGreen() const;
         int getBlue() const;
         HeplString getName() const;
         int getLuminance() const;
 
-        /* Setters */
+        // Setters
         void setRed(int value);
         void setGreen(int value);
         void setBlue(int value);
         void setGrey(int value);
         void setName(HeplString name);
 
-        /* Other methods */
+        // Other methods
         void display() const;
         static int getInstanceCounter();
 
-        /* Operators overloading */
+        // Operators
         Color& operator=(Color const& other);
         Color& operator+=(Color const& other);
         Color operator+(Color const& other);
@@ -68,13 +68,13 @@ class Color {
         Color operator--();
         Color operator--(int);
 
-        /* Stream management */
+        // Stream management
         friend std::ostream& operator<<(std::ostream& lhs, const Color& rhs);
         friend std::istream& operator>>(std::istream& lhs, Color& rhs);
         void save(std::ofstream& out) const;
         void load(std::ifstream& in);
 
-        /* Static attributes */
+        // Static attributes
         static const Color RED;
         static const Color GREEN;
         static const Color BLUE;

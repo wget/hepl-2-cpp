@@ -8,7 +8,7 @@ WindowSDLimage::WindowSDLimage(void)
   surface = NULL;
 }
 
-WindowSDLimage::WindowSDLimage(const char* nf) throw (WindowSDLexception)
+WindowSDLimage::WindowSDLimage(const char* nf)
 {
   surface = chargeSurface(nf);
 }
@@ -41,7 +41,7 @@ int WindowSDLimage::getHeight() const { return surface->h; }
 //***************************************************************************
 //********** Methodes d'instance ********************************************
 //***************************************************************************
-void WindowSDLimage::load(const char* nf) throw (WindowSDLexception)
+void WindowSDLimage::load(const char* nf)
 {
   SDL_Surface* tmp = chargeSurface(nf);
   SDL_FreeSurface(surface);
@@ -49,7 +49,7 @@ void WindowSDLimage::load(const char* nf) throw (WindowSDLexception)
 }
 
 //***************************************************************************
-SDL_Surface* WindowSDLimage::chargeSurface(const char *nf) throw (WindowSDLexception)
+SDL_Surface* WindowSDLimage::chargeSurface(const char *nf)
 {
   // Surface tampon qui nous servira pour charger l'image 
   SDL_Surface* loadedImage = NULL; 
@@ -105,4 +105,3 @@ WindowSDLimage& WindowSDLimage::operator=(const WindowSDLimage& i)
 
   return *this;
 }
-

@@ -112,7 +112,7 @@ $(DIST_PATH)/test: $(OBJ)
 
 $(OBJ): $(SRC)
 	echo "[+] Building $@"
-	# We are making use of make's internal variable $(@D), that means "the
+	# We are making use of make's internal variable $(@), that means "the
 	# directory the current target resides in". Needed to have our directory
 	# hierarchy created.
 	# src.: https://stackoverflow.com/a/1951111/3514658

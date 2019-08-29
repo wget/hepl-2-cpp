@@ -23,11 +23,15 @@ class HeplString {
         void kmpBuildFailureFunction(HeplString pattern, int f[]);
 
     public:
+        // Constructors/destructors
         HeplString();
         HeplString(const char *newString);
         HeplString(int number);
         HeplString(const HeplString& other);
         HeplString(HeplString* other);
+        ~HeplString();
+
+        // Other methods
         char *c_str() const;
         size_t size() const;
         bool empty() const;
@@ -39,8 +43,8 @@ class HeplString {
         void clear();
         HeplString substr(size_t pos = 0, size_t len = -1) const;
         HeplList<HeplString> explode(HeplString delimiter, int limit = 0);
-        ~HeplString();
 
+        // Operators
         HeplString& operator=(const HeplString& rhs);
         HeplString& operator+=(const HeplString& rhs);
         HeplString& operator+=(const char *rhs);
@@ -55,6 +59,8 @@ class HeplString {
         bool operator>(HeplString const& rhs) const;
         bool operator<=(HeplString const& rhs) const;
         bool operator>=(HeplString const& rhs) const;
+
+        // Stream management
         HeplString& operator<<(HeplString const& rhs);
         friend HeplString operator+(const char *lhs, const HeplString& rhs);
         friend HeplString& operator<<(const char *lhs, const HeplString& rhs);

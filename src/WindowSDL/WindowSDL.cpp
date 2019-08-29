@@ -18,7 +18,7 @@ pthread_mutex_t  WindowSDL::mutexClick;
 pthread_cond_t   WindowSDL::condClick;
 
 /////////////////////////////////////////////////////////////////////////////////////////
-void WindowSDL::open(int w,int h) throw (WindowSDLexception)
+void WindowSDL::open(int w,int h)
 {
   if (alive)
     throw WindowSDLexception("WindowSDL deja ouverte !!!");
@@ -53,7 +53,7 @@ char WindowSDL::isAlive()
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-void WindowSDL::close() throw (WindowSDLexception)
+void WindowSDL::close()
 {
   if (!alive)
     throw WindowSDLexception("WindowSDL non ouverte !!!");
@@ -65,7 +65,7 @@ void WindowSDL::close() throw (WindowSDLexception)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-void* WindowSDL::FctThreadEventSDL(void *p)
+void* WindowSDL::FctThreadEventSDL(void *)
 {
   SDL_Event event;
   sigset_t mask;
@@ -116,7 +116,7 @@ void* WindowSDL::FctThreadEventSDL(void *p)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-void WindowSDL::setBackground(int R,int G,int B) throw (WindowSDLexception)
+void WindowSDL::setBackground(int R,int G,int B)
 {
   if (!alive)
     throw WindowSDLexception("WindowSDL non ouverte !!!");
@@ -140,7 +140,7 @@ void WindowSDL::setBackground(int R,int G,int B) throw (WindowSDLexception)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-void WindowSDL::fillRectangle(int R,int G,int B,int x,int y,int w,int h) throw (WindowSDLexception)
+void WindowSDL::fillRectangle(int R,int G,int B,int x,int y,int w,int h)
 {
   if (!alive)
     throw WindowSDLexception("WindowSDL non ouverte !!!");
@@ -180,7 +180,7 @@ void WindowSDL::fillRectangle(int R,int G,int B,int x,int y,int w,int h) throw (
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-void WindowSDL::setPixel(int R,int G,int B,int x,int y) throw (WindowSDLexception)
+void WindowSDL::setPixel(int R,int G,int B,int x,int y)
 {
   if (x<0 || x>=width || y<0 || y>=height)
     return; 
@@ -189,7 +189,7 @@ void WindowSDL::setPixel(int R,int G,int B,int x,int y) throw (WindowSDLexceptio
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-void WindowSDL::drawLine(int R,int G,int B,int x1,int y1, int x2,int y2) throw (WindowSDLexception)
+void WindowSDL::drawLine(int R,int G,int B,int x1,int y1, int x2,int y2)
 { // Bresenham
   if (!alive)
     throw WindowSDLexception("WindowSDL non ouverte !!!");
@@ -244,7 +244,7 @@ void WindowSDL::drawLine(int R,int G,int B,int x1,int y1, int x2,int y2) throw (
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-void WindowSDL::drawRectangle(int R,int G,int B,int x,int y,int w,int h) throw (WindowSDLexception)
+void WindowSDL::drawRectangle(int R,int G,int B,int x,int y,int w,int h)
 {
   if (!alive)
     throw WindowSDLexception("WindowSDL non ouverte !!!");
@@ -256,7 +256,7 @@ void WindowSDL::drawRectangle(int R,int G,int B,int x,int y,int w,int h) throw (
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-void WindowSDL::drawImage(const WindowSDLimage& image,int x,int y) throw (WindowSDLexception)
+void WindowSDL::drawImage(const WindowSDLimage& image,int x,int y)
 {
   if (!alive)
     throw WindowSDLexception("WindowSDL non ouverte !!!");
@@ -281,7 +281,7 @@ void WindowSDL::drawImage(const WindowSDLimage& image,int x,int y) throw (Window
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
-WindowSDLclick WindowSDL::waitClick() throw (WindowSDLexception)
+WindowSDLclick WindowSDL::waitClick()
 {
   if (!alive)
     throw WindowSDLexception("WindowSDL non ouverte !!!");
@@ -302,6 +302,3 @@ WindowSDLclick WindowSDL::waitClick() throw (WindowSDLexception)
 
   return c;
 }
-
-
-

@@ -20,7 +20,7 @@ class FractionException : public BaseException {
         int getCode() const;
         void setCode(int code);
 
-        /* Static attributes */
+        // Static attributes
         static const int ERROR_DENOMINATOR_NUL;
         static const int ERROR_DIVIDE_BY_ZERO;
 };

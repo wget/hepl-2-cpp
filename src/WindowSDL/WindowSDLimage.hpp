@@ -11,16 +11,16 @@ class WindowSDLimage
   private :
     SDL_Surface   *surface;
 
-    SDL_Surface*  chargeSurface(const char *nomfichier) throw (WindowSDLexception);
+    SDL_Surface*  chargeSurface(const char *nomfichier);
     SDL_Surface*  copieSurface(SDL_Surface *surf);
     
   public:
     WindowSDLimage(void);
-    WindowSDLimage(const char* nomFichier) throw (WindowSDLexception);
+    WindowSDLimage(const char* nomFichier);
     WindowSDLimage(const WindowSDLimage &c);
     ~WindowSDLimage();
 
-    void load(const char* nomFichier) throw (WindowSDLexception);
+    void load(const char* nomFichier);
 
     int  getWidth() const;    // Largeur en pixels de l'image
     int  getHeight() const;   // Hauteur en pixels de l'image

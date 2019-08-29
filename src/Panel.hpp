@@ -47,13 +47,16 @@ class Panel {
         void display() const;
         void draw() const;
 
-        /* Stream management */
+        // Operators
+        Panel& operator=(const Panel&) = default;
+
+        // Stream management
         friend std::ostream& operator<<(std::ostream& lhs, const Panel& rhs);
         friend std::istream& operator>>(std::istream& lhs, Panel& rhs);
         void save(std::ofstream& out) const;
         void load(std::ifstream& in);
 
-        /* Static attributes */
+        // Static attributes
         static const HeplString CLASS_NAME;
 };
 

@@ -22,31 +22,31 @@ class Fraction {
         Sign m_sign;
 
     public:
-        /* Constructors/destructors */
+        // Constructors/destructors
         Fraction();
         Fraction(unsigned int n, unsigned int d, Sign s);
         Fraction(int n, int d);
         Fraction(int n);
         Fraction(Fraction const& other);
 
-        /* Getters */
+        // Getters
         unsigned int getNumerator() const;
         unsigned int getDenominator() const;
         Sign getSign() const;
         HeplString getAsString() const;
 
-        /* Setters */
+        // Setters
         void setNumerator(unsigned int numerator);
         void setDenominator(unsigned int denominator);
         void setSign(Sign sign);
 
-        /* Other methods */
+        // Other methods
         bool isPositive() const;
         bool isNegative() const;
         bool isNull() const;
         void simplify();
 
-        /* Operators overloading */
+        // Operators
         Fraction& operator=(Fraction const& other);
         Fraction operator+(Fraction const& other);
         Fraction operator+(const int rhs);
@@ -62,17 +62,17 @@ class Fraction {
         Fraction operator++();
         Fraction operator++(int);
 
-        /* Stream management */
+        // Stream management
         friend std::ostream& operator<<(std::ostream& lhs, const Fraction& rhs);
         friend std::istream& operator>>(std::istream& lhs, Fraction& rhs);
 
-        /* Static attributes */
+        // Static attributes
         static const Fraction ONE;
         static const Fraction ZERO;
         static const Sign NEGATIVE = Sign::NEGATIVE;
         static const Sign POSITIVE = Sign::POSITIVE;
 
-        /* Static methods */
+        // Static methods
         static unsigned int gcd(unsigned int m, unsigned int n);
 };
 

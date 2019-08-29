@@ -17,10 +17,10 @@ class Button: public virtual Panel {
         Button(const Button &rhs);
         ~Button();
 
-        /* Getters */
+        // Getters
         Listener* getListener() const;
 
-        /* Setters */
+        // Setters
         void setName(HeplString name) override;
         void setListener(Listener *listener);
 
@@ -29,11 +29,14 @@ class Button: public virtual Panel {
         void click(int x, int y) const;
         HeplString getType() const;
 
-        /* Stream management */
+        // Operators
+        Button& operator=(const Button&) = default;
+
+        // Stream management
         friend std::ostream& operator<<(std::ostream& lhs, const Button& rhs);
         friend std::istream& operator>>(std::istream& lhs, Button& rhs);
 
-        /* Static attributes */
+        // Static attributes
         static const HeplString CLASS_NAME;
 };
 

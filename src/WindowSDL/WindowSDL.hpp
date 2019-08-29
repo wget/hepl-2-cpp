@@ -15,7 +15,7 @@ class WindowSDL
     static int              height;
     static pthread_t        threadEventSDL;
     static char             alive;
-    static void*            FctThreadEventSDL(void *p);
+    static void*            FctThreadEventSDL(void *);
 
     // Gestion du Click
     static WindowSDLclick   click;
@@ -24,16 +24,16 @@ class WindowSDL
     static pthread_cond_t   condClick;
 
   public:
-    static void open(int w,int h) throw (WindowSDLexception);
+    static void open(int w,int h);
     static char isAlive();
-    static void close() throw (WindowSDLexception);
-    static void setBackground(int R,int G,int B) throw (WindowSDLexception);
-    static void setPixel(int R,int G,int B,int x,int y) throw (WindowSDLexception);
-    static void drawLine(int R,int G,int B,int x1,int y1, int x2,int y2) throw (WindowSDLexception);
-    static void drawRectangle(int R,int G,int B,int x,int y,int w,int h) throw (WindowSDLexception);
-    static void fillRectangle(int R,int G,int B,int x,int y,int w,int h) throw (WindowSDLexception);
-    static void drawImage(const WindowSDLimage& image,int x,int y) throw (WindowSDLexception);
-    static WindowSDLclick waitClick() throw (WindowSDLexception);
+    static void close();
+    static void setBackground(int R,int G,int B);
+    static void setPixel(int R,int G,int B,int x,int y);
+    static void drawLine(int R,int G,int B,int x1,int y1, int x2,int y2);
+    static void drawRectangle(int R,int G,int B,int x,int y,int w,int h);
+    static void fillRectangle(int R,int G,int B,int x,int y,int w,int h);
+    static void drawImage(const WindowSDLimage& image,int x,int y);
+    static WindowSDLclick waitClick();
 };
 
 #endif

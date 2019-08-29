@@ -11,6 +11,7 @@ class WindowSDLclick
     WindowSDLclick(void);
     WindowSDLclick(int x,int y);
     WindowSDLclick(const WindowSDLclick &c);
+    WindowSDLclick& operator=(const WindowSDLclick&) = default;
     ~WindowSDLclick();
 
     void setX(int x);

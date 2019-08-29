@@ -21,7 +21,7 @@ SRC := $(filter-out $(SRC_TEST), $(SRC))
 HEADERS=$(call rwildcard,$(SRC_PATH),*.hpp)
 
 CC=g++
-CFLAGS=-W -Wall -I/usr/include -I.
+CFLAGS=-std=gnu++11 -W -Wall -I/usr/include -I.
 LDFLAGS=-lpthread -lSDL
 
 EXECS=main#  main

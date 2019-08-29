@@ -5,6 +5,7 @@
 #include "Calculator.hpp"
 #include "WindowCalculator.hpp"
 #include "HeplString.hpp"
+#include <iostream>
 #include <thread>
 #include <chrono>
 
@@ -13,6 +14,7 @@ class Controller : public Listener {
     private:
         Calculator *m_calculator;
         WindowCalculator *m_window;
+        void configureCalculator();
 
     public:
         /* Constructors */

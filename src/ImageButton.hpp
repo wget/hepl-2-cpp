@@ -9,7 +9,7 @@
 class ImageButton : public virtual Button, public virtual ImagePanel {
 
     public:
-        /* Constructors */
+        // Constructors
         ImageButton();
         ImageButton(const HeplString name, unsigned int x, unsigned int y, HeplString filename);
         ImageButton(const HeplString name, unsigned int x, unsigned int y,
@@ -17,18 +17,21 @@ class ImageButton : public virtual Button, public virtual ImagePanel {
         ImageButton(const ImageButton &rhs);
         ~ImageButton();
 
-        /* Setters */
+        // Setters
         void setName(HeplString name) override;
 
-        /* Other methods */
+        // Other methods
         void display() const;
         HeplString getType() const;
 
-        /* Stream management */
+        // Operators
+        ImageButton& operator=(const ImageButton&) = default;
+
+        // Stream management
         friend std::ostream& operator<<(std::ostream& lhs, const ImageButton& rhs);
         friend std::istream& operator>>(std::istream& lhs, ImageButton& rhs);
 
-        /* Static attributes */
+        // Static attributes
         static const HeplString CLASS_NAME;
 };
 

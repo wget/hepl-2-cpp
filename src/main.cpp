@@ -1,10 +1,12 @@
+#include <iostream>
+#include "WindowSDL/WindowSDL.hpp"
 #include "Calculator.hpp"
 #include "WindowCalculator.hpp"
 #include "Controller.hpp"
-#include "WindowSDL/WindowSDL.hpp"
-#include <iostream>
+
 using namespace std;
-int main(int argc, char *argv[]) {
+
+int main() {
 
     Calculator calculator;
     WindowCalculator windowCalculator;

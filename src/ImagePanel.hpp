@@ -12,7 +12,7 @@ class ImagePanel: public virtual Panel {
         WindowSDLimage *m_image;
 
     public:
-        // Constructors
+        // Constructors/destructors
         ImagePanel();
         ImagePanel(const HeplString name, unsigned int x, unsigned int y, HeplString filename);
         ImagePanel(const HeplString name, unsigned int x, unsigned int y,
@@ -20,24 +20,27 @@ class ImagePanel: public virtual Panel {
         ImagePanel(const ImagePanel &rhs);
         ~ImagePanel();
 
-        /* Getters */
+        // Getters
         HeplString getFilename() const;
 
-        /* Setters */
+        // Setters
         void setFilename(HeplString filename);
 
-        /* Other methods */
+        // Other methods
         void display() const;
         HeplString getType() const;
         void draw() const;
 
-        /* Stream management */
+        // Operators
+        ImagePanel& operator=(const ImagePanel&) = default;
+
+        // Stream management
         friend std::ostream& operator<<(std::ostream& lhs, const ImagePanel& rhs);
         friend std::istream& operator>>(std::istream& lhs, ImagePanel& rhs);
         void save(std::ofstream& out) const;
         void load(std::ifstream& in);
 
-        /* Static attributes */
+        // Static attributes
         static const HeplString CLASS_NAME;
 };
 

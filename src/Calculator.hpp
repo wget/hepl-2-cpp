@@ -14,8 +14,11 @@ class Calculator {
         bool m_mode;
 
     public:
+        // Constructor/destructors
         Calculator();
         Calculator(Calculator& other);
+
+        // Other methods
         void display() const;
         void inputNumber(unsigned int val);
         void clearInput();
