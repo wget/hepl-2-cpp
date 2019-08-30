@@ -2,17 +2,17 @@
 #define FRACTION_HPP_DEFINED
 
 #include <cmath>
+#include "./lib/src/HeplList.hpp"
+#include "./lib/src/HeplString.hpp"
 #include "FractionException.hpp"
-#include "HeplList.hpp"
-#include "HeplString.hpp"
 
 enum Sign {
     POSITIVE = +1,
     NEGATIVE = -1
 };
 
-class EuclidException: public BaseException {
-    using BaseException::BaseException;
+class EuclidException: public HeplBaseException {
+    using HeplBaseException::HeplBaseException;
 };
 
 class Fraction {

@@ -1,10 +1,10 @@
 #ifndef FRACTIONEXCEPTION_HPP_DEFINED
 #define FRACTIONEXCEPTION_HPP_DEFINED
 
-#include "BaseException.hpp"
+#include "./lib/src/HeplBaseException.hpp"
 #include "Fraction.hpp"
 
-class FractionException : public BaseException {
+class FractionException : public HeplBaseException {
 
     private:
         int m_code;

@@ -102,7 +102,7 @@ void Essai1()
     cout << "Encodez son nom : "; cin.getline(txt,80);
     p->setName(txt);  // !!!
     cout << "Nom encode = " << p->getName() << endl << endl;
-  } catch (BaseException& e) {
+  } catch (HeplBaseException& e) {
     cout << "Exception: " << e.what() << endl;
   }
 
@@ -138,7 +138,7 @@ void Essai2()
     cout << "Encodez son nom : "; cin.getline(txt,80);
     ImageButton bi(txt,100,30,"button_plus.bmp");
     cout << "ImageButton cree : " << bi << endl << endl;
-  } catch (BaseException &e) {
+  } catch (HeplBaseException &e) {
       cout << "Exception: " << e.what() << endl;
   }
   
@@ -229,7 +229,7 @@ void Essai5()
     cout << "Fraction encodee = " << f1 << endl << endl;
   } catch (FractionException e) {
     cout << "Invalid fraction: " << e.what() << endl;
-  } catch (BaseException e) {
+  } catch (HeplBaseException e) {
     cout << "General exception: " << e.what() << endl;
   }
   // ... à compléter

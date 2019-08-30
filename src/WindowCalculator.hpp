@@ -1,9 +1,9 @@
 #ifndef WINDOWCALCULATOR_HPP_INCLUDED
 #define WINDOWCALCULATOR_HPP_INCLUDED
 
+#include "./lib/src/HeplList.hpp"
 #include "Window.hpp"
 #include "Calculator.hpp"
-#include "HeplList.hpp"
 #include "Panel.hpp"
 #include "ImageButton.hpp"
 #include "Button.hpp"

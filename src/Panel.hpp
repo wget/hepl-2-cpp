@@ -1,10 +1,10 @@
 #ifndef PANEL_HPP_INCLUDED
 #define PANEL_HPP_INCLUDED
 
-#include "HeplString.hpp"
+#include "./lib/src/HeplString.hpp"
+#include "./lib/src/HeplBaseException.hpp"
+#include "./WindowSDL/WindowSDL.hpp"
 #include "Color.hpp"
-#include "BaseException.hpp"
-#include "WindowSDL/WindowSDL.hpp"
 
 class Panel {
 
@@ -63,8 +63,8 @@ class Panel {
 // Avoid to redeclare a whole class when we just want to have our own Exception
 // without having to throw a generic exception.
 // src.: https://stackoverflow.com/a/51313801/3514658
-class PanelException: BaseException {
-    using BaseException::BaseException;
+class PanelException: HeplBaseException {
+    using HeplBaseException::HeplBaseException;
 };
 
 #endif // PANEL_HPP_INCLUDED

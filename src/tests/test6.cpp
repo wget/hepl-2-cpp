@@ -2,10 +2,10 @@
 #include <iostream>
 #include <time.h>
 
-#include "../HeplList.hpp"
-#include "../HeplSortedList.hpp"
-#include "../BaseListIterator.hpp"
-#include "../HeplStack.hpp"
+#include "../lib/src/HeplList.hpp"
+#include "../lib/src/HeplSortedList.hpp"
+#include "../lib/src/HeplBaseListIterator.hpp"
+#include "../lib/src/HeplStack.hpp"
 
 #include "../ImagePanel.hpp"
 #include "../Fraction.hpp"
@@ -246,7 +246,7 @@ void Essai5()
   cout << "----- 5. Test de l'iterateur avec une Liste d'entiers ------------------------" << endl;
   cout << "Creation  d'une Liste..." << endl;
   HeplList<int> liste;
-  BaseListIterator<int> it(liste);
+  HeplBaseListIterator<int> it(liste);
 
   cout << "On add 3,-2,5,-1 et 0..." << endl;
   liste.add(3);
@@ -267,7 +267,7 @@ void Essai6()
   cout << "----- 6. Test de l'iterateur avec une Liste de ImagePanel ---------------------------------" << endl;
   cout << "Creation  d'une Liste..." << endl;
   HeplList<ImagePanel> liste;
-  BaseListIterator<ImagePanel> it(liste);
+  HeplBaseListIterator<ImagePanel> it(liste);
 
   cout << "On add ImagePanel(\"P01\",20,40,\"1.bmp\")..." << endl;
   liste.add(ImagePanel("P01",20,40,"1.bmp"));
@@ -292,7 +292,7 @@ void Essai7()
   cout << "----- 7. Test de l'iterateur avec une Liste triee d'entiers ------------------------" << endl;
   cout << "Creation  d'une HeplSortedList..." << endl;
   HeplSortedList<int> liste;
-  BaseListIterator<int> it(liste);
+  HeplBaseListIterator<int> it(liste);
 
   cout << "On add 3,-2,5,-1 et 0..." << endl;
   liste.add(3);
@@ -313,7 +313,7 @@ void Essai8()
   cout << "----- 8. Test de l'iterateur avec une Liste triee de Fractions ---------------------------" << endl;
   cout << "Creation  d'une HeplSortedList..." << endl;
   HeplSortedList<Fraction> liste;
-  BaseListIterator<Fraction> it(liste);
+  HeplBaseListIterator<Fraction> it(liste);
 
   cout << "On add quelques fractions..." << endl;
   liste.add(Fraction::ONE);
@@ -397,7 +397,7 @@ void Essai11()
   cout << "----- 11. Test de l'iterateur avec une HeplStack de Fractions ---------------------------" << endl;
   cout << "Creation  d'une HeplStack..." << endl;
   HeplStack<Fraction> pile;
-  BaseListIterator<Fraction> it(pile);
+  HeplBaseListIterator<Fraction> it(pile);
 
   cout << "On empile quelques fractions..." << endl;
   pile.push(Fraction::ONE);

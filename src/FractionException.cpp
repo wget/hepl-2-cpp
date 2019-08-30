@@ -1,15 +1,15 @@
 #include "FractionException.hpp"
 
 FractionException::FractionException()
-    : BaseException(), m_code(-1) {
+    : HeplBaseException(), m_code(-1) {
 }
 
 FractionException::FractionException(const HeplString& msg, int code)
-    : BaseException(msg), m_code(code) {
+    : HeplBaseException(msg), m_code(code) {
 }
 
 FractionException::FractionException(const char* msg, int code)
-    : BaseException(msg), m_code(code) {
+    : HeplBaseException(msg), m_code(code) {
 }
 
 int FractionException::getCode() const {

@@ -1,15 +1,15 @@
 #include "InvalidColorException.hpp"
 
 InvalidColorException::InvalidColorException()
-    : BaseException(), m_color(new Color()) {
+    : HeplBaseException(), m_color(new Color()) {
 }
 
 InvalidColorException::InvalidColorException(const HeplString& msg, const Color* color)
-    : BaseException(msg), m_color(color) {
+    : HeplBaseException(msg), m_color(color) {
 }
 
 InvalidColorException::InvalidColorException(const char* msg, const Color* color)
-    : BaseException(msg), m_color(color) {
+    : HeplBaseException(msg), m_color(color) {
 }
 
 bool InvalidColorException::isRedValid() const {

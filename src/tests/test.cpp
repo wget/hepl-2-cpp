@@ -1,7 +1,7 @@
 #include <cmath>
 #include <iostream>
-#include "../HeplString.hpp"
-#include "../HeplStack.hpp"
+#include "../lib/src/HeplString.hpp"
+#include "../lib/src/HeplStack.hpp"
 
 using namespace std;
 

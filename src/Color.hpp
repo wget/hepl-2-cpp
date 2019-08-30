@@ -4,8 +4,8 @@
 #include <iostream>
 #include <iostream>
 #include <fstream>
-#include "HeplString.hpp"
-#include "HeplList.hpp"
+#include "./lib/src/HeplString.hpp"
+#include "./lib/src/HeplList.hpp"
 
 class Color {
 

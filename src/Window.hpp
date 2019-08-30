@@ -1,8 +1,8 @@
 #ifndef WINDOW_HPP_DEFINED
 #define WINDOW_HPP_DEFINED
 
-#include "Color.hpp"
 #include "./WindowSDL/WindowSDL.hpp"
+#include "Color.hpp"
 
 class Window {
 

@@ -1,10 +1,10 @@
 #ifndef CALCULATOR_HPP_INCLUDED
 #define CALCULATOR_HPP_INCLUDED
 
-#include "HeplStack.hpp"
-#include "Fraction.hpp"
-#include "BaseException.hpp"
 #include <cstdio>
+#include "./lib/src/HeplStack.hpp"
+#include "./lib/src/HeplBaseException.hpp"
+#include "Fraction.hpp"
 
 class Calculator {
 
@@ -35,8 +35,8 @@ class Calculator {
 
 };
 
-class CalculatorException: public BaseException {
-    using BaseException::BaseException;
+class CalculatorException: public HeplBaseException {
+    using HeplBaseException::HeplBaseException;
 };
 
 #endif // CALCULATOR_HPP_INCLUDED

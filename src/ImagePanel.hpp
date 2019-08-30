@@ -1,9 +1,9 @@
 #ifndef IMAGE_PANEL_HPP_DEFINED
 #define IMAGE_PANEL_HPP_DEFINED
 
+#include "./WindowSDL/WindowSDL.hpp"
+#include "./WindowSDL/WindowSDLimage.hpp"
 #include "Panel.hpp"
-#include "WindowSDL/WindowSDL.hpp"
-#include "WindowSDL/WindowSDLimage.hpp"
 
 class ImagePanel: public virtual Panel {
 

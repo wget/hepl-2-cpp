@@ -1,10 +1,10 @@
 #ifndef INVALIDCOLOREXCEPTION_HPP_DEFINED
 #define INVALIDCOLOREXCEPTION_HPP_DEFINED
 
-#include "BaseException.hpp"
+#include "./lib/src/HeplBaseException.hpp"
 #include "Color.hpp"
 
-class InvalidColorException : public BaseException {
+class InvalidColorException : public HeplBaseException {
 
     private:
         const Color* m_color;

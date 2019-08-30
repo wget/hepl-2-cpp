@@ -40,9 +40,7 @@ EXECS_WITH_PATH = $(patsubst %,$(DIST_PATH)/%, $(EXECS))
 TESTS_WITH_PATH = $(patsubst %,$(DIST_PATH)/%, $(TESTS))
 OBJ = $(patsubst %, $(OBJ_PATH)/%.o, $(filter-out dist/obj/tests/%, $(filter-out $(EXECS), $(SRC:$(SRC_PATH)/%.cpp=%))))
 
-# Force execution of the "prepare" rule defined below in order to make sure
-# dist obj directories are created before looking into other dependencies
-all: prepare $(TESTS_WITH_PATH)
+all: $(TESTS_WITH_PATH)
 
 debug: CFLAGS+=-DWITH_DEBUG
 debug: mrproper
@@ -119,17 +117,20 @@ $(DIST_PATH)/testWindowCalculator: $(TEST_PATH)/testWindowCalculator.o $(OBJ)
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.cpp 
 	# Remove the heading OBJ_PATH from the current full filename
 	echo "[+] Building $(subst $(OBJ_PATH)/,,$@)"
+	# Create parent directory on the fly to store objects.
+	# We are making use of make's internal variable $(@D), that means "the
+	# directory the current target resides in". Needed to have our directory
+	# hierarchy created.
+	# src.: https://stackoverflow.com/a/1951111/3514658
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 dist/WindowSDL/%.o: $(SRC_PATH)/WindowSDL/%.cpp
 	echo "[+] Building SDL $@"
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-prepare:
-	@mkdir -p dist/obj/WindowSDL
-
 clean:
-	$(RM) $(OBJ_PATH)/*.o $(OBJ_PATH)/*.gch $(TEST_PATH)/*.o
+	$(RM) -r $(OBJ_PATH)
 
 mrproper: clean
 	$(RM) $(EXECS_WITH_PATH) $(TESTS_WITH_PATH)

@@ -52,7 +52,7 @@ void WindowCalculator::resetInput() {
 }
 
 void WindowCalculator::redrawPanels() {
-    BaseListIterator<Panel> panelListIt(m_panelList);
+    HeplBaseListIterator<Panel> panelListIt(m_panelList);
     for (panelListIt.reset(); !panelListIt.end(); panelListIt++) {
         (&panelListIt)->draw();
     }
@@ -127,7 +127,7 @@ void WindowCalculator::draw() {
         redrawPanels();
 
         // Redraw the buttons
-        BaseListIterator<ImageButton> buttonListIt(m_buttonList);
+        HeplBaseListIterator<ImageButton> buttonListIt(m_buttonList);
         for (buttonListIt.reset(); !buttonListIt.end(); buttonListIt++) {
             (&buttonListIt)->draw();
         }
@@ -146,7 +146,7 @@ void WindowCalculator::draw() {
     for (int i = 0; i < CALC_DISPLAY_ROWS; i++) {
         try {
             stringToDigitRow(m_calculator->getStack(i, CALC_DISPLAY_COLUMNS), m_display[CALC_DISPLAY_ROWS - i - 1], CALC_DISPLAY_COLUMNS, m_displayPositionsY[i]);
-        } catch (BaseListItemNotFoundException e) {
+        } catch (HeplBaseListItemNotFoundException e) {
             break;
         }
     }
@@ -163,7 +163,7 @@ void WindowCalculator::draw() {
 }
 
 void WindowCalculator::click(int x, int y) {
-    BaseListIterator<ImageButton> buttonListIt(m_buttonList);
+    HeplBaseListIterator<ImageButton> buttonListIt(m_buttonList);
     for (buttonListIt.reset(); !buttonListIt.end(); buttonListIt++) {
         (&buttonListIt)->click(x, y);
     }
@@ -199,7 +199,7 @@ void WindowCalculator::setCalculator(Calculator *calculator) {
 }
 
 void WindowCalculator::setListener(Listener *listener) {
-    BaseListIterator<ImageButton> buttonListIt(m_buttonList);
+    HeplBaseListIterator<ImageButton> buttonListIt(m_buttonList);
     for (buttonListIt.reset(); !buttonListIt.end(); buttonListIt++) {
         (&buttonListIt)->setListener(listener);
     }
