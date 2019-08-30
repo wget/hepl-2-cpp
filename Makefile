@@ -3,37 +3,46 @@
 # will break this makefile as these target do not have any dependencies, the
 # target will always be more recent and will never be evaluated. The PHONY
 # directive avoids this issue.
-.PHONY: clean mrproper debug test2
+.PHONY: clean mrproper debug prepare
 
+# Custom makefile functions
+# If used like "make print-MYVAR", allow to print a target/variable directly
+# when calling the Makfile
+# src.: https://stackoverflow.com/a/25817631
 print-%: ; @echo $* = $($*)
-SRC_PATH=src
-TEST_PATH=$(SRC_PATH)/tests
-DIST_PATH=dist
-OBJ_PATH=$(DIST_PATH)/obj
-# From all the cpp files we have, replace the cpp extension by hpp and remove
-# the file main.hpp since it does not exist and make might complain there is no
-# rule for this file.
-# HEADERS=$(filter-out $(SRC_PATH)/main.hpp, $(SRC:.cpp=.hpp))
-rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
+# Recursive wildcard because the default wildcard is not recursive
+rwildcard = $(wildcard $1$2) $(foreach d, $(wildcard $1*), $(call rwildcard,$d/,$2))
+
+SRC_PATH = src
+TEST_PATH = $(SRC_PATH)/tests
+DIST_PATH = dist
+OBJ_PATH = $(DIST_PATH)/obj
 SRC := $(call rwildcard,$(SRC_PATH),*.cpp)
-SRC_TEST=$(call rwildcard,$(TEST_PATH),*.cpp)
+SRC_TEST = $(call rwildcard,$(TEST_PATH),*.cpp)
 SRC := $(filter-out $(SRC_TEST), $(SRC))
-HEADERS=$(call rwildcard,$(SRC_PATH),*.hpp)
 
-CC=g++
-CFLAGS=-std=gnu++11 -W -Wall -I/usr/include -I.
-LDFLAGS=-lpthread -lSDL
+CC = g++
+# -MMD asks to create a list of rules corresponding to the local headers we
+# need to specify without system headers.
+# src.: https://www.gnu.org/software/make/manual/html_node/Automatic-Prerequisites.html
+CFLAGS = -std=gnu++11 -W -Wall -I/usr/include -I. #-MMD
+LDFLAGS = -lpthread -lSDL
 
-EXECS=main#  main
-EXECS_WITH_PATH=$(patsubst %,$(DIST_PATH)/%, $(EXECS))
-TESTS=test test1 test2 test3 test4 test5 test6 test7 testCalculator testWindow testWindowSDL testWindowCalculator main
-TESTS_WITH_PATH=$(patsubst %,$(DIST_PATH)/%, $(TESTS))
+# patsubst: $(patsubst pattern,replacement,text)
+# 	  Finds whitespace-separated words in "text" that match "pattern" and
+# 	  replaces them with "replacement"
+# filter-out: $(filter-out pattern…,text)
+#     Returns all whitespace-separated words in text that do not match any of
+#     the pattern words, removing the words that do match one or more
+EXECS = main
+TESTS = test test1 test2 test3 test4 test5 test6 test7 testCalculator testWindow testWindowSDL testWindowCalculator main
+EXECS_WITH_PATH = $(patsubst %,$(DIST_PATH)/%, $(EXECS))
+TESTS_WITH_PATH = $(patsubst %,$(DIST_PATH)/%, $(TESTS))
+OBJ = $(patsubst %, $(OBJ_PATH)/%.o, $(filter-out dist/obj/tests/%, $(filter-out $(EXECS), $(SRC:$(SRC_PATH)/%.cpp=%))))
 
-# TEST_DEBUG=$(SRC:$(SRC_PATH)/%.cpp=%)
-HELLO_TEST=$(SRC)
-OBJ=$(patsubst %, $(OBJ_PATH)/%.o, $(filter-out dist/obj/tests/%,$(filter-out $(EXECS),$(SRC:$(SRC_PATH)/%.cpp=%))))
-#all: $(EXECS_WITH_PATH)
-all: $(TESTS_WITH_PATH)
+# Force execution of the "prepare" rule defined below in order to make sure
+# dist obj directories are created before looking into other dependencies
+all: prepare $(TESTS_WITH_PATH)
 
 debug: CFLAGS+=-DWITH_DEBUG
 debug: mrproper
@@ -49,7 +58,7 @@ debug: all
 #$^ : All the dependencies;
 #$* : All wildcard character, same as * but syntax interpreted by make
 $(DIST_PATH)/main: $(OBJ_PATH)/main.o $(OBJ)
-	echo "[+] Building $@"
+	echo "[+] Building main"
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 $(DIST_PATH)/test: $(TEST_PATH)/test.o $(OBJ)
@@ -100,13 +109,24 @@ $(DIST_PATH)/testWindowCalculator: $(TEST_PATH)/testWindowCalculator.o $(OBJ)
 	echo "[+] Building test Window Calculator"
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.cpp $(HEADERS)
-	echo "[+] Building $@"
+# Note: It would be possible to simplify even further with such a rule:
+#$(OBJ): $(SRC)
+#    $(CC) $(CFLAGS) -c $< -o $@
+# Where obj is an array whose items are iterated and the rules executed for
+# each iteration. There isn't any correspondance between the current OBJ
+# iterated and the SRC. The SRC will always contain the same array and we
+# cannot change its content depending on the value of the current obj target.
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.cpp 
+	# Remove the heading OBJ_PATH from the current full filename
+	echo "[+] Building $(subst $(OBJ_PATH)/,,$@)"
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-dist/WindowSDL/%.o: $(SRC_PATH)/WindowSDL/%.cpp $(HEADERS)
+dist/WindowSDL/%.o: $(SRC_PATH)/WindowSDL/%.cpp
 	echo "[+] Building SDL $@"
 	$(CC) $(CFLAGS) -c -o $@ $<
+
+prepare:
+	@mkdir -p dist/obj/WindowSDL
 
 clean:
 	$(RM) $(OBJ_PATH)/*.o $(OBJ_PATH)/*.gch $(TEST_PATH)/*.o
