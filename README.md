@@ -4,9 +4,10 @@ A simple calculator
 
 ## Build instructions
 
-Clone this directory and clone the lib directory to the src/lib/ subfolder, typically from the root of this repository:
+Clone this directory, then clone the two lib we are making use.
 
-    git clone https://github.com/wget/hepl-2-cpp-lib src/lib
+    git clone https://github.com/wget/hepl-2-cpp-lib src/lib/utils/
+    git clone https://github.com/gpakosz/whereami src/lib/whereami/
 
 Then, still from the root of this repository:
 

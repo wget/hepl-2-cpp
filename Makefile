@@ -5,7 +5,9 @@
 # directive avoids this issue.
 .PHONY: clean mrproper debug prepare
 
-# Custom makefile functions
+################################################################################
+# Custom makefile functions (GNU Make)
+################################################################################
 # If used like "make print-MYVAR", allow to print a target/variable directly
 # when calling the Makfile
 # src.: https://stackoverflow.com/a/25817631
@@ -13,20 +15,32 @@ print-%: ; @echo $* = $($*)
 # Recursive wildcard because the default wildcard is not recursive
 rwildcard = $(wildcard $1$2) $(foreach d, $(wildcard $1*), $(call rwildcard,$d/,$2))
 
-SRC_PATH = src
-TEST_PATH = $(SRC_PATH)/tests
-DIST_PATH = dist
-OBJ_PATH = $(DIST_PATH)/obj
-SRC := $(call rwildcard,$(SRC_PATH),*.cpp)
-SRC_TEST = $(call rwildcard,$(TEST_PATH),*.cpp)
-SRC := $(filter-out $(SRC_TEST), $(SRC))
-
+################################################################################
+# Compiler settings
+################################################################################
 CC = g++
 # -MMD asks to create a list of rules corresponding to the local headers we
 # need to specify without system headers.
 # src.: https://www.gnu.org/software/make/manual/html_node/Automatic-Prerequisites.html
-CFLAGS = -std=gnu++11 -W -Wall -I/usr/include -I. #-MMD
+CFLAGS = -std=gnu++11 -W -Wall -I/usr/include -Isrc/lib/whereami/src/ -I. #-MMD
 LDFLAGS = -lpthread -lSDL
+
+################################################################################
+# Gathering files
+################################################################################
+SRC_PATH = src
+TEST_PATH = $(SRC_PATH)/tests
+DIST_PATH = dist
+OBJ_PATH = $(DIST_PATH)/obj
+
+# Get all .cpp files recursively from the SRC_PATH
+SRC := $(call rwildcard,$(SRC_PATH),*.cpp)
+# Add to the sources all .c files recursively from the SRC_PATH
+SRC := $(SRC) $(call rwildcard,$(SRC_PATH),*.c)
+# Remove locations that shouldn't be in the sources (here, the source examples
+# of the whereami lib)
+SRC_EXCLUSIONS := $(call rwildcard,src/lib/whereami/example,*)
+SRC := $(filter-out $(SRC_EXCLUSIONS), $(SRC))
 
 # patsubst: $(patsubst pattern,replacement,text)
 # 	  Finds whitespace-separated words in "text" that match "pattern" and
@@ -36,9 +50,23 @@ LDFLAGS = -lpthread -lSDL
 #     the pattern words, removing the words that do match one or more
 EXECS = main
 TESTS = test test1 test2 test3 test4 test5 test6 test7 testCalculator testWindow testWindowSDL testWindowCalculator main
+# Prefix the paths with DIST_PATH
 EXECS_WITH_PATH = $(patsubst %,$(DIST_PATH)/%, $(EXECS))
 TESTS_WITH_PATH = $(patsubst %,$(DIST_PATH)/%, $(TESTS))
-OBJ = $(patsubst %, $(OBJ_PATH)/%.o, $(filter-out dist/obj/tests/%, $(filter-out $(EXECS), $(SRC:$(SRC_PATH)/%.cpp=%))))
+
+# Objects management
+# Remove "src" path from sources
+OBJ := $(SRC:$(SRC_PATH)/%=%)
+# Remove .cpp suffix from sources
+OBJ := $(patsubst %.cpp, %, $(OBJ))
+# Remove .c suffix from sources
+OBJ := $(patsubst %.c, %, $(OBJ))
+# Remove execs from object files
+OBJ := $(filter-out $(EXECS), $(OBJ))
+# Remove tests to avoid multiple inclusions execs from object files
+OBJ := $(filter-out tests/%, $(OBJ))
+# Add .o extension to the naked filenames
+OBJ := $(patsubst %, $(OBJ_PATH)/%.o, $(OBJ))
 
 all: $(TESTS_WITH_PATH)
 
@@ -114,7 +142,7 @@ $(DIST_PATH)/testWindowCalculator: $(TEST_PATH)/testWindowCalculator.o $(OBJ)
 # each iteration. There isn't any correspondance between the current OBJ
 # iterated and the SRC. The SRC will always contain the same array and we
 # cannot change its content depending on the value of the current obj target.
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.cpp 
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c*
 	# Remove the heading OBJ_PATH from the current full filename
 	echo "[+] Building $(subst $(OBJ_PATH)/,,$@)"
 	# Create parent directory on the fly to store objects.
@@ -128,6 +156,11 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.cpp
 dist/WindowSDL/%.o: $(SRC_PATH)/WindowSDL/%.cpp
 	echo "[+] Building SDL $@"
 	$(CC) $(CFLAGS) -c -o $@ $<
+
+#dist/obj/lib/whereami/%.o: src/lib/whereami/src/whereami.c
+#	@mkdir -p $(@D)
+#	echo "[+] Building WhereAmI $@"
+#	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	$(RM) -r $(OBJ_PATH)

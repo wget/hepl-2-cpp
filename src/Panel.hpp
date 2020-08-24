@@ -1,8 +1,8 @@
 #ifndef PANEL_HPP_INCLUDED
 #define PANEL_HPP_INCLUDED
 
-#include "./lib/src/HeplString.hpp"
-#include "./lib/src/HeplBaseException.hpp"
+#include "./lib/utils/src/HeplString.hpp"
+#include "./lib/utils/src/HeplBaseException.hpp"
 #include "./WindowSDL/WindowSDL.hpp"
 #include "Color.hpp"
 

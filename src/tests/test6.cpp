@@ -2,10 +2,10 @@
 #include <iostream>
 #include <time.h>
 
-#include "../lib/src/HeplList.hpp"
-#include "../lib/src/HeplSortedList.hpp"
-#include "../lib/src/HeplBaseListIterator.hpp"
-#include "../lib/src/HeplStack.hpp"
+#include "../lib/utils/src/HeplList.hpp"
+#include "../lib/utils/src/HeplSortedList.hpp"
+#include "../lib/utils/src/HeplBaseListIterator.hpp"
+#include "../lib/utils/src/HeplStack.hpp"
 
 #include "../ImagePanel.hpp"
 #include "../Fraction.hpp"

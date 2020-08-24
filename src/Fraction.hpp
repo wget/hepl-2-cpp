@@ -2,8 +2,8 @@
 #define FRACTION_HPP_DEFINED
 
 #include <cmath>
-#include "./lib/src/HeplList.hpp"
-#include "./lib/src/HeplString.hpp"
+#include "./lib/utils/src/HeplList.hpp"
+#include "./lib/utils/src/HeplString.hpp"
 #include "FractionException.hpp"
 
 enum Sign {

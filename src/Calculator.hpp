@@ -2,8 +2,8 @@
 #define CALCULATOR_HPP_INCLUDED
 
 #include <cstdio>
-#include "./lib/src/HeplStack.hpp"
-#include "./lib/src/HeplBaseException.hpp"
+#include "./lib/utils/src/HeplStack.hpp"
+#include "./lib/utils/src/HeplBaseException.hpp"
 #include "Fraction.hpp"
 
 class Calculator {

@@ -1,7 +1,8 @@
 #ifndef WINDOWCALCULATOR_HPP_INCLUDED
 #define WINDOWCALCULATOR_HPP_INCLUDED
 
-#include "./lib/src/HeplList.hpp"
+#include "./lib/utils/src/HeplList.hpp"
+#include "./lib/whereami/src/whereami.h"
 #include "Window.hpp"
 #include "Calculator.hpp"
 #include "Panel.hpp"
@@ -10,6 +11,11 @@
 #include "ImagePanel.hpp"
 #include "Color.hpp"
 
+// UNIX specific stuff for path management handling
+// #include <unistd.h>
+// #include <climits>
+// For malloc/free for path management handling
+#include <cstdlib>
 
 #define CALC_DISPLAY_ROWS 4
 #define CALC_DISPLAY_COLUMNS 10
@@ -23,6 +29,8 @@ class WindowCalculator: public Window {
         ImagePanel m_display[CALC_DISPLAY_ROWS][CALC_DISPLAY_COLUMNS];
         ImagePanel m_input[CALC_INPUT_COLUMNS];
         Calculator *m_calculator;
+        HeplString m_currentPath;
+        HeplString m_cwd;
         int m_displayPositionsX[CALC_DISPLAY_COLUMNS] =
             {20, 60, 100, 140, 180, 220, 260, 300, 340, 380};
         int m_displayPositionsY[CALC_DISPLAY_ROWS] =
@@ -36,6 +44,7 @@ class WindowCalculator: public Window {
         void redrawDisplay();
         void redrawInput();
         void stringToDigitRow(HeplString string, ImagePanel *array, size_t size, int positionY);
+        HeplString getCurrentWorkingDirectory();
 
     public:
         WindowCalculator();

@@ -4,7 +4,7 @@
 #include "Listener.hpp"
 #include "Calculator.hpp"
 #include "WindowCalculator.hpp"
-#include "./lib/src/HeplString.hpp"
+#include "./lib/utils/src/HeplString.hpp"
 #include <iostream>
 #include <thread>
 #include <chrono>

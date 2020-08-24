@@ -1,7 +1,7 @@
 #ifndef FRACTIONEXCEPTION_HPP_DEFINED
 #define FRACTIONEXCEPTION_HPP_DEFINED
 
-#include "./lib/src/HeplBaseException.hpp"
+#include "./lib/utils/src/HeplBaseException.hpp"
 #include "Fraction.hpp"
 
 class FractionException : public HeplBaseException {

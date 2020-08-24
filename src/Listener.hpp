@@ -1,7 +1,7 @@
 #ifndef LISTENER_HPP_DEFINED
 #define LISTENER_HPP_DEFINED
 
-#include "./lib/src/HeplString.hpp"
+#include "./lib/utils/src/HeplString.hpp"
 
 class Listener {
 

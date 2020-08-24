@@ -1,7 +1,7 @@
 #ifndef INVALIDCOLOREXCEPTION_HPP_DEFINED
 #define INVALIDCOLOREXCEPTION_HPP_DEFINED
 
-#include "./lib/src/HeplBaseException.hpp"
+#include "./lib/utils/src/HeplBaseException.hpp"
 #include "Color.hpp"
 
 class InvalidColorException : public HeplBaseException {
