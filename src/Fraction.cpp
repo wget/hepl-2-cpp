@@ -372,7 +372,7 @@ unsigned int Fraction::gcd(unsigned int m, unsigned int n) {
 
     // Input validation. No need to check whether input is negative because we
     // are using unsigned int.
-    if (m == 0 || n == 0) {
+    if (m == 0 && n == 0) {
         throw EuclidException();
     }
 

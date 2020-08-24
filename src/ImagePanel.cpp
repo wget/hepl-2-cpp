@@ -91,7 +91,7 @@ HeplString ImagePanel::getType() const {
 void ImagePanel::draw() const {
 
     if (m_image == nullptr) {
-
+        std::cout << "DEBUG ImagePanel draw() nullptr" << std::endl;
         WindowSDL::drawRectangle(
             // Color black
             0, 0, 0,

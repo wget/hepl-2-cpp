@@ -26,6 +26,11 @@ void WindowSDL::open(int w,int h)
   // Initialisation du Module Video
   if (SDL_Init(SDL_INIT_VIDEO) == -1)
     throw WindowSDLexception("Erreur de SDL_Init");
+
+
+  // src.: http://www.cplusplus.com/forum/general/106823/
+  char center_env[] = "SDL_VIDEO_CENTERED=center";
+  SDL_putenv(center_env);
   
   // Definition de la fenetre
   if ((screen = SDL_SetVideoMode(w,h,32,SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL)

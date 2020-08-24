@@ -2,7 +2,6 @@
 
 WindowCalculator::WindowCalculator()
     : m_clearInputButton("B_ClearSaisie", 330, 240, 90, 40, Color(250, 0, 0)) {
-    m_isInit = true;
 
     m_cwd = this->getCurrentWorkingDirectory();
 
@@ -14,8 +13,9 @@ WindowCalculator::WindowCalculator()
     m_panelList.add(Panel("PANEL_MIDDLE", 10, 230, 420, 60));
     m_panelList.add(Panel("PANEL_BOTTOM", 10, 300, 420, 160));
 
-    resetDisplay();
-    resetInput();
+    // // Init model
+    // resetDisplay();
+    // resetInput();
 
     m_buttonList.add(ImageButton("BUTTON_0",  20, 310, 40, 40, m_cwd + "/images/button_0.bmp"));
     m_buttonList.add(ImageButton("BUTTON_1",  70, 310, 40, 40, m_cwd + "/images/button_1.bmp"));
@@ -37,19 +37,21 @@ WindowCalculator::WindowCalculator()
     m_buttonList.add(ImageButton("BUTTON_PLUS_OR_MINUS", 380, 410, 40, 40, m_cwd + "/images/button_plus_or_minus.bmp"));
     m_buttonList.add(ImageButton("BUTTON_DIGITAL", 330, 410, 40, 40, m_cwd + "/images/button_digit.bmp"));
     m_buttonList.add(ImageButton("BUTTON_CONFIG", 275, 410, 40, 40, m_cwd + "/images/button_config.bmp"));
+
+    m_forceRedraw = true;
 }
 
 void WindowCalculator::resetDisplay() {
     for (size_t i = 0; i < CALC_DISPLAY_ROWS; i++) {
         for (size_t j = 0; j < CALC_DISPLAY_COLUMNS; j++) {
-            m_display[i][j] = ImagePanel("Empty", m_displayPositionsX[j], m_displayPositionsY[i], 40, 40, m_cwd + "images/empty.bmp");
+            m_display[i][j] = ImagePanel("Empty", m_displayPositionsX[j], m_displayPositionsY[i], 40, 40, m_cwd + "/images/empty.bmp");
         }
     }
 }
 
 void WindowCalculator::resetInput() {
     for (size_t i = 0; i < CALC_INPUT_COLUMNS; i++) {
-        m_input[i] = ImagePanel("Empty", m_inputPositionsX[i], 240, 40, 40, m_cwd + "images/empty.bmp");
+        m_input[i] = ImagePanel("Empty", m_inputPositionsX[i], 240, 40, 40, m_cwd + "/images/empty.bmp");
     }
 }
 
@@ -78,43 +80,43 @@ void WindowCalculator::stringToDigitRow(HeplString string, ImagePanel *array, si
     for (size_t i = 0; i < string.size() && i < size; i++) {
         switch (string[i]) {
             case '0':
-                array[i] = ImagePanel("DIGIT_0", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "images/0.bmp");
+                array[i] = ImagePanel("DIGIT_0", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "/images/0.bmp");
                 break;
             case '1':
-                array[i] = ImagePanel("DIGIT_1", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "images/1.bmp");
+                array[i] = ImagePanel("DIGIT_1", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "/images/1.bmp");
                 break;
             case '2':
-                array[i] = ImagePanel("DIGIT_2", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "images/2.bmp");
+                array[i] = ImagePanel("DIGIT_2", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "/images/2.bmp");
                 break;
             case '3':
-                array[i] = ImagePanel("DIGIT_3", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "images/3.bmp");
+                array[i] = ImagePanel("DIGIT_3", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "/images/3.bmp");
                 break;
             case '4':
-                array[i] = ImagePanel("DIGIT_4", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "images/4.bmp");
+                array[i] = ImagePanel("DIGIT_4", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "/images/4.bmp");
                 break;
             case '5':
-                array[i] = ImagePanel("DIGIT_5", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "images/5.bmp");
+                array[i] = ImagePanel("DIGIT_5", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "/images/5.bmp");
                 break;
             case '6':
-                array[i] = ImagePanel("DIGIT_6", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "images/6.bmp");
+                array[i] = ImagePanel("DIGIT_6", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "/images/6.bmp");
                 break;
             case '7':
-                array[i] = ImagePanel("DIGIT_7", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "images/7.bmp");
+                array[i] = ImagePanel("DIGIT_7", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "/images/7.bmp");
                 break;
             case '8':
-                array[i] = ImagePanel("DIGIT_8", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "images/8.bmp");
+                array[i] = ImagePanel("DIGIT_8", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "/images/8.bmp");
                 break;
             case '9':
-                array[i] = ImagePanel("DIGIT_9", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "images/9.bmp");
+                array[i] = ImagePanel("DIGIT_9", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "/images/9.bmp");
                 break;
             case '/':
-                array[i] = ImagePanel("FRACTION_BAR", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "images/fraction_bar.bmp");
+                array[i] = ImagePanel("FRACTION_BAR", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "/images/fraction_bar.bmp");
                 break;
             case '-':
-                array[i] = ImagePanel("MINUS", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "images/minus.bmp");
+                array[i] = ImagePanel("MINUS", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "/images/minus.bmp");
                 break;
             case '.':
-                array[i] = ImagePanel("COMMA", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "images/comma.bmp");
+                array[i] = ImagePanel("COMMA", m_displayPositionsX[i], positionY, 40, 40, m_cwd + "/images/comma.bmp");
                 break;
         }
     }
@@ -143,7 +145,7 @@ HeplString WindowCalculator::getCurrentWorkingDirectory() {
 
 void WindowCalculator::draw() {
 
-    if (m_isInit) {
+    if (m_forceRedraw) {
         // Redraw window background
         Window::draw();
 
@@ -155,13 +157,8 @@ void WindowCalculator::draw() {
             (&buttonListIt)->draw();
         }
 
-        redrawDisplay();
-        redrawInput();
-
-        m_isInit = false;
-        return;
+        m_forceRedraw = false;
     }
-
 
     // Update display
     resetDisplay();
@@ -185,6 +182,12 @@ void WindowCalculator::draw() {
     redrawInput();
 }
 
+void WindowCalculator::drawAll() {
+    m_forceRedraw = true;
+    draw();
+    m_forceRedraw = false;
+}
+
 void WindowCalculator::click(int x, int y) {
     HeplBaseListIterator<ImageButton> buttonListIt(m_buttonList);
     for (buttonListIt.reset(); !buttonListIt.end(); buttonListIt++) {
@@ -198,23 +201,14 @@ Calculator *WindowCalculator::getCalculator() {
 
 void WindowCalculator::setColorPanelTop(const Color& color) {
     (&m_panelList[0])->setColor(color);
-    m_isInit = true;
-    draw();
-    draw();
 }
 
 void WindowCalculator::setColorPanelMiddle(const Color& color) {
     (&m_panelList[1])->setColor(color);
-    m_isInit = true;
-    draw();
-    draw();
 }
 
 void WindowCalculator::setColorPanelBottom(const Color& color) {
     (&m_panelList[2])->setColor(color);
-    m_isInit = true;
-    draw();
-    draw();
 }
 
 void WindowCalculator::setCalculator(Calculator *calculator) {

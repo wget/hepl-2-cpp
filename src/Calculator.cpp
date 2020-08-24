@@ -7,10 +7,7 @@ Calculator::Calculator(Calculator& other): m_stack(other.m_stack), m_input(other
 }
 
 void Calculator::display() const {
-    std::cout << "[+] Stack content:" << std::endl;
     m_stack.display();
-    std::cout << "[+] Input content:" << std::endl;
-    std::cout << m_input << std::endl;
 }
 
 void Calculator::inputNumber(unsigned int val) {
@@ -89,6 +86,9 @@ void Calculator::changeMode() {
 }
 
 void Calculator::enter() {
+    if (m_input.empty()) {
+        return;
+    }
     Fraction f;
     f.setNumerator(m_input.atoi());
     m_stack.push(f);
@@ -114,12 +114,8 @@ HeplString Calculator::getStack(int index, size_t size) {
         divide = ((double)f.getNumerator()) / ((double)f.getDenominator());
     }
 
-    // If debugging purpose, we need to specify the precision
-    // std::cout << "DEBUG double :\"" << std::setprecision(10) << divide << "\"" << std::endl;
-    // don't foget to include <stdio> and <iomanip>
-
     // We can't use our own function here string.ftoa(<float>, <precision>)
-    // because we are loosing to much precision
+    // because we are loosing too much precision
     char buffer[size + 1];
     snprintf(buffer, size + 1, "%f", divide);
     buffer[size + 1] = '\0';

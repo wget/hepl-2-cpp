@@ -67,7 +67,6 @@ void Controller::actionButton(const HeplString name) {
             m_calculator->changeMode();
         } else if (name == "BUTTON_CONFIG") {
             configureCalculator();
-            std::cout << "after call" << std::endl;
         }
 
         m_window->draw();
@@ -76,12 +75,12 @@ void Controller::actionButton(const HeplString name) {
         m_window->setColorPanelTop(Color::RED);
         m_window->setColorPanelMiddle(Color::RED);
         m_window->setColorPanelBottom(Color::RED);
-        m_window->draw();
+        m_window->drawAll();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         m_window->setColorPanelTop(Color::SILVER);
         m_window->setColorPanelMiddle(Color::SILVER);
         m_window->setColorPanelBottom(Color::SILVER);
-        m_window->draw();
+        m_window->drawAll();
     }
 }
 
@@ -92,7 +91,7 @@ void Controller::configureCalculator() {
     std::cout << "2) Change color of top panel" << std::endl;
     std::cout << "3) Change color of middle panel" << std::endl;
     std::cout << "4) Change color of bottom panel" << std::endl;
-    std::cout << "q) Back to the calcuator" << std::endl;
+    std::cout << "q) Back to the calculator" << std::endl;
     std::cout << "************************************************************" << std::endl;
     char choice;
     do {

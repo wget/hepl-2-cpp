@@ -37,7 +37,7 @@ class WindowCalculator: public Window {
             {170, 120, 70, 20};
         int m_inputPositionsX[CALC_INPUT_COLUMNS] =
             {20, 60, 100, 140, 180, 220};
-        bool m_isInit;
+        bool m_forceRedraw;
         void resetDisplay();
         void resetInput();
         void redrawPanels();
@@ -49,6 +49,7 @@ class WindowCalculator: public Window {
     public:
         WindowCalculator();
         void draw();
+        void drawAll();
         void click(int x, int y);
 
         /* Getters */
