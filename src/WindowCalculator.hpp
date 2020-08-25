@@ -11,10 +11,8 @@
 #include "ImagePanel.hpp"
 #include "Color.hpp"
 
-// UNIX specific stuff for path management handling
-// #include <unistd.h>
-// #include <climits>
-// For malloc/free for path management handling
+#include <iostream>
+// UNIX specific stuff for path management handling (malloc)
 #include <cstdlib>
 
 #define CALC_DISPLAY_ROWS 4
@@ -44,7 +42,13 @@ class WindowCalculator: public Window {
         void redrawDisplay();
         void redrawInput();
         void stringToDigitRow(HeplString string, ImagePanel *array, size_t size, int positionY);
-        HeplString getCurrentWorkingDirectory();
+        HeplString getCurrentWorkingDirectory() const;
+        const HeplString FILE_DELIMITER = ";";
+        const unsigned int BUTTON_FILE_MAPPING_MAX_FIELDS = 4;
+        void populateDefaultButtonMappingFile() const;
+        HeplList<HeplBaseException> isFileMalformed(HeplString filename) const;
+        void loadButtonMappingFileConfig();
+
 
     public:
         WindowCalculator();
